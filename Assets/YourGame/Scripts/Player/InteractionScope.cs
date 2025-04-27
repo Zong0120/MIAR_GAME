@@ -92,6 +92,18 @@ public class InteractionScope : MonoBehaviour
         {
             other.GetComponent<GetItem>().enabled = true;
         }
+        if(other.CompareTag("Story"))
+        {
+            try
+            {
+                other.GetComponent<GetStoryZone>().enabled = true;
+            }
+            catch
+            {
+                other.GetComponent<GetStoryChapter>().enabled = true;
+            }
+        }
+        
         /*
         if(other.CompareTag("Texts"))
         {

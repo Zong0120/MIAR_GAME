@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 2F-Down_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 2F-Down
+  tiles:
+  - tileName: 2F-Down_0
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_0]'
+    localOffset: {x: 0, y: -0}
+  - tileName: 2F-Down_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_1]'
+    localOffset: {x: 237.5, y: -0}
+  - tileName: 2F-Down_3
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_3]'
+    localOffset: {x: 712.5, y: -0}
+  - tileName: 2F-Down_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_4]'
+    localOffset: {x: 0, y: -141.4}
+  - tileName: 2F-Down_7
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_7]'
+    localOffset: {x: 712.5, y: -141.4}
+  - tileName: 2F-Down_8
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_8]'
+    localOffset: {x: 0, y: -282.8}
+  - tileName: 2F-Down_11
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_11]'
+    localOffset: {x: 712.5, y: -282.8}
+  - tileName: 2F-Down_12
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_12]'
+    localOffset: {x: 0, y: -424.2}
+  - tileName: 2F-Down_15
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_15]'
+    localOffset: {x: 712.5, y: -424.2}
+  - tileName: 2F-Down_16
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_16]'
+    localOffset: {x: 0, y: -565.6}
+  - tileName: 2F-Down_17
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_17]'
+    localOffset: {x: 237.5, y: -565.6}
+  - tileName: 2F-Down_18
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_18]'
+    localOffset: {x: 475, y: -565.6}
+  - tileName: 2F-Down_19
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_19]'
+    localOffset: {x: 712.5, y: -565.6}

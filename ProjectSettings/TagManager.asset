@@ -8,6 +8,10 @@ TagManager:
   - UI_Pages_Child
   - UI_Pages
   - Item
+  - InheritanceBox
+  - Enemy
+  - MapZoneManager
+  - Story
   layers:
   - Default
   - TransparentFX

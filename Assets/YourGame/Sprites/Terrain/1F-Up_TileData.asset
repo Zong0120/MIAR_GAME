@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 1F-Up_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 1F-Up
+  tiles:
+  - tileName: 1F-UP_0
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_0]'
+    localOffset: {x: 0, y: -0}
+  - tileName: 1F-UP_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_1]'
+    localOffset: {x: 237.5, y: -0}
+  - tileName: 1F-UP_2
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_2]'
+    localOffset: {x: 475, y: -0}
+  - tileName: 1F-UP_3
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_3]'
+    localOffset: {x: 712.5, y: -0}
+  - tileName: 1F-UP_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_4]'
+    localOffset: {x: 0, y: -134.1}
+  - tileName: 1F-UP_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_5]'
+    localOffset: {x: 237.5, y: -134.1}
+  - tileName: 1F-UP_6
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_6]'
+    localOffset: {x: 475, y: -134.1}
+  - tileName: 1F-UP_7
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_7]'
+    localOffset: {x: 712.5, y: -134.1}
+  - tileName: 1F-UP_8
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_8]'
+    localOffset: {x: 0, y: -268.2}
+  - tileName: 1F-UP_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_9]'
+    localOffset: {x: 237.5, y: -268.2}
+  - tileName: 1F-UP_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_10]'
+    localOffset: {x: 475, y: -268.2}
+  - tileName: 1F-UP_11
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-UP.jpg[1F-UP_11]'
+    localOffset: {x: 712.5, y: -268.2}

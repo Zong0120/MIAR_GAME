@@ -7,7 +7,7 @@ public class CollToOpen : MonoBehaviour
     public List<_Opens> OpenList = new List<_Opens>();
     public List<_Closes> CloseList = new List<_Closes>();
     public GameObject InEndCloseObj; // 結束後要關閉的物件
-    public float delay = 0.1f; // 每次操作的延遲時間
+    public float delay = 0.2f; // 每次操作的延遲時間
 
     private void OnCollisionEnter2D(Collision2D other)
     {

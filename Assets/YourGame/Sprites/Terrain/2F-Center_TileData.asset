@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 2F-Center_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 2F-Center
+  tiles:
+  - tileName: 2F-Center_0
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_0]'
+    localOffset: {x: 0, y: -0}
+  - tileName: 2F-Center_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_1]'
+    localOffset: {x: 201.2, y: -0}
+  - tileName: 2F-Center_2
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_2]'
+    localOffset: {x: 402.4, y: -0}
+  - tileName: 2F-Center_3
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_3]'
+    localOffset: {x: 603.6, y: -0}
+  - tileName: 2F-Center_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_4]'
+    localOffset: {x: 0, y: -96.8}
+  - tileName: 2F-Center_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_5]'
+    localOffset: {x: 201.2, y: -96.8}
+  - tileName: 2F-Center_6
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_6]'
+    localOffset: {x: 402.4, y: -96.8}
+  - tileName: 2F-Center_7
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_7]'
+    localOffset: {x: 603.6, y: -96.8}
+  - tileName: 2F-Center_8
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_8]'
+    localOffset: {x: 0, y: -193.6}
+  - tileName: 2F-Center_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_9]'
+    localOffset: {x: 201.2, y: -193.6}
+  - tileName: 2F-Center_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_10]'
+    localOffset: {x: 402.4, y: -193.6}
+  - tileName: 2F-Center_11
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_11]'
+    localOffset: {x: 603.6, y: -193.6}
+  - tileName: 2F-Center_12
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_12]'
+    localOffset: {x: 0, y: -290.4}
+  - tileName: 2F-Center_13
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_13]'
+    localOffset: {x: 201.2, y: -290.4}
+  - tileName: 2F-Center_14
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_14]'
+    localOffset: {x: 402.4, y: -290.4}
+  - tileName: 2F-Center_15
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_15]'
+    localOffset: {x: 603.6, y: -290.4}
+  - tileName: 2F-Center_16
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_16]'
+    localOffset: {x: 0, y: -387.2}
+  - tileName: 2F-Center_17
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_17]'
+    localOffset: {x: 201.2, y: -387.2}
+  - tileName: 2F-Center_18
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_18]'
+    localOffset: {x: 402.4, y: -387.2}
+  - tileName: 2F-Center_19
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Center.jpg[2F-Center_19]'
+    localOffset: {x: 603.6, y: -387.2}

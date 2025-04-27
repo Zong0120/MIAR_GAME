@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e98c75c87a7394edb9911b60288e677f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Sample/MiscAddressables/P_LightInFolder.prefab
+  uploadId: 627724

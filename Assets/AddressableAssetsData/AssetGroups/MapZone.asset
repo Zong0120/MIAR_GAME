@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MapZone
+  m_EditorClassIdentifier: 
+  m_GroupName: MapZone
+  m_GUID: ef1d45d6066034f6583f750fde703e01
+  m_SerializeEntries:
+  - m_GUID: 13ed87acda27f4974bf032faa5e9ba8c
+    m_Address: Assets/YourGame/Sprites/Terrain/1F-UP.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28377fce5df9245d2bcdeedde919a585
+    m_Address: Assets/YourGame/Sprites/Terrain/2F-Down.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29527b17d39544c798d850459add76f9
+    m_Address: Assets/YourGame/Sprites/Terrain/1F-Center.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47d1ef631b2be4c78bbc356ee9ba4d91
+    m_Address: Assets/YourGame/Sprites/Terrain/1F-Down.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b0f3a7992b8114d43be09b987a6dceae
+    m_Address: Assets/YourGame/Sprites/Terrain/2F-Center.jpgenter.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d00c35b3ee12e412098858aace93180c
+    m_Address: Assets/YourGame/Sprites/Terrain/2F-Up.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 42df5871b03b14a3895fbe72d762c1ff, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b496691cbb0fd44c8b726e1bbf22d34c, type: 2}
+    - {fileID: 11400000, guid: 2848c33d287774ca59a134335e35052e, type: 2}

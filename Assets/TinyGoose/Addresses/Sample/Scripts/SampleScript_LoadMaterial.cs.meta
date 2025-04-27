@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c3288f9e34c4c46e399519f1b6465bc4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Sample/Scripts/SampleScript_LoadMaterial.cs
+  uploadId: 627724

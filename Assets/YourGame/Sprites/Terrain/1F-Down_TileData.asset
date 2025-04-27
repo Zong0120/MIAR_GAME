@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 1F-Down_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 1F-Down
+  tiles:
+  - tileName: 1F-Down_0
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_0]'
+    localOffset: {x: 0, y: -0}
+  - tileName: 1F-Down_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_1]'
+    localOffset: {x: 184, y: -0}
+  - tileName: 1F-Down_3
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_3]'
+    localOffset: {x: 552, y: -0}
+  - tileName: 1F-Down_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_4]'
+    localOffset: {x: 736, y: -0}
+  - tileName: 1F-Down_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_5]'
+    localOffset: {x: 0, y: -126.3}
+  - tileName: 1F-Down_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_9]'
+    localOffset: {x: 736, y: -126.3}
+  - tileName: 1F-Down_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_10]'
+    localOffset: {x: 0, y: -252.6}
+  - tileName: 1F-Down_14
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_14]'
+    localOffset: {x: 736, y: -252.6}
+  - tileName: 1F-Down_15
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_15]'
+    localOffset: {x: 0, y: -378.9}
+  - tileName: 1F-Down_16
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_16]'
+    localOffset: {x: 184, y: -378.9}
+  - tileName: 1F-Down_17
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_17]'
+    localOffset: {x: 368, y: -378.9}
+  - tileName: 1F-Down_18
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_18]'
+    localOffset: {x: 552, y: -378.9}
+  - tileName: 1F-Down_19
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_19]'
+    localOffset: {x: 736, y: -378.9}
+  - tileName: 1F-Down_20
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_20]'
+    localOffset: {x: 0, y: -505.2}
+  - tileName: 1F-Down_21
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_21]'
+    localOffset: {x: 184, y: -505.2}
+  - tileName: 1F-Down_22
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_22]'
+    localOffset: {x: 368, y: -505.2}
+  - tileName: 1F-Down_23
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_23]'
+    localOffset: {x: 552, y: -505.2}
+  - tileName: 1F-Down_24
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Down.jpg[1F-Down_24]'
+    localOffset: {x: 736, y: -505.2}

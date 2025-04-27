@@ -30,6 +30,12 @@ public class SoundManager : MonoBehaviour
         AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
         Instance._audioSource.PlayOneShot(randomClip, volume);
     }
+
+    public static void PlaySoundItemAudio(AudioClip clip, float volume = 1)
+    {
+        Instance._audioSource.PlayOneShot(clip, volume);
+    }
+
 #if UNITY_EDITOR
     private void Onable()
     {

@@ -10,6 +10,11 @@ public class InventoryItemManager : MonoBehaviour
     public static InventoryItemManager Instance { get; private set; }
 
     public BagInventoryItem weaponBag,propBag;
+    public StoryTextInventory storyZoneBag;
+    public StoryTextInventory storyChapterBag;
+
+    [SerializeField]private GameObject BagUIRoot;
+    private Canvas _canvas => GetComponent<Canvas>();
 
     void Awake()
     {
@@ -20,7 +25,23 @@ public class InventoryItemManager : MonoBehaviour
     void Start()
     {
         weaponBag.UseButton.GetComponent<Button>().onClick.AddListener(weaponBag.EquipItem);
-        propBag.UseButton.GetComponent<Button>().onClick.AddListener(propBag.EquipItem);   
+        propBag.UseButton.GetComponent<Button>().onClick.AddListener(propBag.EquipItem);
+        BagUIRoot.SetActive(false);   
+    }
+
+    public bool BagIsOpen()
+    {
+        return BagUIRoot.activeSelf;
+    }
+
+    public void OpenBag()
+    {
+        BagUIRoot.SetActive(true);
+    }
+
+    public void CloseBag()
+    {
+        BagUIRoot.SetActive(false);
     }
 }
 
@@ -47,6 +68,8 @@ public class BagInventoryItem
         }
         items.Add(new InventoryItem(item, count));
         itemSlots[items.Count-1].GetComponent<InventoryItemSlot>().SetItem(items[items.Count-1]);
+
+        Debug.Log("Add New Item: " + item.itemName);
     }
 
     public void Remove(ItemData item, int count = 1)
@@ -69,7 +92,22 @@ public class BagInventoryItem
             }
         }
     }
-    
+
+    public void RemoveInventoryItem(InventoryItem item)
+    {
+        for (int indext = 0; indext < items.Count; indext++)
+        {
+            if (items[indext].itemData.itemName == item.itemData.itemName)
+            {
+                itemSlots[indext].GetComponent<InventoryItemSlot>().InitSlot();
+                EquipManager.Instance.RemoveEquip(item);
+                items.RemoveAt(indext);
+                ClearItemDisplayInfo();
+                return;
+            }
+        }
+    }
+
     public void UpdateItemDisplayInfo(ItemData item)
     {
         itemInfoText.text = item.itemDescription;
@@ -102,5 +140,20 @@ public class BagInventoryItem
         itemImage.enabled = false;
         currentItem = null;
         UseButton.SetActive(false);
+    }
+}
+
+[System.Serializable]
+public class StoryTextInventory
+{
+    public List<StoryButtonSlot> storySlots;
+    private int currentIndex = 0;
+
+    public void Add(StoryText story)
+    {
+        storySlots[currentIndex].gameObject.SetActive(true);
+        storySlots[currentIndex].SetStory(story);
+        currentIndex++;
+        Debug.Log("Add New Inventory Story: " + story.title);
     }
 }

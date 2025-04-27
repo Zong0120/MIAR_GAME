@@ -2,20 +2,17 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using TMPro;
+using UnityEngine.SceneManagement;
+
 namespace PlayerInputAction
 {
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour,IDamageable
     {
+        //public static PlayerController Instance;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 15.0f;
-
-        [Header("Player Health")]
-        [SerializeField] private const int maxHealth = 3;
-        int currentHealth=maxHealth;
 
         [Space(10)]
         [Header("Cinemachine")]
@@ -23,13 +20,21 @@ namespace PlayerInputAction
         public GameObject CinemachineCameraTarget;
         public List<GameObject> cinemachines;
 
-        private Rigidbody2D _playerRigidbody;
-        private PlayerInput _playerInput;
-        private Animator _animator;
-        private PlayerInputStatus _input;
+        private Rigidbody2D _playerRigidbody => GetComponent<Rigidbody2D>();
+        private PlayerInput _playerInput => GetComponent<PlayerInput>();
+        private Animator _animator => GetComponent<Animator>();
+        private PlayerInputStatus _input => GetComponent<PlayerInputStatus>();
         private GameObject _mainCamera;
         Vector2 moveDirection;
+
+        private string _currentAnimation = ""; 
         private bool isFreezed = false;
+        private bool FacingRight = true;
+        public bool CanvasCanOpen = true;
+        private bool CanCloseCanvas = false;
+        private bool _isDead = false;
+        private InheritanceSceneBox _inheritanceSceneBox =null;
+        private HealthManager _healthManager => GetComponent<HealthManager>();
 
         private void Awake()
         {
@@ -40,40 +45,90 @@ namespace PlayerInputAction
             }
         }
 
-        void Start()
-        {
-            _input = GetComponent<PlayerInputStatus>();
-            _playerInput = GetComponent<PlayerInput>();
-            _playerRigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
-        }
-
         void Update()
         {
+            CheckAnimation();
+            OpenCanvas();
             Move();
             UseItem();
-            OpenBag();
         }
             
         private void Move()
         {
-            if (isFreezed)
-            {
-                return;
-            }
+            if (isFreezed) return;
             // Calculate movement direction
             moveDirection = new Vector2(_input.move.x, _input.move.y).normalized;
             // Move the player
             _playerRigidbody.MovePosition(_playerRigidbody.position + moveDirection * (MoveSpeed * Time.fixedDeltaTime));
-            // Rotate the player to face the movement direction
-            if (moveDirection != Vector2.zero)
-            {
-                _animator.SetFloat("horizontal", moveDirection.x);
-                _animator.SetFloat("vertical", moveDirection.y);
-            }
-            _animator.SetFloat("magnitude", moveDirection.sqrMagnitude);
-            // Update animator parameters
         }
+
+        public void CheckAnimation()
+        {
+            if(_currentAnimation == "Death_Right" ||_currentAnimation == "Death_Left"||_currentAnimation == "CloseBox")return;
+
+            if(_currentAnimation == "OpenBox")
+            {
+                if(_input.interactive && CanCloseCanvas)
+                {
+                    ChangeAnimation("CloseBox");
+                    _input.interactive = false;
+                    CanvasCanOpen = true;
+                    CanCloseCanvas = false;
+                }
+                return;
+            }
+
+
+            if(moveDirection.x > 0)
+            {
+                ChangeAnimation("Run_right");
+                FacingRight = true;
+            }
+            else if(moveDirection.x < 0)
+            {
+                ChangeAnimation("Run_left");
+                FacingRight = false;
+            }
+            else if(moveDirection.y != 0)
+            {
+                if(FacingRight)
+                    ChangeAnimation("Run_right");
+                else
+                    ChangeAnimation("Run_left");
+            }
+            else
+            {
+                if(FacingRight)
+                    ChangeAnimation("Idle_right");
+                else
+                    ChangeAnimation("Idle_left");
+            }
+        }
+
+        public void ChangeAnimation(string animationName,float crossFadeTime = 0.2f,float time = 0)
+        {
+            if(time > 0)StartCoroutine(WaitForAnimation(time));
+            else Validate();
+
+            IEnumerator WaitForAnimation(float time)
+            {
+                yield return new WaitForSeconds(time - crossFadeTime);
+                Validate();
+            }
+
+            void Validate()
+            {
+                if (_currentAnimation != animationName)
+                {
+                    _currentAnimation = animationName;
+                    if(_currentAnimation == "")
+                        CheckAnimation();
+                    else 
+                        _animator.CrossFade(animationName, crossFadeTime);
+                }
+            }
+        }
+
 
         public void SetDirection(Vector2 vector2)
         {
@@ -84,26 +139,105 @@ namespace PlayerInputAction
         {
             if(_input.useEquip)
             {
-                EquipManager.Instance.UseEuip();
+                EquipManager.Instance.UseEquip();
+            }
+
+            if(_input.equip1)
+            {
+                EquipManager.Instance.SwitchEquipIndex(0);
+                _input.equip1 = false;
+            }
+            if(_input.equip2)
+            {
+                EquipManager.Instance.SwitchEquipIndex(1);
+                _input.equip2 = false;
             }
         }
 
-        public void OpenBag()
+        public void OpenCanvas()
         {
             if (_input.bag)
             {
                 _input.bag = false;
-                if(GamePageManager.Instance._currentPageName == "gameing")
-                    GamePageManager.Instance.OpenPage("backpack");
+                if(!CanvasCanOpen)return;
+                if(InventoryItemManager.Instance.BagIsOpen())
+                    InventoryItemManager.Instance.CloseBag();
+                else
+                    InventoryItemManager.Instance.OpenBag();
             }
-        }
-        public void TakeDamage(int damage)
-        {
-            currentHealth -= damage;
-            if (currentHealth <= 0)
+            if (_input.interactive)
             {
-                Debug.Log("Player is dead");
+                _input.interactive = false;
+                if(!CanvasCanOpen)return;
+                if(_inheritanceSceneBox != null)
+                {
+                    CanvasCanOpen = false;
+                    isFreezed = true;
+                    transform.position = _inheritanceSceneBox.GetPlayerPositionTarget();
+                    ChangeAnimation("OpenBox");
+                }
             }
         }
+
+        public void OnBoxAnimationStart()
+        {
+            _inheritanceSceneBox.OpenBox();
+            CanCloseCanvas = true;
+        }
+        public void OnBoxAnimationEnd()
+        {
+            _inheritanceSceneBox.CloseBox();
+            isFreezed = false;
+        }
+
+        public void SetInheritanceSceneBox(InheritanceSceneBox box)
+        {
+            _inheritanceSceneBox = box;
+        }
+        public void ClearInheritanceSceneBox()
+        {
+            _inheritanceSceneBox = null;
+        }
+
+        public void TakeDamage(int damage,Transform hitTransform)
+        {
+            _healthManager.TakeDamage(damage,hitTransform);
+            if(_healthManager.IsDead)
+            {
+                _isDead = true;
+                isFreezed = true;
+                PlayerDeath();
+            }
+        }
+
+        public void PlayerDeath()
+        {
+            if(_input.restart)
+            {
+                _input.restart = false;
+                if(_isDead)
+                {
+                    LoadScene();
+                }
+            }
+
+        }
+
+        private void LoadScene()
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1;
+        }
+
+        public void FullLoadScene()
+        {
+            //Terminal_Canvas.Instance.FullyInitialize();
+            //Player.Instance.gameObject.SetActive(false);
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Time.timeScale = 1;
+        }
+
     }
 }

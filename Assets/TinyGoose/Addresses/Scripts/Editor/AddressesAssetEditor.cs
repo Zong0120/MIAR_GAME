@@ -1,0 +1,277 @@
+// -----------------------------------------------------------------------------------------------------------------------------
+//		TinyGoose Addresses
+//      (c) 2023 Tiny Goose
+// -----------------------------------------------------------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using TinyGoose.Addresses;
+using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.Compilation;
+using UnityEngine;
+
+namespace TinyGoose.Addresses.EditorOnly
+{
+    [CustomEditor(typeof(AddressesAsset))]
+    public class AddressesAssetEditor : Editor
+    {
+        // Version of the code generator
+        private static readonly string VERSION_STRING = "1.0.3";
+        
+        // Groups to hide completely
+        private static readonly string[] HIDE_GROUPS = new[] { "Built In Data" };
+
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            if (GUILayout.Button("Generate Class"))
+            {
+                AddressesAsset addressesAsset = (AddressesAsset)target;
+                if (!addressesAsset)
+                    return;
+
+                GenerateSourceCode(addressesAsset);
+                            
+                // Compile!
+                CompilationPipeline.RequestScriptCompilation();
+            }
+        }
+
+        [MenuItem("Tools/Addresses/Regenerate All")]
+        private static void GenerateAllSourceCodes()
+        {
+            IList<string> addressesAssetGUIDs = AssetDatabase.FindAssets("t:addressesasset");
+            if (addressesAssetGUIDs.Count == 0)
+            {
+                string error = "You want to generate an Addresses class, but you don't have any " + 
+                               "Addresses Assets in your project. Please create and configure one "+
+                               "somewhere, under Create > Addresses > Addresses Asset and then try again.";
+                EditorUtility.DisplayDialog("Addresses - Nothing to do!", error, "OK");
+                return;
+            }
+            
+            foreach (string addressesAssetGUID in addressesAssetGUIDs)
+            {
+                string addressesAssetPath = AssetDatabase.GUIDToAssetPath(addressesAssetGUID);
+                AddressesAsset asset = AssetDatabase.LoadAssetAtPath<AddressesAsset>(addressesAssetPath);
+                
+                GenerateSourceCode(asset);
+                
+                Debug.Log($"Generated source for {addressesAssetPath}!");
+            }
+                        
+            // Compile!
+            CompilationPipeline.RequestScriptCompilation();
+        }
+        
+        private static void GenerateSourceCode(AddressesAsset addressesAsset)
+        {
+            AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+            if (!settings)
+            {
+                string error = "You want to generate an Addresses class, but you don't have any " + 
+                               "Unity Addressables in your project yet. Ensure your assets "+
+                               "are set up for use with Addressables, and then try again.";
+
+                EditorUtility.DisplayDialog("Addresses", error, "OK");
+                return;
+            }
+            
+            // Generate source code
+            StringBuilder sb = new();
+
+            WritePreamble(sb, addressesAsset);
+            
+            WriteBeginClass(sb, addressesAsset);
+            {
+                foreach (AddressableAssetGroup group in settings.groups)
+                {
+                    if (Array.IndexOf(HIDE_GROUPS, group.name) != -1)
+                        continue;
+
+                    if (group.entries.Count == 0)
+                    {
+                        sb.AppendLine($"\t\t// \t\t (Skipped Empty Addressable Group: {group.name})");
+                        continue;
+                    }
+
+                    WriteGroup(sb, group);
+                }
+            }
+            WriteEndClass(sb, addressesAsset);
+
+            // Write the file out to disk
+            string extension = addressesAsset.Extension switch
+            {
+                AddressesFileExtension.Cs => "cs",
+                AddressesFileExtension.GenCs => "gen.cs",
+                
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            string projectDirectory = Application.dataPath.Replace("/Assets", "");
+            string assetPath = Path.Combine(addressesAsset.CodePath, addressesAsset.ClassName + "." + extension);
+
+            AssetDatabase.MakeEditable(assetPath);
+            File.WriteAllText(Path.Combine(projectDirectory, assetPath), sb.ToString());
+        }
+
+        private static void WritePreamble(StringBuilder sb, AddressesAsset addressesAsset)
+        {
+            sb.AppendLine($"// Generated by Addresses AddressesAssetEditor v{VERSION_STRING}");
+            sb.AppendLine($"// from asset: {AssetDatabase.GetAssetPath(addressesAsset)}");
+            sb.AppendLine();
+
+            sb.AppendLine("using UnityEngine;");
+            sb.AppendLine("using TinyGoose.Addresses;");
+            sb.AppendLine();
+        }
+
+        private static void WriteBeginClass(StringBuilder sb, AddressesAsset addressesAsset)
+        {
+            bool noNamespace = String.IsNullOrEmpty(addressesAsset.Namespace);
+            if (!noNamespace)
+            {
+                sb.AppendLine($"namespace {addressesAsset.Namespace}");
+                sb.AppendLine("{");
+            }
+
+            sb.AppendLine($"\tpublic static class {addressesAsset.ClassName}");
+            sb.AppendLine("\t{");
+        }
+
+        private static void WriteEndClass(StringBuilder sb, AddressesAsset addressesAsset)
+        {
+            sb.AppendLine("\t}");
+
+            bool noNamespace = String.IsNullOrEmpty(addressesAsset.Namespace);
+            if (!noNamespace)
+            {
+                sb.AppendLine("}");
+            }
+        }
+        
+        private static void WriteFolder(string indentString, StringBuilder sb, AddressableAssetEntry entry)
+        {
+            List<AddressableAssetEntry> entries = new();
+            entry.GatherAllAssets(entries, false, true, false);
+
+            sb.AppendLine($"{indentString}// -----------------------------------------------------------------------------------------------------------------------------");
+            sb.AppendLine($"{indentString}// \t\tFolder: {entry.AssetPath}");
+            sb.AppendLine($"{indentString}// -----------------------------------------------------------------------------------------------------------------------------");
+            
+            int entryIdx = 0;
+            foreach (AddressableAssetEntry subEntry in entries)
+            {
+                bool isLastEntry = (entryIdx == entries.Count - 1);
+                WriteEntry(indentString, sb, subEntry, newlineAfter: !isLastEntry);
+
+                entryIdx++;
+            }
+        }
+
+        private static void WriteGroup(StringBuilder sb, AddressableAssetGroup group)
+        {
+            bool flatten = group.IsDefaultGroup();
+            
+            if (!flatten)
+            {
+                sb.AppendLine();
+            }
+
+            sb.AppendLine("\t\t// -----------------------------------------------------------------------------------------------------------------------------");
+            sb.AppendLine($"\t\t// \t\tAddressable Group: {group.name}");
+            sb.AppendLine("\t\t// -----------------------------------------------------------------------------------------------------------------------------");
+
+            if (flatten)
+            {
+                sb.AppendLine();
+            }
+            else
+            {
+                sb.AppendLine($"\t\tpublic static class {GetSafeClassName(group.name)}");
+                sb.AppendLine("\t\t{");
+            }
+
+            int entryIdx = 0;
+            foreach (AddressableAssetEntry entry in group.entries)
+            {
+                bool isLastAsset = (entryIdx == group.entries.Count - 1);
+                WriteEntry(flatten ? "\t\t" : "\t\t\t", sb, entry, newlineAfter: !isLastAsset);
+
+                entryIdx++;
+            }
+
+            if (!flatten)
+            {
+                sb.AppendLine("\t\t}");
+            }
+        }
+
+          private static void WriteEntry(string indentString, StringBuilder sb, AddressableAssetEntry entry, bool newlineAfter = true)
+        {
+            try
+            {
+                Type assetType = AssetDatabase.GetMainAssetTypeAtPath(entry.AssetPath);
+                string typeName = assetType.Name;
+
+                if (entry.IsFolder)
+                {
+                    WriteFolder(indentString, sb, entry);
+                    return;
+                }
+
+                if (assetType == typeof(SceneAsset))
+                {
+                    // Custom type for scenes
+                    sb.Append(indentString);
+                    sb.AppendLine($"// {typeName}: {entry.AssetPath}");
+
+                    sb.Append(indentString);
+                    sb.AppendLine($"public static SceneAddress {GetSafeClassName(entry.address)} => new(\"{entry.address}\");");
+
+                    return;
+                }
+
+                if (assetType.IsSubclassOf(typeof(Texture)) || assetType.IsSubclassOf(typeof(Cubemap)))
+                {
+                    // Skip Lightmaps and lighting data, etc.
+                    if (entry.AssetPath.Contains('-'))
+                        return;
+                }
+                
+                // Ignore UnityEditor things
+                if (assetType.Namespace != null && assetType.Namespace.Contains("UnityEditor", StringComparison.InvariantCulture))
+                    return;
+
+                // Write the address!
+                sb.Append(indentString);
+                sb.AppendLine($"// {typeName}: {entry.AssetPath}");
+
+                sb.Append(indentString);
+                sb.AppendLine($"public static Address<{assetType.FullName}> {GetSafeClassName(entry.address)} => new(\"{entry.address}\");");
+            }
+            finally
+            {
+                if (newlineAfter)
+                {
+                    sb.AppendLine();
+                }
+            }
+        }
+
+
+        private static string GetSafeClassName(string inName)
+        {
+            return Path.GetFileNameWithoutExtension(inName)
+                .Replace(" ", "")
+                .Replace("-", "_")
+                .Replace(".", "_")
+                .Replace("/", "_");
+        }
+    }
+}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5ca98e9722c094aac878e2a029b9e267
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Sample/Prefabs/P_Light.prefab
+  uploadId: 627724

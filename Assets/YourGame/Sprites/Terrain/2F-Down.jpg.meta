@@ -1,0 +1,580 @@
+fileFormatVersion: 2
+guid: 28377fce5df9245d2bcdeedde919a585
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3584577378113010963
+    second: 2F-Down_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 10
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2F-Down_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5656
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31db35c222afeb130800000000000000
+      internalID: 3584577378113010963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_1
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 5656
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0754e29ee652245da91a36741b0b322d
+      internalID: -545631331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_2
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 5656
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1acfe141c116e4199ae24b7754fa5d83
+      internalID: -1655742591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_3
+      rect:
+        serializedVersion: 2
+        x: 7125
+        y: 5656
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eec8d8dfcbcb48a68e44072473bf8e8
+      internalID: 1936848213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4242
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c44c7cfeda974e1db99ada6971a8aa7
+      internalID: 1146871820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_5
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 4242
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5949400a7595842038fe0c3baffc9cf3
+      internalID: -315091245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_6
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 4242
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee51fe91b361c4c66afaef117b4527f2
+      internalID: 817172116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_7
+      rect:
+        serializedVersion: 2
+        x: 7125
+        y: 4242
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fda2c63bec448778ac2fffa1004ca5
+      internalID: 1032964045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2828
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7518821459db14e23bcd0b35937afd5f
+      internalID: -1331925912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_9
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 2828
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe1872436cc904f7b861d877b0235468
+      internalID: -543637463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_10
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 2828
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7763126445c3e41f88384e8827f587af
+      internalID: -1281680787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_11
+      rect:
+        serializedVersion: 2
+        x: 7125
+        y: 2828
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a256c32826e4752b29893fab640d55
+      internalID: -1338580813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1414
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3feea92d83724548b50706ee6710184
+      internalID: 565870047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_13
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 1414
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4969b2272c0e94c439aff4a7a477ed55
+      internalID: 619534003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_14
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 1414
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da0a163bbfabf40a58daaebe5b79ea3a
+      internalID: -48601226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_15
+      rect:
+        serializedVersion: 2
+        x: 7125
+        y: 1414
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f698f8841df154232b649f404fa67fae
+      internalID: -1096059540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d1ca960564442b1957925520a2ada1
+      internalID: -1384920749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_17
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 0
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c879d1aaf8754fc8aca112d6993ed5b
+      internalID: -1012912583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_18
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 0
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f688659ba6ac48faad3539156d3650b
+      internalID: 771794522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Down_19
+      rect:
+        serializedVersion: 2
+        x: 7125
+        y: 0
+        width: 2375
+        height: 1414
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50b2f2031e0b74893a3aaad6a0598d77
+      internalID: -122509907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 7fc0dff37640f420fb2650d1d2511b93
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      2F-Down_0: 3584577378113010963
+      2F-Down_1: -545631331
+      2F-Down_10: -1281680787
+      2F-Down_11: -1338580813
+      2F-Down_12: 565870047
+      2F-Down_13: 619534003
+      2F-Down_14: -48601226
+      2F-Down_15: -1096059540
+      2F-Down_16: -1384920749
+      2F-Down_17: -1012912583
+      2F-Down_18: 771794522
+      2F-Down_19: -122509907
+      2F-Down_2: -1655742591
+      2F-Down_3: 1936848213
+      2F-Down_4: 1146871820
+      2F-Down_5: -315091245
+      2F-Down_6: 817172116
+      2F-Down_7: 1032964045
+      2F-Down_8: -1331925912
+      2F-Down_9: -543637463
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,6 +5,7 @@ using AirFishLab.ScrollingList.ListStateProcessing;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -447,6 +448,22 @@ namespace AirFishLab.ScrollingList
                 _listContentProvider.GetShortestIDDiff(focusingContentID, contentID);
 
             SetSelectionMovement(idDiff, notToIgnore);
+        }
+
+        public void SetFocusingBoxByContent(int contentID)
+        {
+            foreach (var box in _listBoxes)
+            {
+                if (box.ContentID == contentID)
+                {
+                    //SetFocusingBox(box);
+                    Debug.Log($"SetFocusingBox {box.ContentID}");
+                    box.GetComponent<Button>().onClick.Invoke();
+                    return;
+                }
+            }
+        
+            Debug.LogWarning($"ContentID {contentID} not found in list boxes.");
         }
 
         #endregion

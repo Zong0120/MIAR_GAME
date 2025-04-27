@@ -1,14 +1,13 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class EquipManager : MonoBehaviour
 {
     public static EquipManager Instance { get; private set; }
 
     public CurrentEquipped[] currentEquipped= new CurrentEquipped[2];
+    [SerializeField]private Transform itemSwapPos;
     private int currentItemIndex=0;
     private int previousItemIndex=1;
 
@@ -30,9 +29,9 @@ public class EquipManager : MonoBehaviour
     {
         if (item == null || item.itemData == null) return;
         // 檢查是否已經裝備
-        if (item.isEquipped)return;
-        
-        if(currentEquipped[previousItemIndex]._item==null)
+        if (item.isEquipped) return;
+    
+        if (currentEquipped[previousItemIndex]._item == null)
         {
             currentEquipped[previousItemIndex]._item = item;
             item.isEquipped = true;
@@ -43,58 +42,124 @@ public class EquipManager : MonoBehaviour
             currentEquipped[previousItemIndex]._item = item;
             item.isEquipped = true;
         }
-        currentEquipped[previousItemIndex].SetItem(item);
         currentItemIndex = previousItemIndex;
-        previousItemIndex = (previousItemIndex==1)?0:1 ;
-        
-        // 根據裝備產生道具控制器
-        Instantiate(item.itemData.itemPrefab);
+        previousItemIndex = (previousItemIndex == 1) ? 0 : 1;
+    
+        // 將 itemPrefab 作為子物件創建在 itemSwapPos 節點下
+        GameObject instantiatedObject = Instantiate(item.itemData.itemPrefab, itemSwapPos);
+    
+        currentEquipped[currentItemIndex].SetItem(item, instantiatedObject.GetComponent<MonoBehaviour>());
+        currentEquipped[previousItemIndex].HilightItemClose();
     }
 
-    public void UseEuip()
+    public void RemoveEquip(InventoryItem item)
+    {
+        if (item == null || item.itemData == null) return;
+        // 檢查是否已經裝備
+        if (!item.isEquipped) return;
+
+        item.isEquipped = false;
+        if(currentEquipped[currentItemIndex]._item == item)
+        {
+            previousItemIndex = currentItemIndex;
+            currentItemIndex = (currentItemIndex == 1) ? 0 : 1;
+        }
+        currentEquipped[previousItemIndex]._item = null;
+        currentEquipped[previousItemIndex].ClearItem();
+        currentEquipped[currentItemIndex].HilightItemOpen();
+    }
+
+    public void SwitchEquipIndex(int index)
+    {
+        if(currentItemIndex == index) return;
+        if(currentEquipped[index]._item == null) return;
+
+        SwitchEquipIndex();
+    }
+
+    public void SwitchEquipIndex()
+    {
+        if(currentEquipped[previousItemIndex]._item == null) return;
+
+        currentEquipped[currentItemIndex].HilightItemClose();
+        currentEquipped[previousItemIndex].HilightItemOpen();
+
+        currentItemIndex = previousItemIndex;
+        previousItemIndex = (previousItemIndex==1)?0:1 ;
+    }
+
+    public void UseEquip()
     {
         if(currentEquipped[currentItemIndex]._item != null)
         {
-            if(currentEquipped[currentItemIndex]._item.IsOnCooldown) return;
-
-            Debug.Log("使用道具01: " + currentEquipped[currentItemIndex]._item.itemData.itemName);
-
-            CooldownManager.Instance.StartCooldown(currentEquipped[currentItemIndex]._item);
-
-            Debug.Log("使用道具02: " + currentEquipped[currentItemIndex]._item.itemData.itemName);
+            currentEquipped[currentItemIndex].UseItem();
         }
     }
 }
 
 [System.Serializable]
+
 public class CurrentEquipped
 {
     public InventoryItem _item;
+    private MonoBehaviour _itemObject;
     [SerializeField]private UnityEngine.UI.Image itemImage;
     [SerializeField]private TextMeshProUGUI itemNumberText;
     [SerializeField]private UnityEngine.UI.Image cooldownMaskImage;
     [SerializeField]private GameObject HilightImage;
 
-    public void SetItem(InventoryItem item)
+    public void SetItem(InventoryItem item,MonoBehaviour itemObject)
     {
         _item = item;
+        itemImage.sprite = _item.itemData.itemImage;
+        itemImage.gameObject.SetActive(true);
+        if(_item.itemData.restrictedItem)
+            itemNumberText.text = _item.currentCount.ToString();
+        else
+            itemNumberText.text = "";
+        HilightImage.SetActive(true);
+        cooldownMaskImage.fillAmount = 0;
+
+        if(_itemObject != null)
+            UnityEngine.Object.Destroy(_itemObject.gameObject);
+        _itemObject = itemObject;
+    }
+
+    public void UseItem()
+    {
+        if(_item.IsOnCooldown) return;
+
+        (_itemObject as IUseable).Use();
+        CooldownManager.Instance.StartCooldown(_item);
+    }
+
+    public void ClearItem()
+    {
+        _item = null;
+        itemImage.sprite = null;
+        itemNumberText.text = "";
+        cooldownMaskImage.fillAmount = 0;
+        itemImage.gameObject.SetActive(false);
+        HilightImage.SetActive(false);
+        if(_itemObject != null)
+            UnityEngine.Object.Destroy(_itemObject.gameObject);
+    }
+
+    public void HilightItemOpen()
+    {
         if (_item != null)
         {
-            itemImage.sprite = _item.itemData.itemImage;
-            itemImage.gameObject.SetActive(true);
-            if(_item.itemData.restrictedItem)
-                itemNumberText.text = _item.currentCount.ToString();
-            else
-                itemNumberText.text = "";
             HilightImage.SetActive(true);
+            itemImage.gameObject.SetActive(true);
         }
-        else
-        {
+    }
+
+    public void HilightItemClose()
+    {
+        HilightImage.SetActive(false);
+        if (_item != null)
             itemImage.gameObject.SetActive(false);
-            itemImage.sprite = null;
-            itemNumberText.text = "";
-            HilightImage.SetActive(false);
-        }
+        
     }
 
     public void Cooldown()

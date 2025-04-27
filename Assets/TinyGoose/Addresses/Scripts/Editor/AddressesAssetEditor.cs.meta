@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1c1d5f5a75b17412683372cd27b95051
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Scripts/Editor/AddressesAssetEditor.cs
+  uploadId: 627724

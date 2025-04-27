@@ -75,7 +75,7 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Skill",
@@ -90,6 +90,15 @@
                     "name": "Target",
                     "type": "Button",
                     "id": "cb0d143e-3b5e-4234-8414-352985ead135",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchEquip",
+                    "type": "Button",
+                    "id": "784ab216-32d1-4711-8e4d-94096ad38132",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -248,6 +257,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a74b168-62f4-45f4-a29c-3b4d6259befd",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchEquip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

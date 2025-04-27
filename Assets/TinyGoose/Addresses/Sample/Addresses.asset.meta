@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e95e2f45d2ebf4f8f9131ce71ea6dede
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Sample/Addresses.asset
+  uploadId: 627724

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 2F-Up_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 2F-Up
+  tiles:
+  - tileName: 2F-Up_0
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_0]'
+    localOffset: {x: 0, y: -0}
+  - tileName: 2F-Up_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_1]'
+    localOffset: {x: 229.2, y: -0}
+  - tileName: 2F-Up_2
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_2]'
+    localOffset: {x: 458.4, y: -0}
+  - tileName: 2F-Up_3
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_3]'
+    localOffset: {x: 687.6, y: -0}
+  - tileName: 2F-Up_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_4]'
+    localOffset: {x: 0, y: -104.6}
+  - tileName: 2F-Up_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_5]'
+    localOffset: {x: 229.2, y: -104.6}
+  - tileName: 2F-Up_6
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_6]'
+    localOffset: {x: 458.4, y: -104.6}
+  - tileName: 2F-Up_7
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_7]'
+    localOffset: {x: 687.6, y: -104.6}
+  - tileName: 2F-Up_8
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_8]'
+    localOffset: {x: 0, y: -209.2}
+  - tileName: 2F-Up_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_9]'
+    localOffset: {x: 229.2, y: -209.2}
+  - tileName: 2F-Up_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_10]'
+    localOffset: {x: 458.4, y: -209.2}
+  - tileName: 2F-Up_11
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_11]'
+    localOffset: {x: 687.6, y: -209.2}
+  - tileName: 2F-Up_12
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_12]'
+    localOffset: {x: 0, y: -313.8}
+  - tileName: 2F-Up_13
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_13]'
+    localOffset: {x: 229.2, y: -313.8}
+  - tileName: 2F-Up_14
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_14]'
+    localOffset: {x: 458.4, y: -313.8}
+  - tileName: 2F-Up_15
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_15]'
+    localOffset: {x: 687.6, y: -313.8}

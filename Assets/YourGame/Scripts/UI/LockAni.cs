@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using AirFishLab.ScrollingList.Demo;
 using UnityEngine;
 
 public class LockAni : MonoBehaviour
 {
-    [SerializeField] private Canvas canvas_parent;
+    [SerializeField] private LockManager _lockmanager;
     [SerializeField]private Canvas canvas;
     public float scalingSpeed = 1000f;
     public float fadingSpeed = 1000f;
@@ -60,10 +61,6 @@ public class LockAni : MonoBehaviour
         canvas.transform.localScale = new Vector3(2.55f, 2.55f, 2.55f);
 
         CanvasGroup canvasGroup = canvas.GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-        {
-            canvasGroup = canvas.gameObject.AddComponent<CanvasGroup>();
-        }
         canvasGroup.alpha = 0.4f;
 
         canvas.enabled = true;
@@ -71,6 +68,6 @@ public class LockAni : MonoBehaviour
     }
 
     public void ParentCanvasClosed(){
-        canvas_parent.enabled = false;
+        _lockmanager.enabled = false;
     }
 }

@@ -1,0 +1,580 @@
+fileFormatVersion: 2
+guid: b0f3a7992b8114d43be09b987a6dceae
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3273984587042826927
+    second: 2F-Center_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 10
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 16384
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2F-Center_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3874
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15555394d587092d0800000000000000
+      internalID: -3273984587042826927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_1
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 3874
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09b8126447d404797a95b0903c7ef763
+      internalID: -1204368748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_2
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 3874
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c995a15633981491497b66f522a29396
+      internalID: 1135839033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_3
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 3874
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21fab412f58d84909bad0fe8eed89f77
+      internalID: 417805702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2906
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02d3e05c91321436683a011eeaa9c473
+      internalID: -1665223895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_5
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 2906
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e327d099485404bae8321e76477f19f0
+      internalID: -1259059376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_6
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 2906
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a9a191ae24b4594a2cf61e1a92d8ae
+      internalID: 75801042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_7
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 2906
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 205616edf95804993b0de9ea5158e4b7
+      internalID: -1215519905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1938
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571fc9f70787a4bd7a3026f5d597bf5d
+      internalID: 1271707775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_9
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 1938
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73348263ae90b4629ab0b515672d0116
+      internalID: -2118590142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_10
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 1938
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fde61e444198454d9c5746bb014dd43
+      internalID: 796193847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_11
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 1938
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9944f3448d5f74ef0a82e74f0bea8ad8
+      internalID: 1682574645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 970
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e9dc1e9348f74b6ea4fb64e9d5b0878
+      internalID: -708896424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_13
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 970
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c1027af55db64504a9b2481858a37e7
+      internalID: 1126721522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_14
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 970
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc8b148b098d2403f8c01535a24aae5b
+      internalID: -1170611662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_15
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 970
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d7ff76278ef94908bcc10a720c0c884
+      internalID: -262728129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99fa6feb17fcd434f84c4b874ad84483
+      internalID: -338350069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_17
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 2
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c9e68c3177fa4098bdcf254f46eb1e0
+      internalID: -540854751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_18
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 2
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85de9eb91281433386c37fbeb326edd
+      internalID: -1434703005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2F-Center_19
+      rect:
+        serializedVersion: 2
+        x: 6036
+        y: 2
+        width: 2012
+        height: 968
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d13260a12e74faab64735df991d288
+      internalID: 828639010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4babfb274382947188c37ce6a29c4109
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      2F-Center_0: -3273984587042826927
+      2F-Center_1: -1204368748
+      2F-Center_10: 796193847
+      2F-Center_11: 1682574645
+      2F-Center_12: -708896424
+      2F-Center_13: 1126721522
+      2F-Center_14: -1170611662
+      2F-Center_15: -262728129
+      2F-Center_16: -338350069
+      2F-Center_17: -540854751
+      2F-Center_18: -1434703005
+      2F-Center_19: 828639010
+      2F-Center_2: 1135839033
+      2F-Center_3: 417805702
+      2F-Center_4: -1665223895
+      2F-Center_5: -1259059376
+      2F-Center_6: 75801042
+      2F-Center_7: -1215519905
+      2F-Center_8: 1271707775
+      2F-Center_9: -2118590142
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

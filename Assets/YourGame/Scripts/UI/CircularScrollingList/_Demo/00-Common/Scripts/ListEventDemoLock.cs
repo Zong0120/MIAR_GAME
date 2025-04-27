@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace AirFishLab.ScrollingList.Demo
 {
@@ -7,8 +8,13 @@ namespace AirFishLab.ScrollingList.Demo
         private CircularScrollingList _list =>
             GetComponent<CircularScrollingList>();
         public int _password{ get; private set; }
-        
-        public void InitList()
+
+        public void OnButtonClick(int index)
+        {
+            _list.SetFocusingBoxByContent(index);
+        }
+
+        public void _InitList()
         {
             _list.InitializeMembers();
         }

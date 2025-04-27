@@ -7,10 +7,10 @@ public class GetItem : MonoBehaviour
 {
     public ItemData thisItem; // 物品數據
 
-    public float floatingSpeed = 10f; // 浮现速度
-    public float scalingSpeed = 3f; // 放大速度
+    public float floatingSpeed = 30f; // 浮现速度
+    public float scalingSpeed = 5f; // 放大速度
 
-    [SerializeField] private Vector3 maxsale;
+    [SerializeField] private Vector3 maxsale = new Vector3(2.5f,2.5f,2.5f); // 最大缩放比例
     [SerializeField] public int ItemNum = 1;
     private bool isInteractable = true;
     
@@ -19,10 +19,6 @@ public class GetItem : MonoBehaviour
     }
     private void OnDisable() {
         GetComponent<SpriteRenderer>().color = new Color(0.6f,0.6f,0.6f,1);
-    }
-    void Start()
-    {
-        transform.GetComponent<GetItem>().enabled = false;
     }
     void Update()
     {
@@ -36,40 +32,65 @@ public class GetItem : MonoBehaviour
     {
         isInteractable = false;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 99;
-
+    
         // Disable collider
         gameObject.GetComponent<Collider2D>().enabled = false;
+    
+        Vector3 centerPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane + 1f));
+    
+        // 啟動移動和放大的協程
+        IEnumerator moveCoroutine = MoveToPosition(itemTransform, centerPosition);
+        IEnumerator scaleCoroutine = ScaleToSize(itemTransform, maxsale);
+    
+        // 同時執行兩個協程
+        yield return StartCoroutine(RunCoroutines(moveCoroutine, scaleCoroutine));
+    
+        AddNewItem();
+    
+        yield return new WaitForSeconds(1f);
+    
 
-        Vector3 centerPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
+        Destroy(itemTransform.gameObject);
+    }
 
-        // 移動到目標螢幕位置
-        while (Vector3.Distance(itemTransform.position, centerPosition) > 0.001f)
+    private IEnumerator RunCoroutines(params IEnumerator[] coroutines)
+    {
+        foreach (var coroutine in coroutines)
         {
-            itemTransform.position = Vector3.MoveTowards(itemTransform.position, centerPosition, Time.deltaTime * floatingSpeed);
+            StartCoroutine(coroutine);
+        }
+    
+        foreach (var coroutine in coroutines)
+        {
+            yield return coroutine;
+        }
+    }
+
+    private IEnumerator MoveToPosition(Transform itemTransform, Vector3 targetPosition)
+    {
+        while (Vector3.Distance(itemTransform.position, targetPosition) > 0.001f)
+        {
+            itemTransform.position = Vector3.MoveTowards(itemTransform.position, targetPosition, Time.deltaTime * floatingSpeed);
             yield return null;
         }
+    }
 
-        // 放大到目標大小
-        while (Mathf.Abs(itemTransform.localScale.x - maxsale.x) > 0.001f)
+    private IEnumerator ScaleToSize(Transform itemTransform, Vector3 targetScale)
+    {
+        while (Mathf.Abs(itemTransform.localScale.x - targetScale.x) > 0.001f)
         {
-            if (itemTransform.localScale.x < maxsale.x)
+            if (itemTransform.localScale.x < targetScale.x)
             {
                 itemTransform.localScale += Vector3.one * Time.deltaTime * scalingSpeed;
             }
             else
             {
-                // 如果已經達到 maxsale.x，則直接設置為 maxsale.x 並跳出迴圈
-                itemTransform.localScale = new Vector3(maxsale.x, maxsale.y, maxsale.z);
+                itemTransform.localScale = targetScale;
                 break;
             }
             yield return null;
         }
 
-        AddNewItem();
-
-        yield return new WaitForSeconds(1f);
-
-        Destroy(itemTransform.gameObject);
     }
 
     private void AddNewItem()

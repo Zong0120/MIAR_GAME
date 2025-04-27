@@ -373,7 +373,7 @@ namespace AirFishLab.ScrollingList.ListStateProcessing.Linear
 
             if (_setting.ListType == CircularScrollingList.ListType.Circular)
                 // No need to do content content id adjusting
-                newFocusingContentID = newFocusingContentID;
+            {}
             else if (numOfContents <= numOfBoxes)
                 newFocusingContentID = 0;
             else {

@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a1ac9a8e7d84d7ba0376e93b944ab3, type: 3}
+  m_Name: 1F-Center_TileData
+  m_EditorClassIdentifier: 
+  zoneName: 1F-Center
+  tiles:
+  - tileName: 1F-Center_1
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_1]'
+    localOffset: {x: 217.2, y: 0}
+  - tileName: 1F-Center_2
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_2]'
+    localOffset: {x: 434.4, y: 0}
+  - tileName: 1F-Center_4
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_4]'
+    localOffset: {x: 0, y: -145}
+  - tileName: 1F-Center_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_5]'
+    localOffset: {x: 217.2, y: -145}
+  - tileName: 1F-Center_6
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_6]'
+    localOffset: {x: 434.4, y: -145}
+  - tileName: 1F-Center_7
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_7]'
+    localOffset: {x: 651.6, y: -145}
+  - tileName: 1F-Center_8
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_8]'
+    localOffset: {x: 0, y: -290}
+  - tileName: 1F-Center_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_9]'
+    localOffset: {x: 217.2, y: -290}
+  - tileName: 1F-Center_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_10]'
+    localOffset: {x: 434.4, y: -290}
+  - tileName: 1F-Center_11
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_11]'
+    localOffset: {x: 651.6, y: -290}
+  - tileName: 1F-Center_12
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_12]'
+    localOffset: {x: 0, y: -435}
+  - tileName: 1F-Center_13
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_13]'
+    localOffset: {x: 217.2, y: -435}
+  - tileName: 1F-Center_14
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_14]'
+    localOffset: {x: 434.4, y: -435}
+  - tileName: 1F-Center_15
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_15]'
+    localOffset: {x: 651.6, y: -435}
+  - tileName: 1F-Center_16
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_16]'
+    localOffset: {x: 0, y: -580}
+  - tileName: 1F-Center_17
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_17]'
+    localOffset: {x: 217.2, y: -580}
+  - tileName: 1F-Center_18
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_18]'
+    localOffset: {x: 434.4, y: -580}
+  - tileName: 1F-Center_19
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_19]'
+    localOffset: {x: 651.6, y: -580}
+  - tileName: 1F-Center_20
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_20]'
+    localOffset: {x: 0, y: -725}
+  - tileName: 1F-Center_21
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_21]'
+    localOffset: {x: 217.2, y: -725}
+  - tileName: 1F-Center_22
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_22]'
+    localOffset: {x: 434.4, y: -725}
+  - tileName: 1F-Center_23
+    addressKey: 'Assets/YourGame/Sprites/Terrain/1F-Center.jpg[1F-Center_23]'
+    localOffset: {x: 651.6, y: -725}

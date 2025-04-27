@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9fc0d4020bbf28b4594072e72b8655ab
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267056
+  packageName: Addresses
+  packageVersion: 1.0.3
+  assetPath: Assets/TinyGoose/Addresses/Sample/AddressesSampleScene.unity
+  uploadId: 627724

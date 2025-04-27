@@ -10,8 +10,9 @@ namespace PlayerInputAction
 		public bool interactive;
 		public bool map;
 		public bool restart;
-		public bool equip1=true;
+		public bool equip1;
 		public bool equip2;
+		public bool switchequip;
 		public bool useEquip;
 		public bool bag;
 		public bool skill;
@@ -51,6 +52,11 @@ namespace PlayerInputAction
 		public void OnEquip2(InputValue value)
 		{
 			equip2 = value.isPressed;
+		}
+
+		public void OnSwitchEquip(InputValue value)
+		{
+			switchequip = value.isPressed;
 		}
 
 		public void OnUseEquip(InputValue value)
@@ -102,6 +108,11 @@ namespace PlayerInputAction
 		public void Equip2Input(bool newEquip2State)
 		{
 			equip2 = newEquip2State;
+		}
+
+		public void SwitchEquipInput(bool newSwitchEquipState)
+		{
+			switchequip = newSwitchEquipState;
 		}
 
 		public void UseEquipInput(bool newUseEquipState)
