@@ -95,6 +95,14 @@ public class EquipManager : MonoBehaviour
             currentEquipped[currentItemIndex].UseItem();
         }
     }
+
+    public void EquipStartCooldown()
+    {
+        if(currentEquipped[currentItemIndex]._item != null)
+        {
+            currentEquipped[currentItemIndex].ItemStartCooldown();
+        }
+    }
 }
 
 [System.Serializable]
@@ -123,6 +131,10 @@ public class CurrentEquipped
         if(_itemObject != null)
             UnityEngine.Object.Destroy(_itemObject.gameObject);
         _itemObject = itemObject;
+        if(_item.itemData as WeaponData)
+        {
+            _itemObject.GetComponent<WeaponItem>().SetWeaponData((_item.itemData as WeaponData));
+        }
     }
 
     public void UseItem()
@@ -130,6 +142,11 @@ public class CurrentEquipped
         if(_item.IsOnCooldown) return;
 
         (_itemObject as IUseable).Use();
+    }
+    public void ItemStartCooldown()
+    {
+        if(_item.IsOnCooldown) return;
+
         CooldownManager.Instance.StartCooldown(_item);
     }
 
@@ -151,15 +168,16 @@ public class CurrentEquipped
         {
             HilightImage.SetActive(true);
             itemImage.gameObject.SetActive(true);
+            _itemObject.gameObject.SetActive(true);
         }
     }
 
     public void HilightItemClose()
     {
         HilightImage.SetActive(false);
-        if (_item != null)
+        if (_item == null)
             itemImage.gameObject.SetActive(false);
-        
+        else _itemObject.gameObject.SetActive(false);
     }
 
     public void Cooldown()

@@ -9,7 +9,7 @@ public class UsageCase : MonoBehaviour
     FlowerSystem flowerSys;
     private string myName;
     private int progress = 0;
-    private bool pickedUpTheKey = false;
+    //private bool pickedUpTheKey = false;
     private bool isGameEnd = false;
     private bool isLocked = false;
 
@@ -52,7 +52,8 @@ public class UsageCase : MonoBehaviour
                     flowerSys.ReadTextFromResource("demo_start");
                     break;
                 case 2:
-                    flowerSys.SetupButtonGroup();
+                    //flowerSys.SetupButtonGroup();
+                    /*
                     if(!pickedUpTheKey){
                         flowerSys.SetupButton("Pickup the key.",()=>{
                             pickedUpTheKey = true;
@@ -77,6 +78,7 @@ public class UsageCase : MonoBehaviour
                             isLocked=false;
                         }
                     });
+                    */
                     isLocked=true;
                     break;
                 case 3:

@@ -28,13 +28,11 @@ namespace AirFishLab.ScrollingList.Demo
     {
         public static LockManager Instance { get; private set; }
         [SerializeField]private GameObject LockUIRoot;
-        [SerializeField]private Animator imageAni;
+        [SerializeField]private LockAni imageAni;
         [SerializeField]private Canvas Locked;
         [SerializeField] private Image question;
         [Header("List")]
         [SerializeField]private ListPassword[] _List = new ListPassword[4];
-
-        private string UnlockedAnimator = "unlocked";
         private int _inputIndex=0;
 
         private string stringPassword;
@@ -60,7 +58,6 @@ namespace AirFishLab.ScrollingList.Demo
             BingoPassword = questionAns;
             question.sprite = questionPicture;
             _inputIndex = 0;
-            imageAni.SetBool("unclocked",false);
             LockUIRoot.SetActive(true);
         }
         public void CloseLock()
@@ -108,23 +105,21 @@ namespace AirFishLab.ScrollingList.Demo
             if (stringPassword == BingoPassword)
             {
                 Debug.Log("Unlocked");
-                imageAni.SetBool(UnlockedAnimator,true);
+                imageAni.Unclocked();
                 _doorLock.UnlockDoor();
                 CloseLock();
             }
             Debug.Log("Password: " + stringPassword);
         }
 
-        public bool LockToBingo()
+        public void LockToBingo()
         {
-            if(stringPassword == "")return false;
+            if(BingoPassword == "")return;
             
-            _List[0].ListButtonClick(int.Parse(stringPassword[0].ToString()));
-            _List[1].ListButtonClick(int.Parse(stringPassword[1].ToString()));
-            _List[2].ListButtonClick(int.Parse(stringPassword[2].ToString()));
-            _List[3].ListButtonClick(int.Parse(stringPassword[3].ToString()));
-
-            return true;
+            _List[0].ListButtonClick(int.Parse(BingoPassword[0].ToString()));
+            _List[1].ListButtonClick(int.Parse(BingoPassword[1].ToString()));
+            _List[2].ListButtonClick(int.Parse(BingoPassword[2].ToString()));
+            _List[3].ListButtonClick(int.Parse(BingoPassword[3].ToString()));
         }
     }
 }

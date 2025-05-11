@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2927153607624424496}
   - component: {fileID: 3083368402808713002}
   - component: {fileID: 822848649306349661}
+  - component: {fileID: 4714509334962788326}
   m_Layer: 0
   m_Name: "\u672A\u547D\u540D\u7684\u4F5C\u54C1 40_0"
   m_TagString: Untagged
@@ -157,6 +158,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4714509334962788326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196681663856596452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6a2649578cf45e199d925a157fad9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundType: 4
+  soundName: Lock_Door
 --- !u!1 &2142122380915956702
 GameObject:
   m_ObjectHideFlags: 0

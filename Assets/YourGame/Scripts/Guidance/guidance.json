@@ -1,0 +1,53 @@
+{
+    "nodes": [
+      {
+        "nodeId": "test1",
+        "guidanceType": "Main",
+        "guidanceLines": ["你好，歡迎來到冒險世界！", "先去東邊的房間看看吧。"],
+        "highlightTargetId": "Room_East",
+        "nextNodeIds": ["RoomLocked"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "RoomLocked",
+        "guidanceType": "Main",
+        "guidanceLines": ["房門鎖住了，看來需要密碼。"],
+        "highlightTargetId": "HintArea",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintArea",
+        "guidanceType": "Main",
+        "guidanceLines": ["這裡有一個提示區域，或許可以找到密碼的線索。"],
+        "highlightTargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Death-1",
+        "guidanceType": "Death",
+        "guidanceLines": ["加油！你才死了[#DeathCount]次，下次一定可以的！"],
+        "highlightTargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Death-2",
+        "guidanceType": "Death",
+        "guidanceLines": ["你是最棒的！簡直是個天才！"],
+        "highlightTargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Death-3",
+        "guidanceType": "Death",
+        "guidanceLines": ["你已經死了[#DeathCount]次了，這樣下去可不行哦！"],
+        "highlightTargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      }
+    ]
+  }
+  

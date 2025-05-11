@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 namespace PlayerInputAction
 {
     [RequireComponent(typeof(PlayerInput))]
-    public class PlayerController : MonoBehaviour,IDamageable
+    public class PlayerController : MonoBehaviour
     {
         //public static PlayerController Instance;
         [Header("Player")]
@@ -19,6 +19,11 @@ namespace PlayerInputAction
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
         public List<GameObject> cinemachines;
+
+        [Space(10)]
+        [Header("Player Death")]
+        [Tooltip("The prefab of the player death VFX")]
+        public GameObject playerDeathVFXPrefab;
 
         private Rigidbody2D _playerRigidbody => GetComponent<Rigidbody2D>();
         private PlayerInput _playerInput => GetComponent<PlayerInput>();
@@ -32,9 +37,7 @@ namespace PlayerInputAction
         private bool FacingRight = true;
         public bool CanvasCanOpen = true;
         private bool CanCloseCanvas = false;
-        private bool _isDead = false;
         private InheritanceSceneBox _inheritanceSceneBox =null;
-        private HealthManager _healthManager => GetComponent<HealthManager>();
 
         private void Awake()
         {
@@ -160,6 +163,8 @@ namespace PlayerInputAction
             {
                 _input.bag = false;
                 if(!CanvasCanOpen)return;
+                GuidanceSystem.Instance.SetCurrentNode("test1");
+
                 if(InventoryItemManager.Instance.BagIsOpen())
                     InventoryItemManager.Instance.CloseBag();
                 else
@@ -199,28 +204,29 @@ namespace PlayerInputAction
             _inheritanceSceneBox = null;
         }
 
-        public void TakeDamage(int damage,Transform hitTransform)
-        {
-            _healthManager.TakeDamage(damage,hitTransform);
-            if(_healthManager.IsDead)
-            {
-                _isDead = true;
-                isFreezed = true;
-                PlayerDeath();
-            }
-        }
-
         public void PlayerDeath()
         {
-            if(_input.restart)
+            isFreezed = true;
+            ChangeAnimation("Death_" + (_currentAnimation.Contains("right") ? "Right" : "Left"));
+            StartCoroutine(WaitReStart());
+        }
+        IEnumerator WaitReStart()
+        {
+            PlayerPrefs.SetInt("DeathCount", PlayerPrefs.GetInt("DeathCount", 0) + 1);
+            GuidanceSystem.Instance.ShowRandomDeathMessage();
+            while(true)
             {
-                _input.restart = false;
-                if(_isDead)
+                if(_input.restart)
                 {
-                    LoadScene();
+                    _input.restart = false;
+                    break;
                 }
+                yield return null;
             }
-
+            _input.restart = true;
+            isFreezed = false;
+            LoadScene();
+            Instantiate(playerDeathVFXPrefab, transform.position, Quaternion.identity);
         }
 
         private void LoadScene()

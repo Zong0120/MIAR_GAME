@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db9eda2e78de49839897a0da55dc9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAngle: {x: 60, y: 60}
+  weaponSoundName: Weapon_Book
+  validAngleRange: 40
 --- !u!95 &6016884251123067012
 Animator:
   serializedVersion: 7

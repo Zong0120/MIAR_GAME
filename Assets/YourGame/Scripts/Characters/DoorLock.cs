@@ -109,7 +109,6 @@ public class DoorLock : MonoBehaviour
         targetObject.SetActive(false);
         StartFadeOut();
         DoorAnimator.SetBool(DoorOpenAnimator, true);
-        //_list.bingo_Audio();
     }
 }
 

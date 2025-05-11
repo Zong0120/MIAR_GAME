@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections;
 
 
 public class InventoryItemManager : MonoBehaviour
@@ -14,7 +14,7 @@ public class InventoryItemManager : MonoBehaviour
     public StoryTextInventory storyChapterBag;
 
     [SerializeField]private GameObject BagUIRoot;
-    private Canvas _canvas => GetComponent<Canvas>();
+    [SerializeField]private GameObject BigMapCamera;
 
     void Awake()
     {
@@ -37,11 +37,21 @@ public class InventoryItemManager : MonoBehaviour
     public void OpenBag()
     {
         BagUIRoot.SetActive(true);
+        SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
+        StartCoroutine(UpdateBigMap());
     }
 
     public void CloseBag()
     {
         BagUIRoot.SetActive(false);
+        SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
+    }
+
+    private IEnumerator UpdateBigMap()
+    {
+        BigMapCamera.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        BigMapCamera.SetActive(false);
     }
 }
 
@@ -131,6 +141,7 @@ public class BagInventoryItem
         EquipManager.Instance.Equip(currentItem);
         UseButton.SetActive(false);
         currentItem = null;
+        SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
     }
     public void ClearItemDisplayInfo()
     {
@@ -154,6 +165,6 @@ public class StoryTextInventory
         storySlots[currentIndex].gameObject.SetActive(true);
         storySlots[currentIndex].SetStory(story);
         currentIndex++;
-        Debug.Log("Add New Inventory Story: " + story.title);
+        //Debug.Log("Add New Inventory Story: " + story.title);
     }
 }

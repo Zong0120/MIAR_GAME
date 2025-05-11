@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0966a38b1c118414497a1bc7b5b1d9fd, type: 3}
+  m_Name: decoder
+  m_EditorClassIdentifier: 
+  itemName: decoder
+  itemNameCh: "\u89E3\u78BC\u5668"
+  itemImage: {fileID: -1333223372725653737, guid: 0ebda99bc13b34b04afdff281def97bd, type: 3}
+  itemDescription: 
+  itemCode: 
+  itemPrefab: {fileID: 1561562239542382228, guid: 7b768d28211dc44f083bd6606f0e11cc, type: 3}
+  cooldownTime: 100
+  restrictedItem: 0
+  cooldownDisappear: 0
+  maxStack: 0

@@ -9,29 +9,21 @@ public class LockAni : MonoBehaviour
     [SerializeField]private Canvas canvas;
     public float scalingSpeed = 1000f;
     public float fadingSpeed = 1000f;
-    [SerializeField] private AudioSource chain;
-    [SerializeField] private AudioSource icon_lock;
 
-    private void lock_audio(){
-        chain.Play();
-        /*
-        if(!HintBoxControll.Instance.isHintmeetLock)
-        {
-            HintBoxControll.Instance.HintmeetLock();
-            HintBoxControll.Instance.isHintmeetLock = true;
-        }
-        */
+    private Animator _animator => GetComponent<Animator>();
+
+    public void lock_chain_sound(){
+        SoundManager.PlaySoundItemAudio(SoundType.Lock,"Lock_Chain");
     }
-
 
     private void Start()
     {
-        if (canvas == null)
-        {
-            canvas = GetComponent<Canvas>();
-        }
-
         canvas.enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        _animator.SetBool("unclocked",false);
     }
 
     private void Update()
@@ -64,7 +56,12 @@ public class LockAni : MonoBehaviour
         canvasGroup.alpha = 0.4f;
 
         canvas.enabled = true;
-        //icon_lock.Play();
+        SoundManager.PlaySoundItemAudio(SoundType.Lock, "Lock_Iron");
+    }
+
+    public void Unclocked()
+    {
+        _animator.SetBool("unclocked", true);
     }
 
     public void ParentCanvasClosed(){

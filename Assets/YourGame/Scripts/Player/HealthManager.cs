@@ -1,6 +1,6 @@
 using System.Collections;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class HealthHeart
 {
@@ -16,33 +16,50 @@ public class HealthHeart
     public void SetFull()
     {
         IsFull = true;
-        HeartAnimator.SetTrigger("fullblood");
+        HeartAnimator.CrossFade("fullblood",0.1f);
     }
 
     public void SetEmpty()
     {
         IsFull = false;
-        HeartAnimator.SetTrigger("emptyblood");
+        HeartAnimator.CrossFade("emptyblood",0.1f);
+    }
+
+    public void SetGold(Material HeartGoldMaterial)
+    {
+        HeartAnimator.gameObject.GetComponent<UnityEngine.UI.Image>().material = HeartGoldMaterial;
+    }
+
+    public void SetNormal()
+    {
+        HeartAnimator.gameObject.GetComponent<UnityEngine.UI.Image>().material = null;
     }
 }
-public class HealthManager : MonoBehaviour
+namespace PlayerInputAction
 {
-    [SerializeField] private GameObject playerDeathVFXPrefab;
+public class HealthManager : MonoBehaviour,IDamageable
+{
+    public static HealthManager Instance { get; private set; }
+    //[SerializeField] private GameObject playerDeathVFXPrefab;
     [SerializeField] private GameObject HealthBar;
     [SerializeField] private GameObject HeartPrefab;
+    [SerializeField] private Material HeartGoldMaterial;
 
-    //private Flash flash;
+    private Flash flash =>GetComponent<Flash>();
     [SerializeField] private int maxHealth = 5;
     private int currentHealth;
+    public int currentFreeDamage{ get; private set; } = -1;
     private bool canTakeDamage = true;
-    private float damageRecoveryTime = 0.5f;
     public bool IsDead { get; private set; }
-    //private bool IsDeadEnd = false;
-
-    private float DeathtimeScale=0.2f;
     private HealthHeart[] HeartAnimations;
     //audiomanager Audiomanager;
-    [SerializeField] private GameObject gameoverCanvas;
+    //[SerializeField] private GameObject gameoverCanvas;
+
+    [SerializeField] private float knockBackTime = 0.2f;
+    private Rigidbody2D rb => GetComponent<Rigidbody2D>();
+    [SerializeField] private float knockBackThrust = 20f;
+    [SerializeField] private float damageRecoveryTime = 3f;
+
 
     void ClearHeartBarChildNodes()
     {
@@ -62,15 +79,6 @@ public class HealthManager : MonoBehaviour
             GameObject heartObject = Instantiate(HeartPrefab, HealthBar.transform);
             HeartAnimations[i] = new HealthHeart(heartObject.GetComponent<Animator>());
         }
-        
-
-        /*
-        Hearts = new Animator[maxHealth];
-        for (int i = 0; i < maxHealth; i++)
-        {
-            Hearts[i] = Instantiate(HeartPrefab, HealthBar.transform).GetComponent<Animator>();
-        }
-        */
     }
 
     public void expansionMax(int num)
@@ -121,14 +129,14 @@ public class HealthManager : MonoBehaviour
 
     private void Awake()
     {
-        //base.Awake();
-
-        //flash = transform.GetComponent<Flash>();
-        //Audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audiomanager>();
-
-
-        
-
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -140,15 +148,6 @@ public class HealthManager : MonoBehaviour
         //gameOver.SetActive(false);
         //gameoverCanvas.SetActive(false);
     }
-    /*
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (canTakeDamage)
-        {
-            TakeDamage(1, collision.transform);
-        }
-    }
-    */
     public bool IsFullHealth()
     {
         if(currentHealth == maxHealth)
@@ -187,12 +186,31 @@ public class HealthManager : MonoBehaviour
             return;
         }
 
+        
         for(int i = 0; i < damageAmount; i++)//扣血
         {
-            if(currentHealth != 0)//血量索引
+            if(currentFreeDamage > -1)
+            {
+                HeartAnimations[currentFreeDamage].SetNormal();
+                currentFreeDamage -= 1;
+                //play audio
+            }
+            else
             {
                 currentHealth -=1;
                 HeartAnimations[currentHealth].SetEmpty();
+            }
+        }
+    }
+
+    public void SetGoldHeart(int Amount = 1)
+    {
+        for(int i = 0; i < Amount; i++)
+        {
+            if(currentHealth > 0 && currentFreeDamage < currentHealth)
+            {
+                currentFreeDamage += 1;
+                HeartAnimations[currentFreeDamage].SetGold(HeartGoldMaterial);
             }
         }
     }
@@ -203,14 +221,27 @@ public class HealthManager : MonoBehaviour
         {
             return;
         }
-
-        //StartCoroutine(flash.FlashRoutine());
         canTakeDamage = false;
-        //StartCoroutine(DamageRecoveryRoutine());
+        SoundManager.PlaySoundItemAudio(SoundType.Cactus, "CactusATK");
+        GetKnockedBack(hitTransform, knockBackThrust);
+        StartCoroutine(flash.FlashRoutine());
+        StartCoroutine(DamageRecoveryRoutine());
         Damage(damageAmount);
         CheckPlayerDeath();
     }
 
+    public void GetKnockedBack(Transform damageSource, float knockBackThrust)
+    {
+        Vector2 difference = knockBackThrust * rb.mass *  (transform.position - damageSource.position).normalized;
+        rb.AddForce(difference, ForceMode2D.Impulse);
+        StartCoroutine(KnockBackRoutine());
+    }
+
+    private IEnumerator KnockBackRoutine()
+    {
+        yield return new WaitForSeconds(knockBackTime);
+        rb.linearVelocity = Vector2.zero;
+    }
     private IEnumerator DamageRecoveryRoutine()
     {
         yield return new WaitForSeconds(damageRecoveryTime);
@@ -225,60 +256,9 @@ public class HealthManager : MonoBehaviour
             //Destroy(ActiveWeapon.Instance.gameObject);
             currentHealth = 0;
             Debug.Log("Player Death");
-            PlayerDeath();
+            transform.GetComponent<PlayerController>().PlayerDeath();
         }
     }
-
-    public void PlayerDeath()
-    {
-        /*
-        if(InheritanceBox.Instance != null)
-        {
-            InheritanceBox.Instance.SetCanInherit(true);
-        }
-        */
-        //Player.Instance.GetComponent<Animator>().SetBool(PlayDeath,true);
-        //Player.Instance.CanvasCanOpen = false;
-        //UIMainController._ins.switchUIPage("gaming");
-        /*
-        if (!gameOver.activeSelf)
-        {
-            gameOver.SetActive(true);
-        }
-        */
-    }
-
-    public void PlayerDeathOnEnd()
-    {
-        //Player.Instance.isFreezed = true;
-        Time.timeScale = DeathtimeScale;
-        //Player.Instance.GetComponent<Animator>().SetBool(PlayDeath,false);
-        //Instantiate(playerDeathVFXPrefab, transform.position, Quaternion.identity);
-        //Audiomanager.StopSFX();
-        //直接異步加載場景
-        //StartCoroutine(LoadSceneAsync());
-        //Invoke("LoadScene", 2f);
-        gameoverCanvas.SetActive(true);
-        //StartCoroutine(gameOverC(gameoverCanvas.GetComponent<CanvasGroup>(),0f, 1f, 4f));
-        //IsDeadEnd = true;
-    }
-
-    IEnumerator gameOverC(CanvasGroup canvasGroup,float startAlpha, float endAlpha, float duration)
-    {
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        canvasGroup.alpha = endAlpha;
-    }
-    
-    
 
 }
-
+}

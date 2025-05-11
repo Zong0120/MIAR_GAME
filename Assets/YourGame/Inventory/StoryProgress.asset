@@ -17,4 +17,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45f9d75cfb1174ead8bf180dc04b916e, type: 2}
   - {fileID: 11400000, guid: 18a1666b574a14e468d8e9e7bdcb91f8, type: 2}
   - {fileID: 11400000, guid: 7cd83faabfc8b44148bcb1635f0fca6a, type: 2}
-  currentChapterIndex: 0
+  - {fileID: 11400000, guid: 86ff3a6340f31425884501cc9156f93e, type: 2}
+  - {fileID: 11400000, guid: 15b4825d577f5434996559763e73a739, type: 2}
+  currentChapterIndex: 2
+  usedChapterSpawnPoints:
+  - 1frd
+  - 1flu
+  unlockedZones:
+  - {fileID: 11400000, guid: c5234bd740a994acab74cc34a7e90a56, type: 2}
+  usedZoneSpawnPoints:
+  - testid

@@ -38,6 +38,7 @@ public class MapParent
 
 public class MapZoneManager : MonoBehaviour
 {
+    public static MapZoneManager Instance { get; private set; }
     public MapZoneData startZone;
     public MapParent[] mapParent;
     private Dictionary<string, MapParent> mapParentLookup = new();
@@ -47,14 +48,29 @@ public class MapZoneManager : MonoBehaviour
     private Dictionary<string, AsyncOperationHandle<Sprite>> loadedHandles = new();
 
     private MapZoneData currentZone;
+    private char currentZoneLevel='1';
+
+    [SerializeField]private List<GameObject> _1FZoneObjects;
+    [SerializeField]private List<GameObject> _2FZoneObjects;
     public float viewDistance = 30f;
     public float unloadDelay = 5f;
     public int tilesPerFrame = 3; // 每幀最多預載 tile 數量
     public int objectsPerFrame = 2; // 每幀最多開啟 zoneObjects 數量
     private Transform player;
-
     private int currentLoadSessionId = 0;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start()
     {
         foreach (var entry in mapParent)
@@ -103,6 +119,26 @@ public class MapZoneManager : MonoBehaviour
 
         if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent))
             yield break;
+        
+        if(zone.zoneName[0] != currentZoneLevel)
+        {
+            Debug.Log("切換樓層: " + zone.zoneName[0]);
+            currentZoneLevel = zone.zoneName[0];
+            if (currentZoneLevel == '1')
+            {
+                foreach (var obj in _1FZoneObjects)
+                    obj.SetActive(true);
+                foreach (var obj in _2FZoneObjects)
+                    obj.SetActive(false);
+            }
+            else if (currentZoneLevel == '2')
+            {
+                foreach (var obj in _2FZoneObjects)
+                    obj.SetActive(true);
+                foreach (var obj in _1FZoneObjects)
+                    obj.SetActive(false);
+            }
+        }
 
         // 開啟 connectedCollider
         if (zoneParent._connectedCollider != null)
@@ -211,7 +247,55 @@ public class MapZoneManager : MonoBehaviour
             preloadedTiles.Remove(key);
     }
 
+    public void ShowConnectedZone(MapZoneData zone)
+    {
+        if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent)) return;
 
+        foreach (var tile in zone.tileData.tiles)
+        {
+            if (preloadedTiles.TryGetValue(tile.tileName, out var obj))
+            {
+                preloadedTiles.Remove(tile.tileName);
+                visibleTiles[tile.tileName] = obj;
+                obj.SetActive(true);
+            }
+        }
+
+        if (zoneParent._connectedCollider != null)
+            zoneParent._connectedCollider.SetActive(true);
+
+        if (zoneParent._zoneObjects != null)
+        {
+            foreach (var obj in zoneParent._zoneObjects)
+                obj.SetActive(true);
+        }
+    }
+
+    public void HideConnectedZone(MapZoneData zone,MapZoneData _currentZone)
+    {
+        if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent)) return;
+
+        currentZone = _currentZone;
+
+        foreach (var tile in zone.tileData.tiles)
+        {
+            if (visibleTiles.TryGetValue(tile.tileName, out var obj))
+            {
+                visibleTiles.Remove(tile.tileName);
+                obj.SetActive(false);
+                preloadedTiles[tile.tileName] = obj;
+            }
+        }
+
+        if (zoneParent._connectedCollider != null)
+            zoneParent._connectedCollider.SetActive(false);
+
+        if (zoneParent._zoneObjects != null)
+        {
+            foreach (var obj in zoneParent._zoneObjects)
+                obj.SetActive(false);
+        }
+    }
 
     private IEnumerator LoadTile(TileInfo tile, MapParent zoneParent, bool setActive, int sessionId)
     {
@@ -278,4 +362,82 @@ public class MapZoneManager : MonoBehaviour
             obj.SetActive(closestDist <= viewDistance * viewDistance);
         }
     }
+    MapZoneData teleportZone;
+    bool isTeleportPending = false;
+    public void PreloadTeleportZone(MapZoneData zone)
+    {
+        currentLoadSessionId++;
+        int sessionId = currentLoadSessionId;
+        teleportZone = zone;
+        isTeleportPending = true;
+
+        StartCoroutine(PreloadOnlyZone(zone, sessionId));
+    }
+
+    private IEnumerator PreloadOnlyZone(MapZoneData zone, int sessionId)
+    {
+        if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent))
+            yield break;
+
+        var preloadOnlyTiles = new HashSet<string>();
+        int preloadCount = 0;
+
+        foreach (var tile in zone.tileData.tiles)
+        {
+            preloadOnlyTiles.Add(tile.tileName);
+            if (!visibleTiles.ContainsKey(tile.tileName) && !preloadedTiles.ContainsKey(tile.tileName))
+            {
+                StartCoroutine(LoadTile(tile, zoneParent, false, sessionId));
+                preloadCount++;
+                if (preloadCount >= tilesPerFrame)
+                {
+                    preloadCount = 0;
+                    yield return null;
+                }
+            }
+        }
+
+        // 預熱但不啟用 zone 物件
+        if (zoneParent._zoneObjects != null)
+        {
+            foreach (var obj in zoneParent._zoneObjects)
+                obj.SetActive(false);
+        }
+
+        if (zoneParent._connectedCollider != null)
+            zoneParent._connectedCollider.SetActive(false);
+    }
+
+    public void ActivateTeleportZone(MapZoneData zone, Vector3 targetPosition)
+    {
+        if (!isTeleportPending || zone != teleportZone) return;
+
+        isTeleportPending = false;
+        teleportZone = null;
+
+        // 手動切換區塊，不同於 LoadAndActivateZone 的立即切換
+        currentLoadSessionId++;
+        int sessionId = currentLoadSessionId;
+
+        // 關閉前一個區塊
+        if (currentZone != null && mapParentLookup.TryGetValue(currentZone.zoneName, out var prevParent))
+        {
+            if (prevParent._connectedCollider != null)
+                prevParent._connectedCollider.SetActive(false);
+            if (prevParent._zoneObjects != null)
+            {
+                foreach (var obj in prevParent._zoneObjects)
+                    obj.SetActive(false);
+            }
+        }
+
+        // 正式切換區塊
+        currentZone = zone;
+        StartCoroutine(ActivateZone(zone, sessionId));
+
+        // 傳送玩家
+        if (player != null)
+            player.position = targetPosition;
+    }
+
 }

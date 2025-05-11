@@ -7,47 +7,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Flower{
-    /// <summary>
-    /// This is Flower core by Rempty @ EmptyStudio.
-    /// <para type="bold">[UserFunction]</para>
-    /// <list type="bullet">
-    ///     <item>RegisterCommand         : Register your customized commands.</item>
-    ///     <item>RegisterEffect          : Register your customized effects.</item>
-    ///     <item>RegisterToSceneObject   : Register GameObject to Flower Scene that you can apply commands to this object.</item>
-    ///     <item>GetSceneObject          : Get Flower Scene objects.</item>
-    ///     <item>QuerySceneObject        : Query Flower Scene objects by regular expression.</item>
-    ///     <item>RemoveSceneObject       : Remove Flower Scene objects.</item>
-    ///     <item>Next                    : If the system is WaitingForNext, then it will continue the remaining contents.</item>
-    ///     <item>SetTextList             : Set and execute the text list.</item>
-    ///     <item>ReadTextFromResource    : Load the plain text file (.txt) from Resources folder and execute.</item>
-    ///     <item>SetVariable             : Define Flower variables.</item>
-    ///     <item>RemoveVariable          : Remove Flower variables.</item>
-    ///     <item>SetupDialog             : Setup the dialog UI objects.</item>
-    ///     <item>SetupButtonGroup        : Setup the button group UI objects.</item>
-    ///     <item>SetupButton             : Setup the button UI objects.</item>
-    ///     <item>RemoveDialog            : Remove the dialog UI objects.</item>
-    ///     <item>RemoveButtonGroup       : Remove the button group UI objects.</item>
-    ///     <item>Stop                    : Stop the system.</item>
-    ///     <item>Resume                  : Resume the system.</item>
-    ///     <item>InvokeSpecialCommand    : Execute command directly. 
-    ///     (ex:"image,fg1,character_image,0,0,10,spFadeIn_1000")</item>
-    /// </list>
-    /// <para>[Event Handler]</para>
-    /// <list type="bullet">
-    ///     <item>logHappened             : Log events.</item>
-    ///     <item>textUpdated             : Text updating events.</item>
-    /// </list>
-    /// <para>[Parameters]</para>
-    /// <list type="bullet">
-    ///     <item>isCompleted             : Is the input text list executed completely by the system.</item>
-    ///     <item>text                    : The current text result.</item>
-    ///     <item>isWaitingForNext        : Is waiting for user input -> The Next() function.</item>
-    ///     <item>textSpeed               : Set the updating period of the text.</item>
-    ///     <item>isRichTextEnable        : Is rich text enable, if it's true, will handle the rich text tags.</item>
-    ///     <item>isDefaultLogEnable      : Enalbe the default logging system.</item>
-    ///     <item>elementsDestroyOnLoad   : Will the system and elements be destroyed when the scene changes.</item>
-    /// </list> 
-    /// </summary> 
     public class FlowerSystem : MonoBehaviour
     {
         public bool isCompleted { get { return isTextListCompleted; } }
@@ -321,6 +280,7 @@ namespace Flower{
                 Log($"Setup dialog UI failed.\n{e}", LogType.Error);
             }
         }
+        /*
         public void SetupButtonGroup(string resourcePath="DefaultButtonGroupPrefab"){
             try{
                 var buttonGroupPrefab = LoadResource<GameObject>(resourcePath);
@@ -348,6 +308,7 @@ namespace Flower{
                 Log(e.ToString(), LogType.Error);
             }
         }
+        */
         public void RemoveDialog(){
             if(_defaultTextUpdateHandler != null){
                 textUpdated -= _defaultTextUpdateHandler;
@@ -355,9 +316,11 @@ namespace Flower{
             }
             RemoveSceneObject("_Dialog");
         }
+        /*
         public void RemoveButtonGroup(){
             RemoveSceneObject("_ButtonGroup");
         }
+        */
         public void SetupUIStage(string key="default",string resourcePath="DefaultUIStagePrefab",int sortLayer=1){
             try{
                 var UIStagePrefab = LoadResource<GameObject>(resourcePath);
