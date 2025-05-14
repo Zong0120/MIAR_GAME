@@ -170,6 +170,7 @@ public class HealthManager : MonoBehaviour,IDamageable
         {
             if(currentHealth < maxHealth)
             {
+                Debug.Log("Heal"+currentHealth);
                 HeartAnimations[currentHealth].SetFull();
                 currentHealth +=1;
             }
@@ -186,7 +187,7 @@ public class HealthManager : MonoBehaviour,IDamageable
             return;
         }
 
-        
+        bool isInjuried = false;
         for(int i = 0; i < damageAmount; i++)//扣血
         {
             if(currentFreeDamage > -1)
@@ -199,8 +200,11 @@ public class HealthManager : MonoBehaviour,IDamageable
             {
                 currentHealth -=1;
                 HeartAnimations[currentHealth].SetEmpty();
+                isInjuried = true;
             }
         }
+        if(isInjuried)
+            InventoryItemManager.Instance.RemoveRandomItem();
     }
 
     public void SetGoldHeart(int Amount = 1)
@@ -215,6 +219,22 @@ public class HealthManager : MonoBehaviour,IDamageable
         }
     }
 
+    public void InvincibleTime(float time)
+    {
+        if (IsDead)
+        {
+            return;
+        }
+        canTakeDamage = false;
+        StartCoroutine(flash.FlashRoutine(time));
+        StartCoroutine(InvincibleTimeRoutine(time));
+    }
+    private IEnumerator InvincibleTimeRoutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canTakeDamage = true;
+    }
+
     public void TakeDamage(int damageAmount, Transform hitTransform)
     {
         if (!canTakeDamage)
@@ -224,7 +244,7 @@ public class HealthManager : MonoBehaviour,IDamageable
         canTakeDamage = false;
         SoundManager.PlaySoundItemAudio(SoundType.Cactus, "CactusATK");
         GetKnockedBack(hitTransform, knockBackThrust);
-        StartCoroutine(flash.FlashRoutine());
+        StartCoroutine(flash.FlashRoutine(damageRecoveryTime));
         StartCoroutine(DamageRecoveryRoutine());
         Damage(damageAmount);
         CheckPlayerDeath();
@@ -256,7 +276,7 @@ public class HealthManager : MonoBehaviour,IDamageable
             //Destroy(ActiveWeapon.Instance.gameObject);
             currentHealth = 0;
             Debug.Log("Player Death");
-            transform.GetComponent<PlayerController>().PlayerDeath();
+            PlayerController.Instance.PlayerDeath();
         }
     }
 

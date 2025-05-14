@@ -16,7 +16,7 @@ public class WeaponItem : MonoBehaviour,IUseable
         damageAmount = weaponData.damage;
     }
 
-    public void Use()
+    public virtual void Use()
     {
         animator.SetTrigger("Attack");
         weaponCollider.enabled = true;

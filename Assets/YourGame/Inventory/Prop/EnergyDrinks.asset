@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0966a38b1c118414497a1bc7b5b1d9fd, type: 3}
+  m_Name: EnergyDrinks
+  m_EditorClassIdentifier: 
+  itemName: energydrinks
+  itemNameCh: "\u725B\u5341\u4E09\u80FD\u91CF\u98F2"
+  itemImage: {fileID: -1072882181291921875, guid: 0ebda99bc13b34b04afdff281def97bd, type: 3}
+  itemDescription: 
+  itemCode: 
+  itemPrefab: {fileID: 3183328476491454562, guid: 0d7a6c15dd48b444081678e41b0f5fe9, type: 3}
+  cooldownTime: 10
+  restrictedItem: 1
+  cooldownDisappear: 0
+  maxStack: 0

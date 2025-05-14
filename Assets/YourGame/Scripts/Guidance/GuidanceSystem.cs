@@ -24,6 +24,14 @@ public class GuidanceNodeDataList
     public List<GuidanceNodeData> nodes;
 }
 
+[Serializable]
+public class highlightTargetId
+{
+    public string targetId;
+    public Vector2 position;
+    public bool is1Floor;
+}
+
 public class GuidanceSystem : MonoBehaviour
 {
     public static GuidanceSystem Instance;
@@ -34,9 +42,13 @@ public class GuidanceSystem : MonoBehaviour
     //[SerializeField] private AudioSource audioSource;
     //[SerializeField] private AudioClip typingSound;
     [SerializeField] private float typeSpeed = 0.03f;
+    [SerializeField] private GameObject TargetPoint;
 
     [Header("JSON File")]
     [SerializeField] private TextAsset jsonData;
+
+    [Header("TargetPoint")]
+    [SerializeField] private List<highlightTargetId> highlightTargets = new();
 
     private Dictionary<string, GuidanceNodeData> nodeMap = new();
     private HashSet<string> completedNodes = new();
@@ -160,6 +172,7 @@ public class GuidanceSystem : MonoBehaviour
             //if (typingSound && audioSource) audioSource.PlayOneShot(typingSound);
             yield return new WaitForSeconds(typeSpeed);
         }
+        TargetManager.Instance.AddTargetRecord(textComponent.text);
         isTyping = false;
     }
 
@@ -194,7 +207,17 @@ public class GuidanceSystem : MonoBehaviour
     public void HighlightMapTarget(string nodeId)
     {
         Debug.Log($"[小地圖提示] 高亮目標: {nodeId}");
-        // TODO: 控制小地圖點位 UI
+        var target = highlightTargets.Find(t => t.targetId == nodeId);
+        if (target != null)
+        {
+            TargetPoint.SetActive(true);
+            TargetPoint.transform.position = target.position;
+            TargetPoint.GetComponent<SpriteRenderer>().color = target.is1Floor ? new Color(1, 1, 1, 1) : new Color(1, 0, 0, 1);
+        }
+        else
+        {
+            Debug.LogWarning($"[小地圖提示] 找不到目標: {nodeId}");
+        }
     }
 
     private string ReplaceVariables(string text)

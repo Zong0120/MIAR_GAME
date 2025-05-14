@@ -8,15 +8,6 @@ public class Decoder : PropItem
         GetComponent<Collider2D>();
     private bool canUse = false;
     
-    private void Onable()
-    {
-        Debug.Log("Decoder is enabled");
-    }
-    private void OnDisable()
-    {
-        // Disable the item
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("LockDoor"))

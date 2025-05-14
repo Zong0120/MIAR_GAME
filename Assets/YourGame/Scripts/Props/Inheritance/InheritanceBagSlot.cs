@@ -13,11 +13,9 @@ public class InheritanceBagSlot : MonoBehaviour
     [SerializeField]private TextMeshProUGUI itemCountText;
     [SerializeField]private GameObject itemInfoPanel;
     [SerializeField]private Image cooldownImage;
-    private int currentCount;
     public void InitSlot()
     {
         itemData = null;
-        currentCount = 0;
         itemImage.sprite = null;
         itemCountText.text = "";
         itemInfoPanel.SetActive(false);
@@ -68,7 +66,7 @@ public class InheritanceBagSlot : MonoBehaviour
         itemImage.sprite = itemData.itemImage;
         ReplaceImage();
         if(_item.itemData.restrictedItem)
-            itemCountText.text = currentCount.ToString();
+            itemCountText.text = item.currentCount.ToString();
         else
             itemCountText.text = "";
         itemInfoPanel.SetActive(true);

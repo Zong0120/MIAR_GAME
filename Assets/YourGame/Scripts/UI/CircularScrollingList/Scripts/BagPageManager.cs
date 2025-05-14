@@ -7,14 +7,22 @@ namespace AirFishLab.ScrollingList.Demo
 {
     public class BagPageManager : MonoBehaviour
     {
+        public static BagPageManager Instance { get; private set; }
         [Header("Page")]
         [SerializeField] private BagPage[] _pages = new BagPage[4];
+        [SerializeField]private ListEventDemo _listEventDemo;
         
         public int topageCheld = 0;
         public bool shouldChangePage = true;
+        
+        private void Awake()
+        {
+            if (Instance != null) Destroy(gameObject);
+            Instance = this;
+        }
         void Start()
         {
-            ChangePage();
+            _listEventDemo.OnButtonClick(0);
         }
         public void ChangePage()
         {
@@ -35,6 +43,13 @@ namespace AirFishLab.ScrollingList.Demo
             }
         }
 
+        public void ToPage(int page)
+        {
+            if (shouldChangePage)
+            {
+                _listEventDemo.OnButtonClick(page);
+            }
+        }
     }
 }
 
@@ -43,7 +58,7 @@ public class BagPage
 {
     [SerializeField]private string _pageName;
     public GameObject _page;
-    [SerializeField]private Button _button;
+    public Button _button;
     [SerializeField]private Sprite _normalImage;
     [SerializeField]private Sprite _changeImage;
 

@@ -11,7 +11,7 @@ public class DoorLock : MonoBehaviour
     private float elapsedTime = 0f;
     private float doorCloseTime = 1.5f; // 關門動畫啟動時間
     private Animator DoorAnimator => GetComponentInChildren<Animator>();
-    public string DoorOpenAnimator = "OpenDoor";
+    private string DoorOpenAnimator = "OpenDoor";
 
     private bool Locked = true;
     private LockManager _lockManager;

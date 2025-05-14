@@ -9,6 +9,7 @@ namespace PlayerInputAction
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance { get; private set; }
         //public static PlayerController Instance;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -46,6 +47,19 @@ namespace PlayerInputAction
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
+        void Start()
+        {
+            GuidanceSystem.Instance.SetCurrentNode("GameStart");
         }
 
         void Update()
@@ -163,12 +177,21 @@ namespace PlayerInputAction
             {
                 _input.bag = false;
                 if(!CanvasCanOpen)return;
-                GuidanceSystem.Instance.SetCurrentNode("test1");
 
                 if(InventoryItemManager.Instance.BagIsOpen())
                     InventoryItemManager.Instance.CloseBag();
                 else
                     InventoryItemManager.Instance.OpenBag();
+            }
+            if(_input.map)
+            {
+                _input.map = false;
+                if(!CanvasCanOpen)return;
+
+                if(InventoryItemManager.Instance.BagIsOpen())
+                    InventoryItemManager.Instance.CloseBag();
+                else
+                    InventoryItemManager.Instance.OpenMap();
             }
             if (_input.interactive)
             {
@@ -182,7 +205,27 @@ namespace PlayerInputAction
                     ChangeAnimation("OpenBox");
                 }
             }
+            if(_input.target)
+            {
+                _input.target = false;
+                if(!CanvasCanOpen)return;
+                TargetManager.Instance.OpenTarget();
+                SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
+            }
         }
+
+        public void Accelerate_Player(float addspeed,float durationtime)
+        {
+            
+            StartCoroutine(Accelerate(addspeed, durationtime));
+        }
+        IEnumerator Accelerate(float addspeed,float durationtime)
+        {
+            MoveSpeed += addspeed;
+            yield return new WaitForSeconds(durationtime);
+            MoveSpeed -= addspeed;
+        }
+        
 
         public void OnBoxAnimationStart()
         {

@@ -6,6 +6,7 @@ using TMPro;
 
 public class TimerManager : MonoBehaviour
 {
+    public static TimerManager Instance { get; private set; }
     private int seconds;
     [SerializeField] private int min;
     [SerializeField] private int sec;
@@ -17,6 +18,12 @@ public class TimerManager : MonoBehaviour
     private int origin_min;
     private int time_threshold;
 
+    private void Awake()
+    {
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
+
     private void Start()
     {
         StartCoroutine(CountDown());
@@ -27,6 +34,7 @@ public class TimerManager : MonoBehaviour
             origin_min = min-1;
         }
         */
+        origin_min = min;
         time_threshold = origin_min/2;
     }
 

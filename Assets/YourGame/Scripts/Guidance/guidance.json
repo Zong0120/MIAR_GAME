@@ -1,16 +1,16 @@
 {
     "nodes": [
       {
-        "nodeId": "test1",
+        "nodeId": "GameStart",
         "guidanceType": "Main",
         "guidanceLines": ["你好，歡迎來到冒險世界！", "先去東邊的房間看看吧。"],
-        "highlightTargetId": "Room_East",
-        "nextNodeIds": ["RoomLocked"],
+        "highlightTargetId": "Room_1F_UP_LD",
+        "nextNodeIds": [],
         "isOptional": false
       },
       {
         "nodeId": "RoomLocked",
-        "guidanceType": "Main",
+        "guidanceType": "Side",
         "guidanceLines": ["房門鎖住了，看來需要密碼。"],
         "highlightTargetId": "HintArea",
         "nextNodeIds": [],
@@ -18,7 +18,7 @@
       },
       {
         "nodeId": "HintArea",
-        "guidanceType": "Main",
+        "guidanceType": "Side",
         "guidanceLines": ["這裡有一個提示區域，或許可以找到密碼的線索。"],
         "highlightTargetId": "",
         "nextNodeIds": [],

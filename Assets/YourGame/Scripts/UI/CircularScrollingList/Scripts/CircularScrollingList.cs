@@ -457,7 +457,7 @@ namespace AirFishLab.ScrollingList
                 if (box.ContentID == contentID)
                 {
                     //SetFocusingBox(box);
-                    Debug.Log($"SetFocusingBox {box.ContentID}");
+                    //Debug.Log($"SetFocusingBox {box.ContentID}");
                     box.GetComponent<Button>().onClick.Invoke();
                     return;
                 }

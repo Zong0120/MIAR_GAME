@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5926423908629148952}
   - component: {fileID: 3561737001063567559}
   - component: {fileID: 6827654198513966500}
-  - component: {fileID: 8121228290340504739}
+  - component: {fileID: 4001695857801721683}
   m_Layer: 0
   m_Name: UseDecoder
   m_TagString: Untagged
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canAngle: 0
   maxAngle: {x: 45, y: 45}
---- !u!61 &8121228290340504739
+--- !u!61 &4001695857801721683
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

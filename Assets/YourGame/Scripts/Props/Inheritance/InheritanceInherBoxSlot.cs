@@ -49,7 +49,10 @@ public class InheritanceInherBoxSlot : MonoBehaviour
         item = _item;
         itemData = _item._itemData;
         itemImage.sprite = itemData.itemImage;
-        itemCountText.text = item.GetItemCount().ToString();
+        if(itemData.restrictedItem)
+            itemCountText.text = item.GetItemCount().ToString();
+        else
+            itemCountText.text = "";
         ReplaceImage();
         
         itemInfoPanel.SetActive(true);

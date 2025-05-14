@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 1F-Up_ZoneData
   m_EditorClassIdentifier: 
   zoneName: 1F-Up
-  offsetPosition: {x: 0, y: 0}
   connectedZones:
   - {fileID: 11400000, guid: 891ae9742c5b648d78e2a6d651feeae9, type: 2}
   - {fileID: 11400000, guid: cfce6502dc5c141c8a9eca49f5f6bb34, type: 2}

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using AirFishLab.ScrollingList.Demo;
 
 
 public class InventoryItemManager : MonoBehaviour
@@ -47,11 +48,85 @@ public class InventoryItemManager : MonoBehaviour
         SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
     }
 
+    public void OpenMap()
+    {
+        OpenBag();
+        BagPageManager.Instance.ToPage(2);
+    }
+
     private IEnumerator UpdateBigMap()
     {
         BigMapCamera.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         BigMapCamera.SetActive(false);
+    }
+
+    public void RemoveItemCount(ItemData item,int count = 1)
+    {
+        if (item as WeaponData)
+        {
+            weaponBag.Remove(item, count);
+        }
+        else if (item as PropData)
+        {
+            propBag.Remove(item, count);
+        }
+
+    }
+
+    public void RemoveRandomItem()
+    {
+        // 隨機選擇背包
+        int randomBag = Random.Range(0, 2);
+    
+        // 根據隨機選擇處理武器背包或道具背包
+        if (randomBag == 0 && weaponBag.items.Count > 0)
+        {
+            RemoveRandomItemFromBag(weaponBag);
+        }
+        else if (propBag.items.Count > 0)
+        {
+            RemoveRandomItemFromPropBag();
+        }
+        else if(weaponBag.items.Count > 0) RemoveRandomItemFromBag(weaponBag);
+    }
+    
+    private void RemoveRandomItemFromBag(BagInventoryItem bag)
+    {
+        int randomIndex = Random.Range(0, bag.items.Count);
+        InventoryItem item = bag.items[randomIndex];
+        bag.RemoveInventoryItem(item);
+    }
+    
+    private void RemoveRandomItemFromPropBag()
+    {
+        int randomIndex = Random.Range(0, propBag.items.Count);
+        InventoryItem item = propBag.items[randomIndex];
+        // 如果是 "decoder"，檢查是否需要跳過或重新選擇
+        if (item.itemData.name == "decoder")
+        {
+            if (propBag.items.Count == 1)
+            {
+                // 唯一的道具是 "decoder"，且武器背包也空，則不移除
+                if(weaponBag.items.Count == 0)
+                    return;
+                else RemoveRandomItemFromBag(weaponBag);
+            }
+            else
+            {
+                // 隨機選擇另一個道具
+                int newRandomIndex;
+                do
+                {
+                    newRandomIndex = Random.Range(0, propBag.items.Count);
+                } while (newRandomIndex == randomIndex);
+                item = propBag.items[newRandomIndex];
+                propBag.RemoveInventoryItem(item);
+                return;
+            }
+        }
+        // 移除非 "decoder" 的道具
+        propBag.RemoveInventoryItem(item);
     }
 }
 
@@ -91,12 +166,20 @@ public class BagInventoryItem
                 items[indext].currentCount -= count;
                 if (items[indext].currentCount <= 0)
                 {
-                    items.RemoveAt(indext);
                     itemSlots[indext].GetComponent<InventoryItemSlot>().InitSlot();
+                    if(items[indext].isEquipped)
+                    {
+                        EquipManager.Instance.RemoveEquip(items[indext]);
+                    }
+                    items.RemoveAt(indext);
                 }
                 else
                 {
                     itemSlots[indext].GetComponent<InventoryItemSlot>().SetItem(items[indext]);
+                    if (items[indext].isEquipped)
+                    {
+                        EquipManager.Instance.UpdateEquipCount(items[indext]);
+                    }
                 }
                 return;
             }

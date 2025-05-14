@@ -95,9 +95,6 @@ public class GetItem : MonoBehaviour
 
     private void AddNewItem()
     {
-        // 這裡可以添加你想要的物品獲取邏輯
-        // 例如，將物品添加到玩家的背包中
-        Debug.Log("獲得物品: " + thisItem.itemName);
         if(thisItem as WeaponData)
             InventoryItemManager.Instance.weaponBag.Add(thisItem, ItemNum);
         else if(thisItem as PropData)

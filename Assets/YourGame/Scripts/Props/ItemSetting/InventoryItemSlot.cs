@@ -12,11 +12,9 @@ public class InventoryItemSlot : MonoBehaviour
     [SerializeField]private TextMeshProUGUI itemCountText;
     [SerializeField]private GameObject itemInfoPanel;
     [SerializeField]private Image cooldownImage;
-    private int currentCount;
     public void InitSlot()
     {
         itemData = null;
-        currentCount = 0;
         itemImage.sprite = null;
         itemCountText.text = "";
         itemInfoPanel.SetActive(false);
@@ -24,7 +22,12 @@ public class InventoryItemSlot : MonoBehaviour
     void OnEnable()
     {
         if(item != null)
-            cooldownImage.fillAmount = item.cooldownRemaining;
+        {
+            if(item.IsOnCooldown)
+                cooldownImage.gameObject.SetActive(true);
+            else
+                cooldownImage.gameObject.SetActive(false);
+        }
         else
             InitSlot();
     }
@@ -44,7 +47,7 @@ public class InventoryItemSlot : MonoBehaviour
         itemImage.sprite = itemData.itemImage;
         ReplaceImage();
         if(_item.itemData.restrictedItem)
-            itemCountText.text = currentCount.ToString();
+            itemCountText.text = item.currentCount.ToString();
         else
             itemCountText.text = "";
         itemInfoPanel.SetActive(true);

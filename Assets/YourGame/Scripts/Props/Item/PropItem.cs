@@ -9,7 +9,7 @@ public class PropItem : MonoBehaviour,IUseable
     [SerializeField] private bool canAngle = false;
     [SerializeField] private Vector2 maxAngle= new Vector2(45f, 45f);
 
-    public void Use()
+    public virtual void Use()
     {
         if (!CanUseProp()) return;
         animator.CrossFade("PropUse", 0.1f);

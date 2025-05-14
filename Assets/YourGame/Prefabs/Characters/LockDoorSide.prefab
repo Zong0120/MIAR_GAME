@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a231363d9435d4d738005d6a2734b358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DoorOpenAnimator: OpenDoor
   question: {fileID: 1964619138, guid: 72df8b8d5eea04b5cad710321a68475e, type: 3}
   questPassword: 1234
   targetObject: {fileID: 8574213995324498766}
@@ -347,7 +346,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.83137256}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.91764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

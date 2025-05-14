@@ -11,6 +11,10 @@ namespace AirFishLab.ScrollingList.Demo
             GetComponent<CircularScrollingList>();
         [SerializeField]
         public BagPageManager _bagPageManager;
+        public void OnButtonClick(int index)
+        {
+            _list.SetFocusingBoxByContent(index);
+        }
         
         public void DisplayFocusingContent()
         {

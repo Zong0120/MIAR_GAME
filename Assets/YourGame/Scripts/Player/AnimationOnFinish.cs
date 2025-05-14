@@ -9,6 +9,6 @@ public class AnimationOnFinish : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex) 
     {
-        animator.GetComponent<PlayerController>().ChangeAnimation(animationName,0.2f,animatorStateInfo.length);
+        PlayerController.Instance.ChangeAnimation(animationName,0.2f,animatorStateInfo.length);
     }
 }

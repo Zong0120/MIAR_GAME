@@ -30,6 +30,10 @@ public class CooldownManager : MonoBehaviour
             }
             else
             {
+                if(cooldownDict[i].itemData.restrictedItem)
+                {
+                    InventoryItemManager.Instance.RemoveItemCount(cooldownDict[i].itemData);
+                }
                 cooldownDict.RemoveAt(i);
             }
         }

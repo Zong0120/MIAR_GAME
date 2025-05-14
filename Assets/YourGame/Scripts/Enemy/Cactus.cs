@@ -6,7 +6,7 @@ namespace PlayerInputAction
 {
 public class Cactus : MonoBehaviour,IDamageable
 {
-    [SerializeField]private float damageRecoveryTime = 0.5f;    
+    [SerializeField]private float damageRecoveryTime = 0.1f;    
     [SerializeField]private int maxHealth = 8;
     private int currentHealth;
     private Animator animator => GetComponent<Animator>();
@@ -23,8 +23,7 @@ public class Cactus : MonoBehaviour,IDamageable
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(DamageRecoveryRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
-
-        Debug.Log("currentHealth:" + currentHealth);
+       // Debug.Log("currentHealth:" + currentHealth);
     }
     private void Start()
     {

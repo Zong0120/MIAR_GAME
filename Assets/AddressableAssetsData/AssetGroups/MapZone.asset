@@ -15,18 +15,23 @@ MonoBehaviour:
   m_GroupName: MapZone
   m_GUID: ef1d45d6066034f6583f750fde703e01
   m_SerializeEntries:
+  - m_GUID: 009e63b9762054f91be96ab63fe7808c
+    m_Address: Assets/YourGame/Sprites/Terrain/2F-Down.jpg
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 13ed87acda27f4974bf032faa5e9ba8c
     m_Address: Assets/YourGame/Sprites/Terrain/1F-UP.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 28377fce5df9245d2bcdeedde919a585
-    m_Address: Assets/YourGame/Sprites/Terrain/2F-Down.jpg
+  - m_GUID: 29527b17d39544c798d850459add76f9
+    m_Address: Assets/YourGame/Sprites/Terrain/1F-Center.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 29527b17d39544c798d850459add76f9
-    m_Address: Assets/YourGame/Sprites/Terrain/1F-Center.jpg
+  - m_GUID: 3a029b577ba0a461f90d11835849649b
+    m_Address: Assets/YourGame/Sprites/Terrain/2F-Up.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -37,11 +42,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b0f3a7992b8114d43be09b987a6dceae
     m_Address: Assets/YourGame/Sprites/Terrain/2F-Center.jpgenter.jpg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d00c35b3ee12e412098858aace93180c
-    m_Address: Assets/YourGame/Sprites/Terrain/2F-Up.jpg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

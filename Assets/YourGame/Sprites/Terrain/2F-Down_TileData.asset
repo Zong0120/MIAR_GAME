@@ -19,37 +19,58 @@ MonoBehaviour:
     localOffset: {x: 0, y: -0}
   - tileName: 2F-Down_1
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_1]'
-    localOffset: {x: 237.5, y: -0}
+    localOffset: {x: 230.8, y: -0}
+  - tileName: 2F-Down_2
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_2]'
+    localOffset: {x: 461.6, y: -0}
   - tileName: 2F-Down_3
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_3]'
-    localOffset: {x: 712.5, y: -0}
+    localOffset: {x: 692.4, y: -0}
   - tileName: 2F-Down_4
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_4]'
-    localOffset: {x: 0, y: -141.4}
+    localOffset: {x: 0, y: -137.3}
+  - tileName: 2F-Down_5
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_5]'
+    localOffset: {x: 230.8, y: -137.3}
+  - tileName: 2F-Down_6
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_6]'
+    localOffset: {x: 461.6, y: -137.3}
   - tileName: 2F-Down_7
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_7]'
-    localOffset: {x: 712.5, y: -141.4}
+    localOffset: {x: 692.4, y: -137.3}
   - tileName: 2F-Down_8
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_8]'
-    localOffset: {x: 0, y: -282.8}
+    localOffset: {x: 0, y: -274.6}
+  - tileName: 2F-Down_9
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_9]'
+    localOffset: {x: 230.8, y: -274.6}
+  - tileName: 2F-Down_10
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_10]'
+    localOffset: {x: 461.6, y: -274.6}
   - tileName: 2F-Down_11
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_11]'
-    localOffset: {x: 712.5, y: -282.8}
+    localOffset: {x: 692.4, y: -274.6}
   - tileName: 2F-Down_12
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_12]'
-    localOffset: {x: 0, y: -424.2}
+    localOffset: {x: 0, y: -411.9}
+  - tileName: 2F-Down_13
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_13]'
+    localOffset: {x: 230.8, y: -411.9}
+  - tileName: 2F-Down_14
+    addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_14]'
+    localOffset: {x: 461.6, y: -411.9}
   - tileName: 2F-Down_15
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_15]'
-    localOffset: {x: 712.5, y: -424.2}
+    localOffset: {x: 692.4, y: -411.9}
   - tileName: 2F-Down_16
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_16]'
-    localOffset: {x: 0, y: -565.6}
+    localOffset: {x: 0, y: -549.2}
   - tileName: 2F-Down_17
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_17]'
-    localOffset: {x: 237.5, y: -565.6}
+    localOffset: {x: 230.8, y: -549.2}
   - tileName: 2F-Down_18
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_18]'
-    localOffset: {x: 475, y: -565.6}
+    localOffset: {x: 461.6, y: -549.2}
   - tileName: 2F-Down_19
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Down.jpg[2F-Down_19]'
-    localOffset: {x: 712.5, y: -565.6}
+    localOffset: {x: 692.4, y: -549.2}

@@ -30,6 +30,7 @@ public class ClickedOtherCanvasClose : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
 
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        Debug.Log("name: " + results[0].gameObject.name);
         if((results.Count >0 && !(results[0].gameObject.name == "Content" ||results[0].gameObject.name == "Handle"))||results.Count == 0)
         {
             switch (canvasType)

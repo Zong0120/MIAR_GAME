@@ -23,6 +23,10 @@ public class EquipManager : MonoBehaviour
         {
             currentEquipped[currentItemIndex].Cooldown();
         }
+        if(currentEquipped[previousItemIndex]._item != null)
+        {
+            currentEquipped[previousItemIndex].Cooldown();
+        }
     }
 
     public void Equip(InventoryItem item)
@@ -50,6 +54,18 @@ public class EquipManager : MonoBehaviour
     
         currentEquipped[currentItemIndex].SetItem(item, instantiatedObject.GetComponent<MonoBehaviour>());
         currentEquipped[previousItemIndex].HilightItemClose();
+    }
+
+    public void UpdateEquipCount(InventoryItem item)
+    {
+        if(currentEquipped[0]._item == item)
+        {
+            currentEquipped[0].UpdateItemCount();
+        }
+        else if(currentEquipped[1]._item == item)
+        {
+            currentEquipped[1].UpdateItemCount();
+        }
     }
 
     public void RemoveEquip(InventoryItem item)
@@ -143,6 +159,15 @@ public class CurrentEquipped
 
         (_itemObject as IUseable).Use();
     }
+
+    public void UpdateItemCount()
+    {
+        if(_item.itemData.restrictedItem)
+        {
+            itemNumberText.text = _item.currentCount.ToString();
+        }
+    }
+
     public void ItemStartCooldown()
     {
         if(_item.IsOnCooldown) return;
