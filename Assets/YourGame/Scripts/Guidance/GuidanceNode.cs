@@ -1,23 +1,28 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public enum GuidanceType { Main, Side }
-
-[CreateAssetMenu(fileName = "NewGuidanceNode", menuName = "Guidance/Guidance Node")]
-public class GuidanceNode : ScriptableObject
+public class GuidanceNode : MonoBehaviour
 {
     public string nodeId;
-    public GuidanceType guidanceType;
+    public bool IsOnce = false;
 
-    [Header("導引文字（支援多段落）")]
-    [TextArea(2, 4)]
-    public List<string> guidanceLines = new();
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (IsOnce)
+            {
+                GuidanceSystem.Instance.TriggerNode(nodeId);
+                Destroy(gameObject);
+            }
+            else
+            {
+                GuidanceSystem.Instance.TriggerNode(nodeId);
+            }
+        }
+    }
 
-    [Header("小地圖目標（若有）")]
-    public string highlightTargetId;
-
-    [Header("下一步導引節點")]
-    public string[] nextNodeIds;
-
-    public bool isOptional;
+    public void TriggerNode()
+    {
+        GuidanceSystem.Instance.TriggerNode(nodeId);
+    }
 }

@@ -1,6 +1,6 @@
 using System.Collections;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using PlayerInputAction;
 
 public class HealthHeart
 {
@@ -35,8 +35,7 @@ public class HealthHeart
         HeartAnimator.gameObject.GetComponent<UnityEngine.UI.Image>().material = null;
     }
 }
-namespace PlayerInputAction
-{
+
 public class HealthManager : MonoBehaviour,IDamageable
 {
     public static HealthManager Instance { get; private set; }
@@ -48,7 +47,9 @@ public class HealthManager : MonoBehaviour,IDamageable
     private Flash flash =>GetComponent<Flash>();
     [SerializeField] private int maxHealth = 5;
     private int currentHealth;
-    public int currentFreeDamage{ get; private set; } = -1;
+    public int maxHealthvalue() => maxHealth;
+    public int currentHealthvalue() => currentHealth;
+    public int currentFreeDamage { get; private set; } = -1;
     private bool canTakeDamage = true;
     public bool IsDead { get; private set; }
     private HealthHeart[] HeartAnimations;
@@ -59,6 +60,10 @@ public class HealthManager : MonoBehaviour,IDamageable
     private Rigidbody2D rb => GetComponent<Rigidbody2D>();
     [SerializeField] private float knockBackThrust = 20f;
     [SerializeField] private float damageRecoveryTime = 3f;
+
+    [Header("Progress Files")]
+    [SerializeField] private StoryProgressData _storyProgressData;
+    [SerializeField] private InheritanceInventoryItem _WeaponInheritanceInventoryItem,_PropInheritanceInventoryItem;
 
 
     void ClearHeartBarChildNodes()
@@ -268,10 +273,24 @@ public class HealthManager : MonoBehaviour,IDamageable
         canTakeDamage = true;
     }
 
+    public void ReSetProgress()
+    {
+        _storyProgressData.ResetProgress();
+        _WeaponInheritanceInventoryItem.ResetProgress();
+        _PropInheritanceInventoryItem.ResetProgress();
+        Damage(currentHealth);
+        CheckPlayerDeath();
+        // 重置 PlayerPrefs
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+    }
+
     private void CheckPlayerDeath()
     {
-        if(currentHealth <= 0 && !IsDead)
+        if (currentHealth <= 0 && !IsDead)
         {
+            if(InventoryItemManager.Instance.BagIsOpen())
+                InventoryItemManager.Instance.CloseBag();
             IsDead = true;
             //Destroy(ActiveWeapon.Instance.gameObject);
             currentHealth = 0;
@@ -280,5 +299,4 @@ public class HealthManager : MonoBehaviour,IDamageable
         }
     }
 
-}
 }

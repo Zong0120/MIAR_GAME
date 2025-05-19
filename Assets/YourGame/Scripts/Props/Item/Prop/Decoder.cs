@@ -1,7 +1,6 @@
 using UnityEngine;
 
-namespace AirFishLab.ScrollingList.Demo
-{
+using AirFishLab.ScrollingList.Demo;
 public class Decoder : PropItem
 {
     private Collider2D propCollider=>
@@ -35,5 +34,4 @@ public class Decoder : PropItem
     {
         LockManager.Instance.LockToBingo();
     }
-}
 }

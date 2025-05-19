@@ -10,7 +10,6 @@ namespace PlayerInputAction
     public class PlayerController : MonoBehaviour
     {
         public static PlayerController Instance { get; private set; }
-        //public static PlayerController Instance;
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 15.0f;
@@ -38,6 +37,7 @@ namespace PlayerInputAction
         private bool FacingRight = true;
         public bool CanvasCanOpen = true;
         private bool CanCloseCanvas = false;
+        private string _currentChapterId = "";
         private InheritanceSceneBox _inheritanceSceneBox =null;
 
         private void Awake()
@@ -81,7 +81,7 @@ namespace PlayerInputAction
 
         public void CheckAnimation()
         {
-            if(_currentAnimation == "Death_Right" ||_currentAnimation == "Death_Left"||_currentAnimation == "CloseBox")return;
+            if(_currentAnimation == "Death_Right" ||_currentAnimation == "Death_Left"||_currentAnimation == "CloseBox"||_currentAnimation=="ReadFile_Right"||_currentAnimation=="ReadFile_Left")return;
 
             if(_currentAnimation == "OpenBox")
             {
@@ -225,6 +225,22 @@ namespace PlayerInputAction
             yield return new WaitForSeconds(durationtime);
             MoveSpeed -= addspeed;
         }
+
+        public void ReadChapter(string storyID)
+        {
+            if (storyID == null) return;
+            isFreezed = true;
+            ChangeAnimation("ReadFile_" + ((FacingRight == true) ? "Right" : "Left"));
+            _currentChapterId = storyID;
+        }
+
+        public void OnReadEnd()
+        {
+            if (_currentChapterId == null) return;
+            StoryManager.Instance.UnlockNextChapter(_currentChapterId);
+            _currentChapterId = null;
+            isFreezed = false;
+        }
         
 
         public void OnBoxAnimationStart()
@@ -246,11 +262,20 @@ namespace PlayerInputAction
         {
             _inheritanceSceneBox = null;
         }
+        public void FreezePlayer()
+        {
+            isFreezed = true;
+            ChangeAnimation("Idle_" + ((FacingRight == true) ? "Right" : "Left"));
+        }
+        public void UnFreezePlayer()
+        {
+            isFreezed = false;
+        }
 
         public void PlayerDeath()
         {
             isFreezed = true;
-            ChangeAnimation("Death_" + (_currentAnimation.Contains("right") ? "Right" : "Left"));
+            ChangeAnimation("Death_" + ((FacingRight == true) ? "Right" : "Left"));
             StartCoroutine(WaitReStart());
         }
         IEnumerator WaitReStart()

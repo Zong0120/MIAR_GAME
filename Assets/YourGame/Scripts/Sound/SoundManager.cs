@@ -80,6 +80,20 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning($"Background music '{name}' not found in '{soundType}'");
         }
     }
+    public static void PauseBackgroundMusic()
+    {
+        if (_instance != null)
+        {
+            _instance._backgroundMusicSource.Pause();
+        }
+    }
+    public static void ResumeBackgroundMusic()
+    {
+        if (_instance != null)
+        {
+            _instance._backgroundMusicSource.UnPause();
+        }
+    }
 
     public static void PlaySound(SoundType soundType)
     {
@@ -108,6 +122,34 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning($"Sound '{soundName}' not found in '{soundType}'");
         }
+    }
+
+    public static AudioSource GetBackgroundMusicSource()
+    {
+        return _instance != null ? _instance._backgroundMusicSource : null;
+    }
+    public static AudioSource GetSoundEffectSource()
+    {
+        return _instance != null ? _instance._soundEffectSource : null;
+    }
+
+    public static void ToggleBackgroundMusic()
+    {
+        _instance._backgroundMusicSource.mute = !_instance._backgroundMusicSource.mute;
+    }
+    public static void ToggleSoundEffect()
+    {
+        _instance._soundEffectSource.mute = !_instance._soundEffectSource.mute;
+    }
+
+    public static void SetBackgroundMusicVolume(float volume)
+    {
+        
+        _instance._backgroundMusicSource.volume = volume;
+    }
+    public static void SetSoundEffectVolume(float volume)
+    {
+        _instance._soundEffectSource.volume = volume;
     }
 }
 

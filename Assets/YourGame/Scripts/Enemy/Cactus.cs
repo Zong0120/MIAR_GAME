@@ -2,8 +2,6 @@ using System.Collections;
 using PlayerInputAction;
 using UnityEngine;
 
-namespace PlayerInputAction
-{
 public class Cactus : MonoBehaviour,IDamageable
 {
     [SerializeField]private float damageRecoveryTime = 0.1f;    
@@ -89,5 +87,4 @@ public class Cactus : MonoBehaviour,IDamageable
             collision.gameObject.GetComponent<IDamageable>().TakeDamage(1, transform);
         }
     }
-}
 }

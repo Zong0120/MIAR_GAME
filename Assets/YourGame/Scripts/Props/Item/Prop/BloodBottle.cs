@@ -1,6 +1,5 @@
 using UnityEngine;
-namespace PlayerInputAction
-{
+using PlayerInputAction;
 public class BloodBottle : PropItem
 {
     private Animator animator => GetComponent<Animator>();
@@ -15,5 +14,4 @@ public class BloodBottle : PropItem
         Debug.Log("BloodBottle effect used!");
         HealthManager.Instance.Heal(1);
     }
-}
 }

@@ -43,12 +43,6 @@ public class OptionsScreen : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void ResLeft()
     {
         selecteResolution--;
@@ -72,6 +66,7 @@ public class OptionsScreen : MonoBehaviour
     public void UpdateResLabel()
     {
         resolutionLabel.text = resolutions[selecteResolution].horizontal.ToString() + " x " + resolutions[selecteResolution].vertical.ToString();
+        ApplyGraphics();
     }
     public void ApplyGraphics()
     {

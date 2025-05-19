@@ -43,16 +43,9 @@ public class StoryManager : MonoBehaviour
     {
         for(int i = 0; i < chapterSpawnPoints.Length; i++)
         {
-            if (storyProgressData.CanSpawnChapterTrigger(chapterSpawnPoints[i].spawnID))
+            if (!storyProgressData.CanSpawnChapterTrigger(chapterSpawnPoints[i].spawnID))
             {
-                // 將 storyTriggerPrefab 生成在 spawnTransform 底下
-                GameObject trigger = Instantiate(
-                    storyTriggerPrefab, 
-                    chapterSpawnPoints[i].spawnTransform.position, 
-                    Quaternion.identity, 
-                    chapterSpawnPoints[i].spawnTransform
-                );
-                trigger.GetComponent<GetStoryChapter>().SetStorySpawn(chapterSpawnPoints[i].spawnID);
+               Destroy(chapterSpawnPoints[i].spawnTransform.gameObject);
             }
         }
         for(int i = 0; i < zoneSpawnPoints.Length; i++)
@@ -76,7 +69,7 @@ public class StoryManager : MonoBehaviour
         {
             InventoryItemManager.Instance.storyZoneBag.Add(story);
         }
-        for(int i = 0;i<storyProgressData.currentChapterIndex;i++)
+        for(int i = 0;i<storyProgressData.usedChapterSpawnPoints.Count;i++)
         {
             InventoryItemManager.Instance.storyChapterBag.Add(storyProgressData.chapters[i]);
         }
@@ -87,7 +80,7 @@ public class StoryManager : MonoBehaviour
         if (!storyProgressData.HasNextChapter())
             return;
         StoryChapter currentStory = storyProgressData.PeekNextChapter(spawnID);
-        ShowStory(currentStory.title, currentStory.content);
+        VideoManager.Instance.PlayVideo(currentStory.videoClip,1);
         InventoryItemManager.Instance.storyChapterBag.Add(currentStory);
     }
 

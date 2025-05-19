@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+namespace PlayerInputAction
+{
 public class InteractionScope : MonoBehaviour
 {
     private static InteractionScope instance;
@@ -132,4 +134,5 @@ public class InteractionScope : MonoBehaviour
         */
     }
 
+}
 }

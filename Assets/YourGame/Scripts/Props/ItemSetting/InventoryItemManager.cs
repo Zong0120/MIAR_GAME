@@ -14,8 +14,12 @@ public class InventoryItemManager : MonoBehaviour
     public StoryTextInventory storyZoneBag;
     public StoryTextInventory storyChapterBag;
 
-    [SerializeField]private GameObject BagUIRoot;
+    [SerializeField] private GameObject BagUIRoot;
     [SerializeField]private GameObject BigMapCamera;
+    
+    //special item
+    public InventoryItem _decoder()=>propBag.GetInventoryItem("decoder");
+    public InventoryItem _bullet()=>weaponBag.GetInventoryItem("bullet");
 
     void Awake()
     {
@@ -152,9 +156,16 @@ public class BagInventoryItem
             }
         }
         items.Add(new InventoryItem(item, count));
-        itemSlots[items.Count-1].GetComponent<InventoryItemSlot>().SetItem(items[items.Count-1]);
-
-        Debug.Log("Add New Item: " + item.itemName);
+        for(int index = 0; index < itemSlots.Count; index++)
+        {
+            if (itemSlots[index].GetComponent<InventoryItemSlot>().itemData==null)
+            {
+                itemSlots[index].GetComponent<InventoryItemSlot>().SetItem(items[items.Count-1]);
+                Debug.Log("Add New Item: " + item.itemName);
+                break;
+            }
+        }
+        //itemSlots[items.Count-1].GetComponent<InventoryItemSlot>().SetItem(items[items.Count-1]);
     }
 
     public void Remove(ItemData item, int count = 1)
@@ -186,6 +197,18 @@ public class BagInventoryItem
         }
     }
 
+    public InventoryItem GetInventoryItem(string name)
+    {
+        for (int indext = 0; indext < items.Count; indext++)
+        {
+            if (items[indext].itemData.itemName == name)
+            {
+                return items[indext];
+            }
+        }
+        return null;
+    }
+
     public void RemoveInventoryItem(InventoryItem item)
     {
         for (int indext = 0; indext < items.Count; indext++)
@@ -210,7 +233,7 @@ public class BagInventoryItem
         itemImage.enabled = true;
 
         currentItem = items.Find(x => x.itemData.itemName == item.itemName);
-        if(currentItem.IsOnCooldown || currentItem.isEquipped)
+        if(currentItem.IsOnCooldown || currentItem.isEquipped||item.itemName == "bullet")
         {
             UseButton.SetActive(false);
             currentItem = null;

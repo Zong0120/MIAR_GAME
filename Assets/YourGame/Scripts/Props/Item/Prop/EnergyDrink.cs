@@ -1,6 +1,5 @@
 using UnityEngine;
-namespace PlayerInputAction
-{
+using PlayerInputAction;
 public class EnergyDrink : PropItem
 {
     private Animator animator => GetComponent<Animator>();
@@ -15,5 +14,4 @@ public class EnergyDrink : PropItem
         HealthManager.Instance.InvincibleTime(10f);
         PlayerController.Instance.Accelerate_Player(5f, 10f);
     }
-}
 }

@@ -4,15 +4,31 @@
         "nodeId": "GameStart",
         "guidanceType": "Main",
         "guidanceLines": ["你好，歡迎來到冒險世界！", "先去東邊的房間看看吧。"],
+        "highlightTargetId":"",
+        "nextNodeIds": ["Find_Decoder","Find_Chapter_1URD","Find_Chapter_1DLD"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_Decoder",
+        "guidanceType": "Main",
+        "guidanceLines": ["這似乎是一個解碼器，試著用它來解鎖房門吧！"],
         "highlightTargetId": "Room_1F_UP_LD",
-        "nextNodeIds": [],
+        "nextNodeIds": ["Find_Chapter_1URD","Find_Chapter_1DLD"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_Chapter_1URD",
+        "guidanceType": "Main",
+        "guidanceLines": [""],
+        "highlightTargetId": "Room_1F_UP_RD",
+        "nextNodeIds": ["Find_Decoder","Find_Chapter_1DLD"],
         "isOptional": false
       },
       {
         "nodeId": "RoomLocked",
         "guidanceType": "Side",
         "guidanceLines": ["房門鎖住了，看來需要密碼。"],
-        "highlightTargetId": "HintArea",
+        "highlightTargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       },

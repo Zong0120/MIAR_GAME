@@ -51,7 +51,7 @@ public class GuidanceSystem : MonoBehaviour
     [SerializeField] private List<highlightTargetId> highlightTargets = new();
 
     private Dictionary<string, GuidanceNodeData> nodeMap = new();
-    private HashSet<string> completedNodes = new();
+    private HashSet<string> completedMainNodes = new();
     private GuidanceNodeData currentNode;
 
     private Queue<string> guidanceQueue = new();
@@ -77,12 +77,9 @@ public class GuidanceSystem : MonoBehaviour
 
     public void TriggerNode(string nodeId)
     {
-        if (completedNodes.Contains(nodeId)) return;
+        if (completedMainNodes.Contains(nodeId)) return;
 
         if (!nodeMap.TryGetValue(nodeId, out var node)) return;
-
-        completedNodes.Add(nodeId);
-        Debug.Log($"[導引觸發] {nodeId}");
 
         if (node.guidanceType == "Main")
             SetCurrentNode(nodeId);
@@ -99,8 +96,7 @@ public class GuidanceSystem : MonoBehaviour
         if (node.guidanceLines.Count > 0)
             SetGuidance(node.guidanceLines);
 
-        if (!string.IsNullOrEmpty(node.highlightTargetId))
-            HighlightMapTarget(node.highlightTargetId);
+        HighlightMapTarget(node);
     }
 
     public void SetGuidance(List<string> lines)
@@ -125,19 +121,43 @@ public class GuidanceSystem : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
+            
+            TargetManager.Instance.AddTargetRecord(current);
         }
         Hide();
         isShowing = false;
+    }
+
+    public IEnumerator NextMain(float waitTime = 1f)
+    {
         // 若還有下一節點，自動觸發
         if (currentNode != null && currentNode.nextNodeIds.Length > 0)
         {
-            string nextId = currentNode.nextNodeIds[0];
-            if (!IsNodeCompleted(nextId))
+            foreach(string nextId in currentNode.nextNodeIds)
             {
-                Debug.Log($"[導引自動接續] → {nextId}");
-                yield return new WaitForSeconds(0.5f);
-                SetCurrentNode(nextId);
+                if (!IsNodeCompleted(nextId))
+                {
+                    Debug.Log($"[導引自動接續] → {nextId}");
+                    yield return new WaitForSeconds(waitTime);
+                    TargetManager.Instance.ClearTargetRecord();
+                    // 觸發下一節點
+                    SetCurrentNode(nextId);
+                    break;
+                }
             }
+            
+        }
+    }
+    public void CompletedMainNodes(string nodeId)
+    {
+        if (nodeMap.TryGetValue(nodeId, out var node))
+        {
+            completedMainNodes.Add(node.nodeId);
+            Debug.Log($"[導引完成] {node.nodeId}");
+        }
+        else
+        {
+            Debug.LogWarning($"[導引完成] 找不到節點: {nodeId}");
         }
     }
 
@@ -172,7 +192,6 @@ public class GuidanceSystem : MonoBehaviour
             //if (typingSound && audioSource) audioSource.PlayOneShot(typingSound);
             yield return new WaitForSeconds(typeSpeed);
         }
-        TargetManager.Instance.AddTargetRecord(textComponent.text);
         isTyping = false;
     }
 
@@ -204,22 +223,34 @@ public class GuidanceSystem : MonoBehaviour
         canvasGroup.alpha = endAlpha;
     }
 
-    public void HighlightMapTarget(string nodeId)
+    public void HighlightMapTarget(GuidanceNodeData node)
     {
-        Debug.Log($"[小地圖提示] 高亮目標: {nodeId}");
-        var target = highlightTargets.Find(t => t.targetId == nodeId);
-        if (target != null)
+        foreach(string nextId in node.nextNodeIds)
         {
-            TargetPoint.SetActive(true);
-            TargetPoint.transform.position = target.position;
-            TargetPoint.GetComponent<SpriteRenderer>().color = target.is1Floor ? new Color(1, 1, 1, 1) : new Color(1, 0, 0, 1);
-        }
-        else
-        {
-            Debug.LogWarning($"[小地圖提示] 找不到目標: {nodeId}");
+            if (!IsNodeCompleted(nextId))
+            {
+                if(nodeMap.TryGetValue(nextId, out var target))
+                {
+                    var targetH= highlightTargets.Find(t => t.targetId == target.highlightTargetId);
+                    if (targetH != null)
+                    {
+                        TargetPoint.SetActive(true);
+                        TargetPoint.transform.position = targetH.position;
+                        TargetPoint.GetComponent<SpriteRenderer>().color = targetH.is1Floor ? new Color(1, 1, 1, 1) : new Color(1, 0, 0, 1);
+                        return;
+                    }
+                    else
+                        Debug.LogWarning($"[小地圖提示] 找不到目標: {node.nodeId} highlightTargetId");
+                }
+                else
+                {
+                    Debug.LogWarning($"[小地圖提示] 找不到目標: {nextId}");
+                }
+                return;
+            }
         }
     }
-
+   
     private string ReplaceVariables(string text)
     {
         return Regex.Replace(text, @"\[#(\w+)\]", match =>
@@ -233,7 +264,7 @@ public class GuidanceSystem : MonoBehaviour
         });
     }
 
-    public bool IsNodeCompleted(string nodeId) => completedNodes.Contains(nodeId);
+    public bool IsNodeCompleted(string nodeId) => completedMainNodes.Contains(nodeId);
     #endregion
 
     #region Custom Functions

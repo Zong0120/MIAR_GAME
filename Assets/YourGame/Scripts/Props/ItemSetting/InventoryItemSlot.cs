@@ -7,13 +7,14 @@ using TMPro;
 public class InventoryItemSlot : MonoBehaviour
 {
     private InventoryItem item;
-    private ItemData itemData;
+    public ItemData itemData{ get; private set; }
     [SerializeField]private Image itemImage;
     [SerializeField]private TextMeshProUGUI itemCountText;
     [SerializeField]private GameObject itemInfoPanel;
     [SerializeField]private Image cooldownImage;
     public void InitSlot()
     {
+        item = null;
         itemData = null;
         itemImage.sprite = null;
         itemCountText.text = "";

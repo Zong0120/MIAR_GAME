@@ -5,7 +5,7 @@ public class InheritanceInventoryItem : ScriptableObject
 {
     public InheritanceItemData[] _itemData = new InheritanceItemData[4]; // 物品數據
 
-    public void InitAllInheritanceInventoryItem()
+    public void ResetProgress()
     {
         for (int i = 0; i < _itemData.Length; i++)
         {

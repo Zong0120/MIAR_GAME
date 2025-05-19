@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using PlayerInputAction;
 
 public class GetStoryChapter : MonoBehaviour
 {
-    private string _storySpawnID;
+    public string _storySpawnID;
     public float floatingSpeed = 30f; // 浮现速度
     private bool isInteractable = true;
     private GameObject player => GameObject.FindGameObjectWithTag("Player");
@@ -13,10 +14,6 @@ public class GetStoryChapter : MonoBehaviour
     }
     private void OnDisable() {
         GetComponent<SpriteRenderer>().color = new Color(0.6f,0.6f,0.6f,1);
-    }
-    public void SetStorySpawn(string spawnID)
-    {
-        _storySpawnID = spawnID;
     }
     void Update()
     {
@@ -38,8 +35,8 @@ public class GetStoryChapter : MonoBehaviour
     
     
         yield return new WaitForSeconds(1f);
-        AddNewItem();
-    
+
+        PlayerController.Instance.ReadChapter(_storySpawnID);
         Destroy(itemTransform.gameObject);
     }
 
@@ -50,11 +47,6 @@ public class GetStoryChapter : MonoBehaviour
             itemTransform.position = Vector3.MoveTowards(itemTransform.position, targetPosition, Time.deltaTime * floatingSpeed);
             yield return null;
         }
-    }
-
-    private void AddNewItem()
-    {
-        StoryManager.Instance.UnlockNextChapter(_storySpawnID);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

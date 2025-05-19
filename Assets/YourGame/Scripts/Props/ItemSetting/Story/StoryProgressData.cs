@@ -9,7 +9,6 @@ public class StoryProgressData : ScriptableObject
 
 
     [Header("已解鎖的章節與區域")]
-    public int currentChapterIndex = 0;
     public List<string> usedChapterSpawnPoints;
     public List<StoryZone> unlockedZones;
     public List<string> usedZoneSpawnPoints;
@@ -19,9 +18,9 @@ public class StoryProgressData : ScriptableObject
     /// </summary>
     public void ResetProgress()
     {
-        currentChapterIndex = 0;
         unlockedZones.Clear();
         usedChapterSpawnPoints.Clear();
+        usedZoneSpawnPoints.Clear();
     }
 
     /// <summary>
@@ -38,17 +37,6 @@ public class StoryProgressData : ScriptableObject
 
 
     /// <summary>
-    /// 解鎖下一個主線章節（順序性）
-    /// </summary>
-    public void UnlockNextChapter()
-    {
-        if (currentChapterIndex < chapters.Count)
-        {
-            currentChapterIndex++;
-        }
-    }
-
-    /// <summary>
     /// 解鎖特定區域的敘述
     /// </summary>
     public void UnlockZone(StoryZone zone)
@@ -60,7 +48,7 @@ public class StoryProgressData : ScriptableObject
     /// <summary>
     /// 是否還有尚未解鎖的主線章節
     /// </summary>
-    public bool HasNextChapter() => currentChapterIndex < chapters.Count;
+    public bool HasNextChapter() => usedChapterSpawnPoints.Count < chapters.Count;
 
     /// <summary>
     /// 解鎖下一個主線章節
@@ -68,8 +56,7 @@ public class StoryProgressData : ScriptableObject
     public StoryChapter PeekNextChapter(string spawnID)
     {
         if (!HasNextChapter()) return null;
-        currentChapterIndex++;
         usedChapterSpawnPoints.Add(spawnID);
-        return chapters[currentChapterIndex-1];
+        return chapters[usedChapterSpawnPoints.Count-1];
     }
 }

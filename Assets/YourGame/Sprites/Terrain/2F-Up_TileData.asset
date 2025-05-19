@@ -22,7 +22,7 @@ MonoBehaviour:
     localOffset: {x: 223.2, y: -0}
   - tileName: 2F-Up_2
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_2]'
-    localOffset: {x: 447.7, y: -0}
+    localOffset: {x: 446.4, y: -0}
   - tileName: 2F-Up_3
     addressKey: 'Assets/YourGame/Sprites/Terrain/2F-Up.jpg[2F-Up_3]'
     localOffset: {x: 669.6, y: -0}

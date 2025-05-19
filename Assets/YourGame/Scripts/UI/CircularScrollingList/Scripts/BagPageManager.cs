@@ -2,54 +2,102 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using AirFishLab.ScrollingList.Demo;
 
-namespace AirFishLab.ScrollingList.Demo
+public class BagPageManager : MonoBehaviour
 {
-    public class BagPageManager : MonoBehaviour
+    public static BagPageManager Instance { get; private set; }
+    [Header("Page")]
+    [SerializeField] private BagPage[] _pages = new BagPage[4];
+    [SerializeField]private ListEventDemo _listEventDemo;
+    [Header("Setting")]
+    [SerializeField]private GameObject _settingPage;
+
+    [Header("State Display")]
+    [SerializeField]private TextMeshProUGUI _bloodText;
+    [SerializeField]private TextMeshProUGUI _speedText;
+    [SerializeField]private TextMeshProUGUI _interactionText;
+    
+    public int topageCheld{ get; set; } = 0;
+    
+    private void Awake()
     {
-        public static BagPageManager Instance { get; private set; }
-        [Header("Page")]
-        [SerializeField] private BagPage[] _pages = new BagPage[4];
-        [SerializeField]private ListEventDemo _listEventDemo;
-        
-        public int topageCheld = 0;
-        public bool shouldChangePage = true;
-        
-        private void Awake()
+        if (Instance != null) Destroy(gameObject);
+        Instance = this;
+    }
+    void Start()
+    {
+        for (int i = 0; i < _pages.Length; i++)
         {
-            if (Instance != null) Destroy(gameObject);
-            Instance = this;
+            if (_pages[i] == null) continue;
+            _pages[i]._button.onClick.AddListener(ChangePage);
         }
-        void Start()
+        _listEventDemo.OnButtonClick(0);
+    }
+    private void OnEnable()
+    {
+        UpdateStateDisplay();
+    }
+    private void UpdateStateDisplay()
+    {
+        _bloodText.text = HealthManager.Instance.currentHealthvalue() + "/" + HealthManager.Instance.maxHealthvalue();
+        //_speedText.text = "Speed: " + PlayerManager.Instance.PlayerData.Speed.ToString();
+        //_interactionText.text = "Interaction: " + PlayerManager.Instance.PlayerData.Interaction.ToString();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _listEventDemo.OnButtonClick(0);
+            ToPage(0);
         }
-        public void ChangePage()
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            for (int i = 0; i < _pages.Length; i++)
-            {
-                if (_pages[i] == null) continue;
-                if (topageCheld == i + 1)
-                {
-                    _pages[i].OpenPage();
-                }
-                else
-                {
-                    if (_pages[i]._page.gameObject.activeSelf)
-                    {
-                        _pages[i].ClosePage();
-                    }
-                }
-            }
+            ToPage(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ToPage(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ToPage(3);
         }
 
-        public void ToPage(int page)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (shouldChangePage)
+            if (_settingPage.activeSelf)
+                _settingPage.SetActive(false);
+            else
+                _settingPage.SetActive(true);
+        }
+    }
+    public void OpenSettingPage()
+    {
+        _settingPage.SetActive(true);
+    }
+    public void ChangePage()
+    {
+        for (int i = 0; i < _pages.Length; i++)
+        {
+            if (_pages[i] == null) continue;
+            if (topageCheld == i + 1)
             {
-                _listEventDemo.OnButtonClick(page);
+                _pages[i].OpenPage();
+            }
+            else
+            {
+                if (_pages[i]._page.gameObject.activeSelf)
+                {
+                    _pages[i].ClosePage();
+                }
             }
         }
+    }
+
+    public void ToPage(int page)
+    {
+        _listEventDemo.OnButtonClick(page);
     }
 }
 

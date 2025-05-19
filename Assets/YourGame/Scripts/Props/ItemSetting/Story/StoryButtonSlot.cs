@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoryButtonSlot : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class StoryButtonSlot : MonoBehaviour
     [SerializeField]private TextMeshProUGUI _storyTitleText;
     [SerializeField]private TextMeshProUGUI _storyDescribeText;
     [SerializeField]private RectTransform _ScrollViewContent;
+    [SerializeField]private Button _chapterButton;
     
     public void SetStory(StoryText text)
     {
@@ -24,7 +26,18 @@ public class StoryButtonSlot : MonoBehaviour
             _storyDescribeText.text = _storyText.content;
 
             AdjustContentHeight();
-
+            if(_storyText as StoryChapter)
+            {
+                _chapterButton.gameObject.SetActive(true);
+                _chapterButton.onClick.AddListener(() =>
+                {
+                    VideoManager.Instance.PlayVideo((_storyText as StoryChapter).videoClip);
+                });
+            }
+            else
+            {
+                _chapterButton.gameObject.SetActive(false);
+            }
             _scrollView.SetActive(true);
         }
         else

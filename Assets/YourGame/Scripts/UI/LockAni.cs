@@ -16,14 +16,10 @@ public class LockAni : MonoBehaviour
         SoundManager.PlaySoundItemAudio(SoundType.Lock,"Lock_Chain");
     }
 
-    private void Start()
-    {
-        canvas.enabled = false;
-    }
-
     private void OnEnable()
     {
         _animator.SetBool("unclocked",false);
+        canvas.enabled = false;
     }
 
     private void Update()

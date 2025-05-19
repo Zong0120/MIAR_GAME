@@ -22,11 +22,9 @@ MonoBehaviour:
     {\n        InteractionScope.AddInteractionScope(0.7f);\n        Player.damaged
     /=2;\n    }\n}\n"
   itemPrefab: {fileID: 7581635535929492022, guid: 4f72500d00cd8438c8f840c637b4bbd5, type: 3}
-  cooldownTime: 1
+  cooldownTime: 2
   restrictedItem: 0
   cooldownDisappear: 0
   damage: 2
   attackRate: 0
-  maxDistance: 0
-  magSize: 0
-  reloadTime: 0
+  attackRange: 0
