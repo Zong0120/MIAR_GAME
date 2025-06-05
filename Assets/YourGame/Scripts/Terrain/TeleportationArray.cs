@@ -4,21 +4,32 @@ using PlayerInputAction;
 public class TeleportationArray : MonoBehaviour
 {
     [SerializeField] private MapZoneData targetZone;
-    [SerializeField] private Transform targetPosition;
+    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private string startupItemName;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     private Animator _animator => GetComponent<Animator>();
 
     private Coroutine teleportCoroutine;
+    private bool isFirst = true;
 
     private bool isTeleporting = false;
-
+    private void Start()
+    {
+        _spriteRenderer.color = new Color(0, 0, 0, 0.5f); 
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isTeleporting) return;
 
         if (other.CompareTag("Player"))
         {
-            isTeleporting = true;
-            teleportCoroutine = StartCoroutine(TeleportCoroutine());
+            if (InventoryItemManager.Instance.haveItem(startupItemName))
+            {
+                _spriteRenderer.color = new Color(1, 1, 1, 0.8f);
+                isTeleporting = true;
+                teleportCoroutine = StartCoroutine(TeleportCoroutine());
+            }
+            else if(isFirst)GuidanceSystem.Instance.TriggerNode("HintTeleportationArray");
         }
     }
 
@@ -65,9 +76,10 @@ public class TeleportationArray : MonoBehaviour
     // 由動畫事件觸發
     public void OnAnimationEnd()
     {
+        
         isTeleporting = false;
         teleportCoroutine = null;
         // 正式切換地圖區塊並將玩家傳送
-        MapZoneManager.Instance.ActivateTeleportZone(targetZone, targetPosition.position);
+        MapZoneManager.Instance.ActivateTeleportZone(targetZone, targetPosition);
     }
 }

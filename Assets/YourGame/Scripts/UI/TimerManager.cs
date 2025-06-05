@@ -10,9 +10,9 @@ public class TimerManager : MonoBehaviour
     private int seconds;
     [SerializeField] private int min;
     [SerializeField] private int sec;
-    [SerializeField] private TextMeshProUGUI time;
-    private bool isTimePause = false;
-    private bool BagTimePause=false;
+    public TextMeshProUGUI time;
+    public bool isTimePause { get; set; } = false;
+    public bool BagTimePause { get; set; } = false;
     //[SerializeField] private Material _Material;
     //private float _Offset=0;
     private int origin_min;
@@ -35,7 +35,7 @@ public class TimerManager : MonoBehaviour
         }
         */
         origin_min = min;
-        time_threshold = origin_min/2;
+        time_threshold = origin_min / 2;
     }
 
     IEnumerator CountDown()
@@ -43,9 +43,9 @@ public class TimerManager : MonoBehaviour
         time.text = string.Format("{0}:{1}", min.ToString("00"), sec.ToString("00"));
         seconds = min * 60 + sec;
 
-         while (seconds > 0)
+        while (seconds > 0)
         {
-            if(isTimePause||BagTimePause)
+            if (isTimePause || BagTimePause)
             {
                 yield return null;
             }
@@ -60,6 +60,8 @@ public class TimerManager : MonoBehaviour
                 {
                     min--;
                     sec = 59;
+                    if (min == 1 || min == 2 || min == 4 || min == 7)
+                        GhostEnemy.Instance.Activate();
                     //NegativeState();
                 }
                 else if (sec < 0 && min == 0)
@@ -71,8 +73,8 @@ public class TimerManager : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(1f);
+        HealthManager.Instance.DirectDeath();
 
-        
         //Health.Instance.PlayerDeath();
     }
 
@@ -80,33 +82,33 @@ public class TimerManager : MonoBehaviour
     {
         seconds *= 5;
         seconds /= 2;
-        if(seconds > 900)seconds = 900;
-        min = seconds/60;
-        sec = seconds%60;
+        if (seconds > 900) seconds = 900;
+        min = seconds / 60;
+        sec = seconds % 60;
         //NegativeState();
     }
 
     public void ReduceHalfTime()
     {
-        seconds /=2;
-        min = seconds / 60 ;
-        sec = seconds%60;
+        seconds /= 2;
+        min = seconds / 60;
+        sec = seconds % 60;
         //NegativeState();
     }
     public void ReduceQuarterTime()
     {
-        seconds = seconds * 3 /4;
+        seconds = seconds * 3 / 4;
         min = seconds / 60;
-        sec = seconds%60;
+        sec = seconds % 60;
         //NegativeState();
     }
 
     public void AddTime(int _time)
     {
-        if(seconds > 900)seconds = 900;
-        seconds +=_time;
-        min = seconds/60 ; 
-        sec = seconds%60;
+        if (seconds > 900) seconds = 900;
+        seconds += _time;
+        min = seconds / 60;
+        sec = seconds % 60;
         //NegativeState();
     }
     /*

@@ -13,12 +13,7 @@ namespace PlayerInputAction
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 15.0f;
-
-        [Space(10)]
-        [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject CinemachineCameraTarget;
-        public List<GameObject> cinemachines;
+        public float InitMoveSpeed{get;private set;}
 
         [Space(10)]
         [Header("Player Death")]
@@ -36,9 +31,10 @@ namespace PlayerInputAction
         private bool isFreezed = false;
         private bool FacingRight = true;
         public bool CanvasCanOpen = true;
-        private bool CanCloseCanvas = false;
         private string _currentChapterId = "";
         private InheritanceSceneBox _inheritanceSceneBox =null;
+        public bool canOpenComputer = false;
+        [SerializeField] private GameObject _computerUI;
 
         private void Awake()
         {
@@ -59,9 +55,11 @@ namespace PlayerInputAction
         }
         void Start()
         {
-            GuidanceSystem.Instance.SetCurrentNode("GameStart");
+            InitMoveSpeed = MoveSpeed;
+            
+            SoundManager.ReStartBackgroundMusic();
         }
-
+        
         void Update()
         {
             CheckAnimation();
@@ -85,13 +83,7 @@ namespace PlayerInputAction
 
             if(_currentAnimation == "OpenBox")
             {
-                if(_input.interactive && CanCloseCanvas)
-                {
-                    ChangeAnimation("CloseBox");
-                    _input.interactive = false;
-                    CanvasCanOpen = true;
-                    CanCloseCanvas = false;
-                }
+                StartCoroutine(WaitForInputChange("CloseBox"));
                 return;
             }
 
@@ -121,10 +113,24 @@ namespace PlayerInputAction
                     ChangeAnimation("Idle_left");
             }
         }
-
-        public void ChangeAnimation(string animationName,float crossFadeTime = 0.2f,float time = 0)
+        IEnumerator WaitForInputChange(string animationName)
         {
-            if(time > 0)StartCoroutine(WaitForAnimation(time));
+            while (true)
+            {
+                if (_input.interactive)
+                {
+                    _input.interactive = false;
+                    //CanvasCanOpen = true;
+                    ChangeAnimation(animationName);
+                    break;
+                }
+                yield return null;
+            }
+        }
+
+        public void ChangeAnimation(string animationName, float crossFadeTime = 0.2f, float time = 0)
+        {
+            if (time > 0) StartCoroutine(WaitForAnimation(time));
             else Validate();
 
             IEnumerator WaitForAnimation(float time)
@@ -138,9 +144,9 @@ namespace PlayerInputAction
                 if (_currentAnimation != animationName)
                 {
                     _currentAnimation = animationName;
-                    if(_currentAnimation == "")
+                    if (_currentAnimation == "")
                         CheckAnimation();
-                    else 
+                    else
                         _animator.CrossFade(animationName, crossFadeTime);
                 }
             }
@@ -196,13 +202,20 @@ namespace PlayerInputAction
             if (_input.interactive)
             {
                 _input.interactive = false;
-                if(!CanvasCanOpen)return;
-                if(_inheritanceSceneBox != null)
+                if (!CanvasCanOpen) return;
+                if (_inheritanceSceneBox != null)
                 {
-                    CanvasCanOpen = false;
+                    //CanvasCanOpen = false;
                     isFreezed = true;
                     transform.position = _inheritanceSceneBox.GetPlayerPositionTarget();
                     ChangeAnimation("OpenBox");
+                }
+                else if (canOpenComputer)
+                {
+                    if (!_computerUI.activeSelf)
+                        _computerUI.SetActive(true);
+                    else
+                        _computerUI.SetActive(false);
                 }
             }
             if(_input.target)
@@ -214,9 +227,9 @@ namespace PlayerInputAction
             }
         }
 
-        public void Accelerate_Player(float addspeed,float durationtime)
+        public void Accelerate_Player(float addspeed, float durationtime)
         {
-            
+
             StartCoroutine(Accelerate(addspeed, durationtime));
         }
         IEnumerator Accelerate(float addspeed,float durationtime)
@@ -225,6 +238,14 @@ namespace PlayerInputAction
             yield return new WaitForSeconds(durationtime);
             MoveSpeed -= addspeed;
         }
+        public void AddSpeed(float addspeed)
+        {
+            MoveSpeed += addspeed;
+        }
+        public void ReduceSpeed(float reducespeed)
+        {
+            MoveSpeed -= reducespeed;
+        }
 
         public void ReadChapter(string storyID)
         {
@@ -232,6 +253,10 @@ namespace PlayerInputAction
             isFreezed = true;
             ChangeAnimation("ReadFile_" + ((FacingRight == true) ? "Right" : "Left"));
             _currentChapterId = storyID;
+        }
+        public void AnimationChagneIdle()
+        {
+            ChangeAnimation("Idle_" + ((FacingRight == true) ? "Right" : "Left"));
         }
 
         public void OnReadEnd()
@@ -246,7 +271,6 @@ namespace PlayerInputAction
         public void OnBoxAnimationStart()
         {
             _inheritanceSceneBox.OpenBox();
-            CanCloseCanvas = true;
         }
         public void OnBoxAnimationEnd()
         {
@@ -282,9 +306,10 @@ namespace PlayerInputAction
         {
             PlayerPrefs.SetInt("DeathCount", PlayerPrefs.GetInt("DeathCount", 0) + 1);
             GuidanceSystem.Instance.ShowRandomDeathMessage();
-            while(true)
+            RendererFeatureManager.Instance.DeathEffect();
+            while (true)
             {
-                if(_input.restart)
+                if (_input.restart)
                 {
                     _input.restart = false;
                     break;
@@ -293,6 +318,7 @@ namespace PlayerInputAction
             }
             _input.restart = true;
             isFreezed = false;
+            RendererFeatureManager.Instance.DeathEnd();
             LoadScene();
             Instantiate(playerDeathVFXPrefab, transform.position, Quaternion.identity);
         }

@@ -35,6 +35,7 @@ public class Pistol : WeaponItem
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         PistolBullet bulletScript = bullet.GetComponent<PistolBullet>();
         bulletScript.SetData(damageAmount, attackRange);
+        HealthManager.Instance.GetKnockedBack(bullet.transform, 90f);
         AnimatorStateInfo stateInfo;
         do
         {

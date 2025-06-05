@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System.IO;
 using System;
 using System.Text.RegularExpressions;
+using UnityEngine.UI;
+using PlayerInputAction;
 
 [Serializable]
 public class GuidanceNodeData
@@ -28,6 +28,16 @@ public class GuidanceNodeDataList
 public class highlightTargetId
 {
     public string targetId;
+    public string targetName;
+    public Vector2 position;
+    public GameObject targetObject;
+    public bool is1Floor;
+}
+
+[Serializable]
+public class highlightStoryId
+{
+    public string targetId;
     public Vector2 position;
     public bool is1Floor;
 }
@@ -39,8 +49,7 @@ public class GuidanceSystem : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private CanvasGroup panel;
-    //[SerializeField] private AudioSource audioSource;
-    //[SerializeField] private AudioClip typingSound;
+    public Image systemImage;
     [SerializeField] private float typeSpeed = 0.03f;
     [SerializeField] private GameObject TargetPoint;
 
@@ -49,6 +58,13 @@ public class GuidanceSystem : MonoBehaviour
 
     [Header("TargetPoint")]
     [SerializeField] private List<highlightTargetId> highlightTargets = new();
+    [SerializeField] private List<highlightStoryId> highlightStoryId = new();
+    [Header("Phase 2")]
+    [SerializeField] private Material _GlitchMaterial;
+    [SerializeField] private SpriteRenderer _SmallMap1, _SmallMap2;
+    [SerializeField] private Image OverEffectImage;
+    public bool _isPhase2 { get; private set; } = false;
+
 
     private Dictionary<string, GuidanceNodeData> nodeMap = new();
     private HashSet<string> completedMainNodes = new();
@@ -67,6 +83,54 @@ public class GuidanceSystem : MonoBehaviour
 
         LoadGuidanceNodes();
     }
+    void Start()
+    {
+        MainNodeInit();
+        TriggerNode("GameStart");
+    }
+
+    private void MainNodeInit()
+    {
+        List<string> InheritanceData = InheritanceManager.Instance.LoadInheritanceData();
+        foreach (var mainNode in highlightTargets)
+        {
+            if (mainNode.targetObject == null)
+            {
+                Debug.LogWarning($"[主節點初始化] 找不到目標物件: {mainNode.targetId}");
+                completedMainNodes.Add(mainNode.targetId);
+                continue;
+            }
+
+            // 檢查該主節點是否已完成
+            if (completedMainNodes.Contains(mainNode.targetId))
+            {
+                Debug.Log($"[主節點初始化] 節點已完成: {mainNode.targetId}");
+                Destroy(mainNode.targetObject);
+                continue;
+            }
+
+            if (InheritanceData.Contains(mainNode.targetName))
+            {
+                Debug.Log($"[主節點初始化] 節點已完成: {mainNode.targetId}");
+                completedMainNodes.Add(mainNode.targetId);
+                Destroy(mainNode.targetObject);
+                continue;
+            }
+
+            // 訂閱事件：當目標物件被銷毀時觸發
+            var targetObject = mainNode.targetObject;
+            var targetId = mainNode.targetId;
+
+            targetObject.AddComponent<DestroyEventListener>().OnDestroyed += () =>
+            {
+                Debug.Log($"[主節點觸發] 目標物件被銷毀: {targetId}");
+                CompletedMainNodes(targetId);
+            };
+
+            Debug.Log($"[主節點初始化] 已訂閱目標物件事件: {mainNode.targetId}");
+        }
+    }
+
     void LoadGuidanceNodes()
     {
         nodeMap.Clear();
@@ -81,7 +145,7 @@ public class GuidanceSystem : MonoBehaviour
 
         if (!nodeMap.TryGetValue(nodeId, out var node)) return;
 
-        if (node.guidanceType == "Main")
+        if (node.guidanceType == "Main" || node.guidanceType == "Main-2")
             SetCurrentNode(nodeId);
         else
             SetGuidance(node.guidanceLines);
@@ -90,13 +154,11 @@ public class GuidanceSystem : MonoBehaviour
     public void SetCurrentNode(string nodeId)
     {
         if (!nodeMap.TryGetValue(nodeId, out var node)) return;
-
+        Debug.Log($"[導引觸發] 節點: {node.nodeId}");
         currentNode = node;
-
+        HighlightMapTarget(nodeId);
         if (node.guidanceLines.Count > 0)
             SetGuidance(node.guidanceLines);
-
-        HighlightMapTarget(node);
     }
 
     public void SetGuidance(List<string> lines)
@@ -121,7 +183,7 @@ public class GuidanceSystem : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
-            
+
             TargetManager.Instance.AddTargetRecord(current);
         }
         Hide();
@@ -133,7 +195,7 @@ public class GuidanceSystem : MonoBehaviour
         // 若還有下一節點，自動觸發
         if (currentNode != null && currentNode.nextNodeIds.Length > 0)
         {
-            foreach(string nextId in currentNode.nextNodeIds)
+            foreach (string nextId in currentNode.nextNodeIds)
             {
                 if (!IsNodeCompleted(nextId))
                 {
@@ -145,7 +207,6 @@ public class GuidanceSystem : MonoBehaviour
                     break;
                 }
             }
-            
         }
     }
     public void CompletedMainNodes(string nodeId)
@@ -153,7 +214,36 @@ public class GuidanceSystem : MonoBehaviour
         if (nodeMap.TryGetValue(nodeId, out var node))
         {
             completedMainNodes.Add(node.nodeId);
-            Debug.Log($"[導引完成] {node.nodeId}");
+            // 觸發下一節點
+            if (node.nextNodeIds.Length > 0)
+            {
+                foreach (string nextId in node.nextNodeIds)
+                {
+                    if (!IsNodeCompleted(nextId))
+                    {
+                        Debug.Log($"[導引自動接續] → {nextId}");
+                        TargetManager.Instance.ClearTargetRecord();
+                        // 觸發下一節點
+                        SetCurrentNode(nextId);
+                        return;
+                    }
+                }
+                //檢查completedMainNodes數量是否為8
+                if (completedMainNodes.Count >= 8 && completedMainNodes.Count < 16)
+                {
+                    Debug.Log($"[導引完成] ****一階段導引已完成****");
+                    SystemPhase2();
+                }
+                else if (completedMainNodes.Count >= 16)
+                {
+                    TriggerNode("ClearnRoom");
+                    TargetPoint.SetActive(false);
+                }
+            }
+            else
+            {
+                Debug.Log($"[導引完成] 節點已完成: {node.nodeId}");
+            }
         }
         else
         {
@@ -223,34 +313,37 @@ public class GuidanceSystem : MonoBehaviour
         canvasGroup.alpha = endAlpha;
     }
 
-    public void HighlightMapTarget(GuidanceNodeData node)
+    public void HighlightMapTarget(string nodeId)
     {
-        foreach(string nextId in node.nextNodeIds)
+        var targetH = _isPhase2
+            ? null
+            : highlightTargets.Find(t => t.targetId == nodeId);
+        if (targetH != null)
         {
-            if (!IsNodeCompleted(nextId))
+            TargetPoint.SetActive(true);
+            TargetPoint.transform.position = targetH.position;
+            TargetPoint.GetComponent<SpriteRenderer>().color = targetH.is1Floor ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 1);
+
+            SmallCameraFollowing.Instance.MoveSmallCamera(targetH.position, 3f);
+        }
+        else if (_isPhase2)
+        {
+            var targetH2 = highlightStoryId.Find(t => t.targetId == nodeId);
+            if (targetH2 != null)
             {
-                if(nodeMap.TryGetValue(nextId, out var target))
-                {
-                    var targetH= highlightTargets.Find(t => t.targetId == target.highlightTargetId);
-                    if (targetH != null)
-                    {
-                        TargetPoint.SetActive(true);
-                        TargetPoint.transform.position = targetH.position;
-                        TargetPoint.GetComponent<SpriteRenderer>().color = targetH.is1Floor ? new Color(1, 1, 1, 1) : new Color(1, 0, 0, 1);
-                        return;
-                    }
-                    else
-                        Debug.LogWarning($"[小地圖提示] 找不到目標: {node.nodeId} highlightTargetId");
-                }
-                else
-                {
-                    Debug.LogWarning($"[小地圖提示] 找不到目標: {nextId}");
-                }
-                return;
+                TargetPoint.SetActive(true);
+                TargetPoint.transform.position = targetH2.position;
+                TargetPoint.GetComponent<SpriteRenderer>().color = targetH2.is1Floor ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 1);
+
+                SmallCameraFollowing.Instance.MoveSmallCamera(targetH2.position, 3f);
             }
         }
+        else
+        {
+            Debug.Log($"[小地圖提示] 找不到目標: {nodeId} highlightTargetId");
+        }
     }
-   
+
     private string ReplaceVariables(string text)
     {
         return Regex.Replace(text, @"\[#(\w+)\]", match =>
@@ -289,5 +382,65 @@ public class GuidanceSystem : MonoBehaviour
         SetGuidance(chosen.guidanceLines);
     }
 
+    public void SystemPhase2()
+    {
+        _isPhase2 = true;
+        systemImage.material = _GlitchMaterial;
+        _SmallMap1.material = _GlitchMaterial;
+        _SmallMap2.material = _GlitchMaterial;
+        TriggerNode("Secound_MainStart");
+        StartCoroutine(WaitForCompletedMainNodes(10f, "Secound_MainStart"));
+    }
+    public void AddCompletedChapter(string chapterId)
+    {
+        if (!completedMainNodes.Contains(chapterId))
+        {
+            completedMainNodes.Add(chapterId);
+            Debug.Log($"[導引初始化] 節點已完成: {chapterId}");
+        }
+    }
+
+    IEnumerator WaitForCompletedMainNodes(float seconds, string nodeId)
+    {
+        yield return new WaitForSeconds(seconds);
+        CompletedMainNodes("Secound_MainStart");
+    }
+
+    public void WrongEnding()
+    {
+        PlayerController.Instance.FreezePlayer();
+        PlayerController.Instance.AnimationChagneIdle();
+        systemImage.material = _GlitchMaterial;
+
+        StartCoroutine(OverEffectImgFadIn());
+    }
+    IEnumerator OverEffectImgFadIn()
+    {
+        OverEffectImage.gameObject.SetActive(true);
+        Color fadeColor = OverEffectImage.color;
+        fadeColor.a = 0;
+        OverEffectImage.color = fadeColor;
+        // 淡入過程
+        while (OverEffectImage.color.a < 1)
+        {
+            fadeColor = OverEffectImage.color;
+            fadeColor.a += Time.deltaTime / 1f;
+            OverEffectImage.color = fadeColor;
+            yield return null;
+        }
+        SetGuidance(nodeMap["WrongEnding"].guidanceLines);
+        yield return new WaitForSeconds(5f);
+        //FadeOut
+        while (OverEffectImage.color.a > 0)
+        {
+            fadeColor = OverEffectImage.color;
+            fadeColor.a -= Time.deltaTime / 1f;
+            OverEffectImage.color = fadeColor;
+            yield return null;
+        }
+        OverEffectImage.gameObject.SetActive(false);
+
+        HealthManager.Instance.DirectDeath();
+    }
     #endregion
 }

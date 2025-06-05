@@ -24,14 +24,10 @@ public class PistolBullet : MonoBehaviour
         DetectFireDistance();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<IDamageable>() != null)
-        {
-            Debug.Log("Hit: " + collision.gameObject.name);
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(damage, null);
-            Destroy(gameObject);
-        }
+        collision.gameObject.GetComponent<IDamageable>().TakeDamage(damage, null);
+        Destroy(gameObject);
     }
 
     private void MoveProjectile()

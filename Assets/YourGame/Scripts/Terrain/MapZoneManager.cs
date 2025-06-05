@@ -4,6 +4,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using PlayerInputAction;
 
 [System.Serializable]
 public class MapParent
@@ -48,14 +49,16 @@ public class MapZoneManager : MonoBehaviour
     private Dictionary<string, AsyncOperationHandle<Sprite>> loadedHandles = new();
 
     private MapZoneData currentZone;
-    private char currentZoneLevel='1';
+    public char currentZoneLevel{ get; set; } = '1';
 
-    [SerializeField]private List<GameObject> _1FZoneObjects;
-    [SerializeField]private List<GameObject> _2FZoneObjects;
+    public List<GameObject> _1FZoneObjects;
+    public List<GameObject> _2FZoneObjects;
     public float viewDistance = 30f;
-    public float unloadDelay = 5f;
+    public float unloadDelay = 7f;
     public int tilesPerFrame = 3; // 每幀最多預載 tile 數量
     public int objectsPerFrame = 2; // 每幀最多開啟 zoneObjects 數量
+
+    public UnityEngine.UI.Image OverEffectImage;
     private Transform player;
     private int currentLoadSessionId = 0;
 
@@ -70,7 +73,7 @@ public class MapZoneManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     void Start()
     {
         foreach (var entry in mapParent)
@@ -81,6 +84,7 @@ public class MapZoneManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         LoadAndActivateZone(startZone);
+        RendererFeatureManager.Instance.DeathEnd();
     }
 
     void Update()
@@ -119,8 +123,20 @@ public class MapZoneManager : MonoBehaviour
 
         if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent))
             yield break;
-        
-        if(zone.zoneName[0] != currentZoneLevel)
+
+        OverEffectImage.gameObject.SetActive(true);
+        // 過渡效果
+        float elapsedTime = 0f;
+        while (elapsedTime < 0.2f)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(0, 1, elapsedTime / 0.2f);
+            OverEffectImage.color = new Color(0, 0, 0, alpha);
+            yield return null;
+        }
+        PlayerController.Instance.FreezePlayer();
+
+        if (zone.zoneName[0] != currentZoneLevel)
         {
             Debug.Log("切換樓層: " + zone.zoneName[0]);
             currentZoneLevel = zone.zoneName[0];
@@ -230,6 +246,7 @@ public class MapZoneManager : MonoBehaviour
                 toRemove.Add(key);
             }
         }
+
         foreach (var key in toRemove)
             visibleTiles.Remove(key);
 
@@ -245,6 +262,17 @@ public class MapZoneManager : MonoBehaviour
         }
         foreach (var key in preloadToRemove)
             preloadedTiles.Remove(key);
+        PlayerController.Instance.UnFreezePlayer();
+        // 過渡效果
+        elapsedTime = 0f;
+        while (elapsedTime < 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1, 0, elapsedTime / 0.5f);
+            OverEffectImage.color = new Color(0, 0, 0, alpha);
+            yield return null;
+        }
+        OverEffectImage.gameObject.SetActive(false);
     }
 
     public void ShowConnectedZone(MapZoneData zone)
@@ -271,7 +299,7 @@ public class MapZoneManager : MonoBehaviour
         }
     }
 
-    public void HideConnectedZone(MapZoneData zone,MapZoneData _currentZone)
+    public void HideConnectedZone(MapZoneData zone, MapZoneData _currentZone)
     {
         if (!mapParentLookup.TryGetValue(zone.zoneName, out var zoneParent)) return;
 
@@ -308,7 +336,7 @@ public class MapZoneManager : MonoBehaviour
         {
             GameObject obj = zoneParent.GetTile(tile.localOffset, handle.Result);
 
-            obj.GetComponent<SpriteRenderer>().enabled =false;
+            obj.GetComponent<SpriteRenderer>().enabled = false;
             obj.SetActive(true);
             yield return null;
             obj.SetActive(setActive);
@@ -318,7 +346,7 @@ public class MapZoneManager : MonoBehaviour
                 visibleTiles[tile.tileName] = obj;
             else
                 preloadedTiles[tile.tileName] = obj;
-            
+
             //Debug.Log("✅ 載入 & 預熱完成: " + tile.tileName);
             loadedHandles[tile.tileName] = handle;
         }
@@ -438,6 +466,57 @@ public class MapZoneManager : MonoBehaviour
         // 傳送玩家
         if (player != null)
             player.position = targetPosition;
+    }
+
+    public void TemporarilyHideCurrentZone()
+    {
+        if (currentZone == null || !mapParentLookup.TryGetValue(currentZone.zoneName, out var zoneParent))
+            return;
+
+        // 將所有 tile 設為非活躍，並放回 preload 清單
+        foreach (var tile in currentZone.tileData.tiles)
+        {
+            if (visibleTiles.TryGetValue(tile.tileName, out var obj))
+            {
+                visibleTiles.Remove(tile.tileName);
+                obj.SetActive(false);
+                preloadedTiles[tile.tileName] = obj;
+            }
+        }
+
+        // 關閉 collider 和 zone objects
+        if (zoneParent._connectedCollider != null)
+            zoneParent._connectedCollider.SetActive(false);
+
+        if (zoneParent._zoneObjects != null)
+        {
+            foreach (var obj in zoneParent._zoneObjects)
+                obj.SetActive(false);
+        }
+    }
+    public void ReactivateCurrentZone()
+    {
+        if (currentZone == null || !mapParentLookup.TryGetValue(currentZone.zoneName, out var zoneParent))
+            return;
+
+        foreach (var tile in currentZone.tileData.tiles)
+        {
+            if (preloadedTiles.TryGetValue(tile.tileName, out var obj))
+            {
+                preloadedTiles.Remove(tile.tileName);
+                visibleTiles[tile.tileName] = obj;
+                obj.SetActive(true);
+            }
+        }
+
+        if (zoneParent._connectedCollider != null)
+            zoneParent._connectedCollider.SetActive(true);
+
+        if (zoneParent._zoneObjects != null)
+        {
+            foreach (var obj in zoneParent._zoneObjects)
+                obj.SetActive(true);
+        }
     }
 
 }

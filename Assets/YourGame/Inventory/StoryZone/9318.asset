@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2c61b95fe1124182a637c3548c49c31, type: 3}
+  m_Name: 9318
+  m_EditorClassIdentifier: 
+  title: "\u89E3"
+  content: "\u4E00\u5143\u591A\u6B21\u65B9\u7A0B\u5F0F\u7576\u4E2D\u7684\u5143\uFF0C\u610F\u65E8\u672A\u77E5\u6578\u5B57\uFF0C\u800C\u5728\u5143\u5DE6\u908A\u7684\u6578\u5B57\u610F\u65E8\u4FC2\u6578\uFF0C\u53F3\u4E0A\u89D2\u7684\u6578\u5B57\u610F\u65E8\u5143\u7684\u6B21\u65B9\u6578\u3002\n\n\u4E0D\u8981\u5C08\u6CE8\u5728\u5143\u7684\u672C\u8EAB\u800C\u5FFD\u7565\u4E86\u771F\u6B63\u7684\"\u89E3\"\uFF0C\u662F\u7236\u89AA\u6642\u5E38\u639B\u5728\u5634\u908A\u7684\u8A71\u3002\n"
+  zoneID: 9318

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0966a38b1c118414497a1bc7b5b1d9fd, type: 3}
   m_Name: decoder
   m_EditorClassIdentifier: 
-  itemName: decoder
+  itemName: Decoder
   itemNameCh: "\u89E3\u78BC\u5668"
   itemImage: {fileID: -1333223372725653737, guid: 0ebda99bc13b34b04afdff281def97bd, type: 3}
-  itemDescription: 
+  itemDescription: "\u7531\u300C\u91C9\u827E\u79D1\u6280\u300D\u7814\u767C\u7684\u7279\u6B8A\u89E3\u78BC\u5668\uFF0C\u53EF\u5728\u77ED\u6642\u9593\u5167\u7834\u8B6F\u5408\u4F75\u5F0F\u5C0D\u7A31\u52A0\u5BC6\u9396\u3002"
   itemCode: 
   itemPrefab: {fileID: 1561562239542382228, guid: 7b768d28211dc44f083bd6606f0e11cc, type: 3}
   cooldownTime: 100

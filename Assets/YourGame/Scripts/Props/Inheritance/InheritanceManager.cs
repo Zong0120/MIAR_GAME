@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InheritanceManager : MonoBehaviour
 {
     public static InheritanceManager Instance { get; private set; }
-    public InheritanceItem InheritanceWeapon,InheritanceProp;
+    public InheritanceItem InheritanceWeapon, InheritanceProp;
 
     private InventoryItem[] WeaponBagInventoryItems,
         PropBagInventoryItems;
-    [SerializeField]private GameObject InherUIRoot;
+    [SerializeField] private GameObject InherUIRoot;
     private InventoryItemManager _inventoryItemManager => InventoryItemManager.Instance;
     private Canvas canvas => GetComponent<Canvas>();
     private CanvasGroup canvasGroup => GetComponent<CanvasGroup>();
@@ -44,7 +44,7 @@ public class InheritanceManager : MonoBehaviour
         Debug.Log("InheritanceManager ShowCanvas");
         InventoryRefresh();
         OpenWeaponInheritance();
-        canvas.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        canvas.transform.localScale = new UnityEngine.Vector3(0.5f, 0.5f, 0.5f);
         canvasGroup.alpha = 0.4f;
         InherUIRoot.SetActive(true);
         StartCoroutine(ScaleAndFadeCanvas());
@@ -62,7 +62,7 @@ public class InheritanceManager : MonoBehaviour
             // 計算 scale 的插值
             float scaleProgress = timer / duration;
             float newScale = Mathf.Lerp(0.5f, 1f, scaleProgress);
-            canvas.transform.localScale = new Vector3(newScale, newScale, 1f);
+            canvas.transform.localScale = new UnityEngine.Vector3(newScale, newScale, 1f);
 
             // 計算 alpha 的插值
             float alphaProgress = timer / duration;
@@ -90,7 +90,7 @@ public class InheritanceManager : MonoBehaviour
             // 計算 scale 的插值
             float scaleProgress = timer / duration;
             float newScale = Mathf.Lerp(1f, 0.5f, scaleProgress);
-            canvas.transform.localScale = new Vector3(newScale, newScale, 1f);
+            canvas.transform.localScale = new UnityEngine.Vector3(newScale, newScale, 1f);
 
             // 計算 alpha 的插值
             float alphaProgress = timer / duration;
@@ -119,12 +119,32 @@ public class InheritanceManager : MonoBehaviour
         InheritanceProp.SetInherBoxItem();
         InheritanceProp.SetBagItem(PropBagInventoryItems);
     }
+
+    public List<string> LoadInheritanceData()
+    {
+        List<string> data = new List<string>();
+        for (int i = 0; i < InheritanceWeapon._InventoryItemDatas._itemData.Length; i++)
+        {
+            if (InheritanceWeapon._InventoryItemDatas._itemData[i]._itemData != null)
+            {
+                data.Add(InheritanceWeapon._InventoryItemDatas._itemData[i]._itemData.itemName);
+            }
+        }
+        for (int i = 0; i < InheritanceProp._InventoryItemDatas._itemData.Length; i++)
+        {
+            if (InheritanceProp._InventoryItemDatas._itemData[i]._itemData != null)
+            {
+                data.Add(InheritanceProp._InventoryItemDatas._itemData[i]._itemData.itemName);
+            }
+        }
+        return data;
+    }
 }
 
 [System.Serializable]
 public class InheritanceItem
 {
-    [SerializeField]private InheritanceInventoryItem _InventoryItemDatas; // 物品數據
+    public InheritanceInventoryItem _InventoryItemDatas; // 物品數據
 
     public GameObject InheritanceItemPanel; // 遺傳物品面板
 
@@ -192,12 +212,27 @@ public class InheritanceItem
             }
         }
     }
+    
+    public bool HaveIem(string name)
+    {
+        for (int i = 0; i < _InventoryItemDatas._itemData.Length; i++)
+        {
+            if (_InventoryItemDatas._itemData[i]._itemData != null)
+            {
+                if (_InventoryItemDatas._itemData[i]._itemData.itemName == name)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public void SetBagItem(InventoryItem[] items)
     {
         for (int i = 0; i < _BagItemBox.Length; i++)
         {
-            if (i< items.Length && items[i] != null)
+            if (i < items.Length && items[i] != null)
             {
                 _BagItemBox[i].SetItem(items[i]);
             }

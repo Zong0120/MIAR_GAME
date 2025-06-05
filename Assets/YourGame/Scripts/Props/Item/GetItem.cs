@@ -95,9 +95,6 @@ public class GetItem : MonoBehaviour
 
     private void AddNewItem()
     {
-        if(thisItem as WeaponData)
-            InventoryItemManager.Instance.weaponBag.Add(thisItem, ItemNum);
-        else if(thisItem as PropData)
-            InventoryItemManager.Instance.propBag.Add(thisItem, ItemNum);
+        InventoryItemManager.Instance.AddItem(thisItem, ItemNum);
     }
 }

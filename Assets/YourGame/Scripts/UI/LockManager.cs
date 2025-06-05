@@ -1,3 +1,4 @@
+using System;
 using AirFishLab.ScrollingList.Demo;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,9 @@ namespace AirFishLab.ScrollingList.Demo
         private string stringPassword;
         private string BingoPassword;
         private DoorLock _doorLock;
+        public bool FirstDecoderUsed;
+        public bool FirstDecoderCooldown;
+        public bool FirstHintLock;
 
         private void Awake()
         {
@@ -50,7 +54,7 @@ namespace AirFishLab.ScrollingList.Demo
             }
         }
 
-        public void OpenLock(Sprite questionPicture,string questionAns,DoorLock doorLock)
+        public void OpenLock(Sprite questionPicture, string questionAns, DoorLock doorLock)
         {
             _doorLock = doorLock;
             Locked.enabled = true;
@@ -58,6 +62,22 @@ namespace AirFishLab.ScrollingList.Demo
             question.sprite = questionPicture;
             _inputIndex = 0;
             LockUIRoot.SetActive(true);
+
+            if (!FirstDecoderUsed && !InventoryItemManager.Instance.haveItem("Decoder"))
+            {
+                FirstDecoderUsed = true;
+                GuidanceSystem.Instance.TriggerNode("Decoder_NotFind");
+            }
+            else if (!FirstDecoderCooldown && InventoryItemManager.Instance._decoder().IsOnCooldown)
+            {
+                FirstDecoderCooldown = true;
+                GuidanceSystem.Instance.TriggerNode("Decoder_Cooldown");
+            }
+            else if(!FirstHintLock)
+            {
+                FirstHintLock = true;
+                GuidanceSystem.Instance.TriggerNode("HintDoorLock");
+            }
         }
         public void CloseLock()
         {

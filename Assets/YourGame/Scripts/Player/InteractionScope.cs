@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
-namespace PlayerInputAction
-{
+using PlayerInputAction;
 public class InteractionScope : MonoBehaviour
 {
-    private static InteractionScope instance;
+    public static InteractionScope Instance;
     private CircleCollider2D circleCollider2D;
     public SpriteRenderer boundarySpriteRenderer;
     public GameObject HintCircle;
@@ -18,9 +16,9 @@ public class InteractionScope : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -134,5 +132,4 @@ public class InteractionScope : MonoBehaviour
         */
     }
 
-}
 }

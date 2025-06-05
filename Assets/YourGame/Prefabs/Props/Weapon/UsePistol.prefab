@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSoundName: Weapon_Oboe
   validAngleRange: 40
-  _shootSound: Weapon_PistolShoot
+  _shootSound: Weapon_PiistolShoot
   bulletPrefab: {fileID: 2768864688474860410, guid: 800c97c573d6c4a69af39a7123fd9c67, type: 3}
   bulletSpawnPoint: {fileID: 2165387332779513898}
 --- !u!60 &8124694321967410828

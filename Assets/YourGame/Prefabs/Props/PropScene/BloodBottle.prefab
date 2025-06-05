@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1058734714807072461}
   - component: {fileID: 5574035478126633802}
   - component: {fileID: 1914474850053131386}
+  - component: {fileID: 6579768009466502868}
   m_Layer: 0
   m_Name: BloodBottle
   m_TagString: Item
@@ -152,3 +153,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.84, y: 2.69}
   m_EdgeRadius: 0
+--- !u!114 &6579768009466502868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4523888263812589975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0914bef7f89554f918a615ba9ee110d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

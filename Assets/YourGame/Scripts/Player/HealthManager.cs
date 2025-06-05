@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using PlayerInputAction;
+using UnityEngine.SceneManagement;
 
 public class HealthHeart
 {
@@ -58,7 +59,7 @@ public class HealthManager : MonoBehaviour,IDamageable
 
     [SerializeField] private float knockBackTime = 0.2f;
     private Rigidbody2D rb => GetComponent<Rigidbody2D>();
-    [SerializeField] private float knockBackThrust = 20f;
+    [SerializeField] private float knockBackThrust = 50f;
     [SerializeField] private float damageRecoveryTime = 3f;
 
     [Header("Progress Files")]
@@ -92,23 +93,25 @@ public class HealthManager : MonoBehaviour,IDamageable
         // 更新 maxHealth
         maxHealth += num;
 
-        for(int i = currentHealth; i < maxHealth; i ++)
+        for (int i = currentHealth; i < maxHealth; i++)
         {
-            if(num > 0)
+            Debug.Log("expansionMax" + i);
+            if (num > 0)
             {
-                if(HeartAnimations[i] != null)
+                if (HeartAnimations[i] != null)
                     HeartAnimations[i].SetFull();
                 else
                 {
                     GameObject heartObject = Instantiate(HeartPrefab, HealthBar.transform);
                     HeartAnimations[i] = new HealthHeart(heartObject.GetComponent<Animator>());
                 }
-                num -- ;
+                num--;
             }
             else
             {
                 HeartAnimations[i].SetEmpty();
             }
+            Debug.Log("maxHealth" + maxHealth);
         }
     }
 
@@ -185,7 +188,7 @@ public class HealthManager : MonoBehaviour,IDamageable
             }
         }
     }
-    public void Damage(int damageAmount)
+    public void Damage(int damageAmount, string name)
     {
         if (IsDead)//沒血了就不用扣血了
         {
@@ -193,9 +196,9 @@ public class HealthManager : MonoBehaviour,IDamageable
         }
 
         bool isInjuried = false;
-        for(int i = 0; i < damageAmount; i++)//扣血
+        for (int i = 0; i < damageAmount; i++)//扣血
         {
-            if(currentFreeDamage > -1)
+            if (currentFreeDamage > -1)
             {
                 HeartAnimations[currentFreeDamage].SetNormal();
                 currentFreeDamage -= 1;
@@ -203,15 +206,25 @@ public class HealthManager : MonoBehaviour,IDamageable
             }
             else
             {
-                currentHealth -=1;
+                currentHealth -= 1;
                 HeartAnimations[currentHealth].SetEmpty();
                 isInjuried = true;
             }
         }
-        if(isInjuried)
+        if (isInjuried)
+        {
             InventoryItemManager.Instance.RemoveRandomItem();
+            switch (name)
+            {
+                case "Cactus":
+                    SoundManager.PlaySoundItemAudio(SoundType.Enemy, "CactusATK");
+                    break;
+                case "GhostEnemy":
+                    SoundManager.PlaySoundItemAudio(SoundType.Enemy, "CactusATK");
+                    break;
+            }
+        }
     }
-
     public void SetGoldHeart(int Amount = 1)
     {
         for(int i = 0; i < Amount; i++)
@@ -240,18 +253,17 @@ public class HealthManager : MonoBehaviour,IDamageable
         canTakeDamage = true;
     }
 
-    public void TakeDamage(int damageAmount, Transform hitTransform)
+    public void TakeDamage(int damageAmount, Transform hitTransform,string name)
     {
         if (!canTakeDamage)
         {
             return;
         }
         canTakeDamage = false;
-        SoundManager.PlaySoundItemAudio(SoundType.Cactus, "CactusATK");
         GetKnockedBack(hitTransform, knockBackThrust);
         StartCoroutine(flash.FlashRoutine(damageRecoveryTime));
         StartCoroutine(DamageRecoveryRoutine());
-        Damage(damageAmount);
+        Damage(damageAmount,name);
         CheckPlayerDeath();
     }
 
@@ -278,18 +290,31 @@ public class HealthManager : MonoBehaviour,IDamageable
         _storyProgressData.ResetProgress();
         _WeaponInheritanceInventoryItem.ResetProgress();
         _PropInheritanceInventoryItem.ResetProgress();
-        Damage(currentHealth);
+        Damage(99,"");
         CheckPlayerDeath();
         // 重置 PlayerPrefs
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
+    }
+    public void ReSetProgressForNewGame()
+    {
+        _storyProgressData.ResetProgress();
+        _WeaponInheritanceInventoryItem.ResetProgress();
+        _PropInheritanceInventoryItem.ResetProgress();
+        Damage(99, "");
+        SceneManager.LoadSceneAsync("Menu");
+    }
+    public void DirectDeath()
+    {
+        Damage(99, "");
+        CheckPlayerDeath();
     }
 
     private void CheckPlayerDeath()
     {
         if (currentHealth <= 0 && !IsDead)
         {
-            if(InventoryItemManager.Instance.BagIsOpen())
+            if (InventoryItemManager.Instance.BagIsOpen())
                 InventoryItemManager.Instance.CloseBag();
             IsDead = true;
             //Destroy(ActiveWeapon.Instance.gameObject);

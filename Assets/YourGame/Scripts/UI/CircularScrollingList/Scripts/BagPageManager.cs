@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using AirFishLab.ScrollingList.Demo;
+using PlayerInputAction;
 
 public class BagPageManager : MonoBehaviour
 {
@@ -17,8 +18,10 @@ public class BagPageManager : MonoBehaviour
     [SerializeField]private TextMeshProUGUI _bloodText;
     [SerializeField]private TextMeshProUGUI _speedText;
     [SerializeField]private TextMeshProUGUI _interactionText;
+    [SerializeField]private TextMeshProUGUI _timeText;
     
-    public int topageCheld{ get; set; } = 0;
+    public int topageCheld { get; set; } = 0;
+    private string InitMoveSpeed,InitInteractionRadius,   InitBloodValue;
     
     private void Awake()
     {
@@ -33,6 +36,10 @@ public class BagPageManager : MonoBehaviour
             _pages[i]._button.onClick.AddListener(ChangePage);
         }
         _listEventDemo.OnButtonClick(0);
+
+        InitMoveSpeed = PlayerController.Instance.InitMoveSpeed.ToString();
+        InitInteractionRadius = InteractionScope.Instance.InitRadius.ToString();
+        InitBloodValue = HealthManager.Instance.maxHealthvalue().ToString();
     }
     private void OnEnable()
     {
@@ -41,8 +48,9 @@ public class BagPageManager : MonoBehaviour
     private void UpdateStateDisplay()
     {
         _bloodText.text = HealthManager.Instance.currentHealthvalue() + "/" + HealthManager.Instance.maxHealthvalue();
-        //_speedText.text = "Speed: " + PlayerManager.Instance.PlayerData.Speed.ToString();
-        //_interactionText.text = "Interaction: " + PlayerManager.Instance.PlayerData.Interaction.ToString();
+        _speedText.text = PlayerController.Instance.MoveSpeed.ToString();
+        _interactionText.text = InteractionScope.Instance.newRadius.ToString() + "/" + InteractionScope.Instance.InitRadius.ToString();
+        _timeText.text = TimerManager.Instance.time.text;
     }
 
     private void Update()

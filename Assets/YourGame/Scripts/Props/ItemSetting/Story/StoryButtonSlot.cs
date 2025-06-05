@@ -47,18 +47,9 @@ public class StoryButtonSlot : MonoBehaviour
         }
     }
 
-     private void AdjustContentHeight()
+    private void AdjustContentHeight()
     {
-        // 獲取文字內容的高度
-        float textHeight = _storyDescribeText.preferredHeight;
-        if(textHeight <= 900)
-        {
-            textHeight = 900;
-        }
-
-        // 設置 ScrollView Content 的高度
-        Vector2 newSize = _ScrollViewContent.sizeDelta;
-        newSize.y = textHeight;
-        _ScrollViewContent.sizeDelta = new Vector2(_ScrollViewContent.sizeDelta.x, 1153 + (textHeight - 900));
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_ScrollViewContent);
     }
+
 }

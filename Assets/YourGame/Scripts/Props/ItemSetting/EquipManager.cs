@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Burst.CompilerServices;
 
 public class EquipManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class EquipManager : MonoBehaviour
     [SerializeField]private Transform itemSwapPos;
     private int currentItemIndex=0;
     private int previousItemIndex=1;
+
+    public event System.Action HintItemUse;
+    public event System.Action HintItemSwitch;
 
     void Awake()
     {
@@ -34,26 +38,31 @@ public class EquipManager : MonoBehaviour
         if (item == null || item.itemData == null) return;
         // 檢查是否已經裝備
         if (item.isEquipped) return;
-    
+
         if (currentEquipped[previousItemIndex]._item == null)
         {
             currentEquipped[previousItemIndex]._item = item;
             item.isEquipped = true;
+
         }
         else
         {
             currentEquipped[previousItemIndex]._item.isEquipped = false;
             currentEquipped[previousItemIndex]._item = item;
             item.isEquipped = true;
+            HintItemSwitch?.Invoke();
         }
         currentItemIndex = previousItemIndex;
         previousItemIndex = (previousItemIndex == 1) ? 0 : 1;
-    
+
         // 將 itemPrefab 作為子物件創建在 itemSwapPos 節點下
         GameObject instantiatedObject = Instantiate(item.itemData.itemPrefab, itemSwapPos);
-    
+
         currentEquipped[currentItemIndex].SetItem(item, instantiatedObject.GetComponent<MonoBehaviour>());
         currentEquipped[previousItemIndex].HilightItemClose();
+        InventoryItemManager.Instance.CloseBag();
+
+        HintItemUse?.Invoke();
     }
 
     public void UpdateEquipCount(InventoryItem item)

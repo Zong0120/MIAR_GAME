@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using PlayerInputAction;
+using System.Collections.Generic;
 
 public class GameingSetting : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameingSetting : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] private Canvas SettingMenu;
     [SerializeField] private Canvas TitleMenu;
+
+    //public StoryProgressData _storyProgressData;
 
     private AudioSource _backgroundMusicSource;
     private AudioSource _soundEffectSource;
@@ -45,11 +48,16 @@ public class GameingSetting : MonoBehaviour
         HealthManager.Instance.ReSetProgress();
         gameObject.SetActive(false);
     }
+    public void StartGame()
+    {
+        HealthManager.Instance.DirectDeath();
+        gameObject.SetActive(false);
+    }
 
     public void BackToMainMenu()
     {
         gameObject.SetActive(false);
-        MenuManager.Instance.OpenMenu("Menu");
+        SceneManager.LoadSceneAsync("Menu");
     }
     public void OpenSettingMenu()
     {
@@ -78,4 +86,26 @@ public class GameingSetting : MonoBehaviour
     {
         SoundManager.ToggleSoundEffect();
     }
+    /*
+    public void Step1()
+    {
+        List<string> propDatas = new List<string> { "Pistol","Oboe","AlarmClock","Brick","GraphicsCard"};
+        for (int i = 0; i < propDatas.Count; i++)
+        {
+            GuidanceSystem.Instance.AddCompletedChapter(propDatas[i]);
+        }
+
+        GuidanceSystem.Instance.CompletedMainNodes("Decoder");
+    }
+
+    public void Step2()
+    {
+        List<string> arr = new List<string> { "DR", "AR", "SR", "CC", "BGR-1", "CC" };
+        for (int i = 0; i < arr.Count; i++)
+        {
+            _storyProgressData.usedChapterSpawnPoints.Add(arr[i]);
+        }
+        HealthManager.Instance.DirectDeath();
+    }
+    */
 }

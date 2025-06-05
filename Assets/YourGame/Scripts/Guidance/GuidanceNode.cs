@@ -4,6 +4,7 @@ public class GuidanceNode : MonoBehaviour
 {
     public string nodeId;
     public bool IsOnce = false;
+    public bool IsOne2nd = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,6 +14,11 @@ public class GuidanceNode : MonoBehaviour
             {
                 GuidanceSystem.Instance.TriggerNode(nodeId);
                 Destroy(gameObject);
+            }
+            else if (IsOne2nd)
+            {
+                GuidanceSystem.Instance.TriggerNode(nodeId);
+                Destroy(this);
             }
             else
             {

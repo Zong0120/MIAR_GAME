@@ -4,7 +4,7 @@ using PlayerInputAction;
 
 public class GetStoryChapter : MonoBehaviour
 {
-    public string _storySpawnID;
+    public string _storySpawnID { get; set; }
     public float floatingSpeed = 30f; // 浮现速度
     private bool isInteractable = true;
     private GameObject player => GameObject.FindGameObjectWithTag("Player");

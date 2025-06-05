@@ -10,6 +10,7 @@ public class StoryManager : MonoBehaviour
     public GameObject storyZoneTriggerPrefab;
     public StoryChapterSwapPoint[] chapterSpawnPoints;
     public StoryZoneSwapPoint[] zoneSpawnPoints;
+    public bool ChaptersCollectionComplete() => !storyProgressData.HasNextChapter();
 
     [Header("Canvas")]
     public GameObject UIRoot;
@@ -21,7 +22,7 @@ public class StoryManager : MonoBehaviour
 
     private Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
     private Vector3 endPosition = new Vector3(Screen.width -Screen.width/20f,Screen.height/9.6f, 0);
-    //if 2560x1440, endPosition = new Vector3(2432, -1290,0);
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,25 +42,22 @@ public class StoryManager : MonoBehaviour
 
     private void InitStoryPoints()
     {
-        for(int i = 0; i < chapterSpawnPoints.Length; i++)
+        for (int i = 0; i < chapterSpawnPoints.Length; i++)
         {
             if (!storyProgressData.CanSpawnChapterTrigger(chapterSpawnPoints[i].spawnID))
             {
-               Destroy(chapterSpawnPoints[i].spawnTransform.gameObject);
+                GuidanceSystem.Instance.AddCompletedChapter(chapterSpawnPoints[i].spawnID);
+                Destroy(chapterSpawnPoints[i].storyChapter.gameObject);
+                continue;
+
             }
+            else chapterSpawnPoints[i].storyChapter._storySpawnID = chapterSpawnPoints[i].spawnID;
         }
         for(int i = 0; i < zoneSpawnPoints.Length; i++)
         {
-            if (storyProgressData.CanSpawnZoneTrigger(zoneSpawnPoints[i].storyZone.zoneID))
+            if (!storyProgressData.CanSpawnZoneTrigger(zoneSpawnPoints[i].storyZone.zoneID))
             {
-                // 將 storyZoneTriggerPrefab 生成在 spawnTransform 底下
-                GameObject trigger = Instantiate(
-                    storyZoneTriggerPrefab, 
-                    zoneSpawnPoints[i].spawnTransform.position, 
-                    Quaternion.identity, 
-                    zoneSpawnPoints[i].spawnTransform
-                );
-                trigger.GetComponent<GetStoryZone>().SetStory(zoneSpawnPoints[i].storyZone);
+                Destroy(zoneSpawnPoints[i].storyZoneTriggerPrefab);
             }
         }
     }
@@ -80,7 +78,7 @@ public class StoryManager : MonoBehaviour
         if (!storyProgressData.HasNextChapter())
             return;
         StoryChapter currentStory = storyProgressData.PeekNextChapter(spawnID);
-        VideoManager.Instance.PlayVideo(currentStory.videoClip,1);
+        VideoManager.Instance.PlayVideo(currentStory.videoClip, 1,spawnID);
         InventoryItemManager.Instance.storyChapterBag.Add(currentStory);
     }
 
@@ -190,11 +188,12 @@ public class StoryManager : MonoBehaviour
 public class StoryChapterSwapPoint
 {
     public string spawnID;
-    public Transform spawnTransform;
+    public GetStoryChapter storyChapter;
 }
 [System.Serializable]
 public class StoryZoneSwapPoint
 {
+    public string spawnID;
     public StoryZone storyZone;
-    public Transform spawnTransform;
+    public GameObject storyZoneTriggerPrefab;
 }

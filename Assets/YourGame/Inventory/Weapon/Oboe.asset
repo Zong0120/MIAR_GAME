@@ -23,6 +23,4 @@ MonoBehaviour:
   cooldownDisappear: 0
   damage: 1
   attackRate: 0
-  maxDistance: 0
-  magSize: 0
-  reloadTime: 0
+  attackRange: 0

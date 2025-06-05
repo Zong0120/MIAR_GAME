@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0966a38b1c118414497a1bc7b5b1d9fd, type: 3}
   m_Name: BloodBottle
   m_EditorClassIdentifier: 
-  itemName: bloodbottle
-  itemNameCh: 
+  itemName: BloodBattle
+  itemNameCh: "\u9B54\u6CD5\u6C23\u6CE1\u6C34"
   itemImage: {fileID: 121686392346795143, guid: 0ebda99bc13b34b04afdff281def97bd, type: 3}
-  itemDescription: 
+  itemDescription: "\u300C\u878D\u51CD\u8A08\u756B\u300D\u884D\u751F\u53EF\u98DF\u7528\u91AB\u7642\u54C1\uFF0C\u53EF\u4EE5\u964D\u4F4E\u98F2\u7528\u8005\u7684\u7126\u616E\u8207\u75B2\u52DE\uFF0C\u4F46\u98F2\u7528\u5F8C\u6703\u4F7F\u4EBA\u610F\u8B58\u6E19\u6563\uFF0C\u8ACB\u8B39\u614E\u98F2\u7528\u3002"
   itemCode: 
   itemPrefab: {fileID: 3665071396132746699, guid: 1d0033eb5e11b4ca6980e3acad012a8d, type: 3}
   cooldownTime: 10
-  restrictedItem: 0
+  restrictedItem: 1
   cooldownDisappear: 0
   maxStack: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using System;
 using AirFishLab.ScrollingList.Demo;
 
 
@@ -20,6 +21,32 @@ public class InventoryItemManager : MonoBehaviour
     //special item
     public InventoryItem _decoder()=>propBag.GetInventoryItem("decoder");
     public InventoryItem _bullet()=>weaponBag.GetInventoryItem("bullet");
+
+    public bool BagIsEmpty()
+    {
+        if (weaponBag.items.Count == 0 && propBag.items.Count == 0)
+            return true;
+        else
+            return false;
+    }
+    public bool haveItem(string name)
+    {
+        for (int i = 0; i < propBag.items.Count; i++)
+        {
+            if (propBag.items[i].itemData.itemName == name)
+                return true;
+        }
+        for (int i = 0; i < weaponBag.items.Count; i++)
+        {
+            if (weaponBag.items[i].itemData.itemName == name)
+                return true;
+        }
+        return false;
+    }
+
+
+    public event Action HintBackpackOpen;
+    public event Action HintItemEquip;
 
     void Awake()
     {
@@ -44,12 +71,19 @@ public class InventoryItemManager : MonoBehaviour
         BagUIRoot.SetActive(true);
         SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
         StartCoroutine(UpdateBigMap());
+        TimerManager.Instance.BagTimePause = true;
+        if (HintItemEquip != null)
+        {
+            if (weaponBag.items.Count == 1 && propBag.items.Count == 0 && haveItem("bullet")) return;
+            HintItemEquip.Invoke();
+        }
     }
 
     public void CloseBag()
     {
         BagUIRoot.SetActive(false);
         SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
+        TimerManager.Instance.BagTimePause = false;
     }
 
     public void OpenMap()
@@ -65,7 +99,21 @@ public class InventoryItemManager : MonoBehaviour
         BigMapCamera.SetActive(false);
     }
 
-    public void RemoveItemCount(ItemData item,int count = 1)
+    public void AddItem(ItemData item, int count = 1)
+    {
+        if (item as WeaponData)
+        {
+            weaponBag.Add(item, count);
+        }
+        else if (item as PropData)
+        {
+            propBag.Add(item, count);
+        }
+        
+        HintBackpackOpen?.Invoke();
+    }
+
+    public void RemoveItemCount(ItemData item, int count = 1)
     {
         if (item as WeaponData)
         {
@@ -81,7 +129,7 @@ public class InventoryItemManager : MonoBehaviour
     public void RemoveRandomItem()
     {
         // 隨機選擇背包
-        int randomBag = Random.Range(0, 2);
+        int randomBag = UnityEngine.Random.Range(0, 2);
     
         // 根據隨機選擇處理武器背包或道具背包
         if (randomBag == 0 && weaponBag.items.Count > 0)
@@ -97,14 +145,14 @@ public class InventoryItemManager : MonoBehaviour
     
     private void RemoveRandomItemFromBag(BagInventoryItem bag)
     {
-        int randomIndex = Random.Range(0, bag.items.Count);
+        int randomIndex = UnityEngine.Random.Range(0, bag.items.Count);
         InventoryItem item = bag.items[randomIndex];
         bag.RemoveInventoryItem(item);
     }
     
     private void RemoveRandomItemFromPropBag()
     {
-        int randomIndex = Random.Range(0, propBag.items.Count);
+        int randomIndex = UnityEngine.Random.Range(0, propBag.items.Count);
         InventoryItem item = propBag.items[randomIndex];
         // 如果是 "decoder"，檢查是否需要跳過或重新選擇
         if (item.itemData.name == "decoder")
@@ -122,7 +170,7 @@ public class InventoryItemManager : MonoBehaviour
                 int newRandomIndex;
                 do
                 {
-                    newRandomIndex = Random.Range(0, propBag.items.Count);
+                    newRandomIndex = UnityEngine.Random.Range(0, propBag.items.Count);
                 } while (newRandomIndex == randomIndex);
                 item = propBag.items[newRandomIndex];
                 propBag.RemoveInventoryItem(item);
@@ -247,7 +295,6 @@ public class BagInventoryItem
         EquipManager.Instance.Equip(currentItem);
         UseButton.SetActive(false);
         currentItem = null;
-        SoundManager.PlaySoundItemAudio(SoundType.UI, "UI_Button");
     }
     public void ClearItemDisplayInfo()
     {

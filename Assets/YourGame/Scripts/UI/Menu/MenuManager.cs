@@ -71,6 +71,7 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator LoadGameSceneAsync()
 	{
+		yield return new WaitForSeconds(3f); // 等待一段時間，讓 Loading 畫面顯示
 		// 確保進度條從 0 開始
 		if (loadingProgressBar != null)
 		{
@@ -102,7 +103,7 @@ public class MenuManager : MonoBehaviour
 				}
 	
 				// 等待一段時間，確保玩家看到進度條完成
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForSeconds(3f);
 	
 				asyncLoad.allowSceneActivation = true; // 切換場景
 			}

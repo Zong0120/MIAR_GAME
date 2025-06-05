@@ -1,12 +1,13 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public enum SoundType
 {
     FOOTSTEP,
     BackgroundMusic,
-    Cactus,
+    Enemy,
     UI,
     Lock,
     Weapon
@@ -19,6 +20,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private SoundList[] soundList;
     [SerializeField] private AudioSource _backgroundMusicSource;
     [SerializeField] private AudioSource _soundEffectSource;
+
+    public float spookyPitch = 0.6f;// 詭異音樂音高（原本為 1）
+    public float pitchChangeSpeed = 1f; // 音高變化速度
+    private Coroutine _backgroundWeirdToneCoroutine;
 
     private static SoundManager _instance;
     public static SoundManager Instance => _instance;
@@ -62,6 +67,50 @@ public class SoundManager : MonoBehaviour
             }
 
             _soundDictionaries[type] = dict;
+        }
+    }
+
+    public static void BackgroundWeirdTone()
+    {
+        if (_instance == null) return;
+
+        if (_instance._backgroundMusicSource != null)
+        {
+            _instance._backgroundMusicSource.pitch = Mathf.Lerp(_instance._backgroundMusicSource.pitch, _instance.spookyPitch, Time.deltaTime * _instance.pitchChangeSpeed);
+            _instance._backgroundWeirdToneCoroutine =_instance.StartCoroutine(_instance.BackgroundWeirdToneCoroutine());
+        }
+    }
+    private IEnumerator BackgroundWeirdToneCoroutine()
+    {
+        while (_instance._backgroundMusicSource.pitch > _instance.spookyPitch)
+        {
+            _instance._backgroundMusicSource.pitch = Mathf.Lerp(_instance._backgroundMusicSource.pitch, _instance.spookyPitch, Time.deltaTime * _instance.pitchChangeSpeed);
+            yield return null;
+        }
+    }
+    public static void BackgroundNormalTone()
+    {
+        if (_instance == null) return;
+
+        if (_instance._backgroundMusicSource != null)
+        {
+            if (_instance._backgroundWeirdToneCoroutine != null)
+            {
+                _instance.StopCoroutine(_instance._backgroundWeirdToneCoroutine);
+                _instance._backgroundWeirdToneCoroutine = null;
+            }
+            _instance._backgroundMusicSource.pitch = 1f;
+        }
+    }
+
+    public static void ReStartBackgroundMusic()
+    {
+        if (_instance == null) return;
+
+        if (_instance._backgroundMusicSource != null)
+        {
+            _instance._backgroundMusicSource.Stop();
+            _instance._backgroundMusicSource.Play();
         }
     }
 

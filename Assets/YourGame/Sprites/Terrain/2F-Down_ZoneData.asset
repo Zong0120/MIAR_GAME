@@ -16,4 +16,5 @@ MonoBehaviour:
   connectedZones:
   - {fileID: 11400000, guid: cfce6502dc5c141c8a9eca49f5f6bb34, type: 2}
   - {fileID: 11400000, guid: c5c1d0c255c75470ca0e7e9d605ce07d, type: 2}
+  - {fileID: 11400000, guid: c12f2af8146d043759262a1a3c776a3c, type: 2}
   tileData: {fileID: 11400000, guid: 922e96183e79d481aa8e84c20ebbd514, type: 2}

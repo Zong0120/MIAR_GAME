@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: bullet
   itemNameCh: "\u79D1\u9B54\u5F48"
   itemImage: {fileID: -746227515076400686, guid: 0ebda99bc13b34b04afdff281def97bd, type: 3}
-  itemDescription: "\u4E0D\u77E5\u9053\u6709\u4EC0\u9EBC\u4F5C\u7528"
+  itemDescription: "\u4E0D\u77E5\u9053\u6709\u4EC0\u9EBC\u4F5C\u7528\uFF0C\u4F46\u64DA\u8AAA\u80FD\u900F\u904E\u300C\u79D1\u6469\u69CD\u300D\u9020\u6210\u6575\u4EBA\u4E00\u5B9A\u7684\u50B7\u5BB3\u3002"
   itemCode: 
   itemPrefab: {fileID: 0}
   cooldownTime: 0

@@ -3,32 +3,176 @@
       {
         "nodeId": "GameStart",
         "guidanceType": "Main",
-        "guidanceLines": ["你好，歡迎來到冒險世界！", "先去東邊的房間看看吧。"],
-        "highlightTargetId":"",
-        "nextNodeIds": ["Find_Decoder","Find_Chapter_1URD","Find_Chapter_1DLD"],
+        "guidanceLines": ["歡迎來到伊絲波！"],
+        "TargetId":"",
+        "nextNodeIds": ["Find_Decoder","Find_Pistol","Find_Brick","Find_EnergyDrink","Find_AlarmClock","Find_Oboe","Find_GraphicsCard"],
         "isOptional": false
       },
       {
         "nodeId": "Find_Decoder",
         "guidanceType": "Main",
-        "guidanceLines": ["這似乎是一個解碼器，試著用它來解鎖房門吧！"],
-        "highlightTargetId": "Room_1F_UP_LD",
-        "nextNodeIds": ["Find_Chapter_1URD","Find_Chapter_1DLD"],
+        "guidanceLines": ["據說在伊斯波擁有一項神奇的黑科技","能讓我們產生我很聰明的感覺!","還不趕快去找???"],
+        "TargetId": "Decoder",
+        "nextNodeIds": ["Find_Pistol","Find_Brick","Find_EnergyDrink","Find_AlarmClock","Find_Oboe","Find_GraphicsCard"],
         "isOptional": false
       },
       {
-        "nodeId": "Find_Chapter_1URD",
+        "nodeId": "Find_EnergyDrink",
         "guidanceType": "Main",
-        "guidanceLines": [""],
-        "highlightTargetId": "Room_1F_UP_RD",
-        "nextNodeIds": ["Find_Decoder","Find_Chapter_1DLD"],
+        "guidanceLines": ["這樣下去可不行，或許需要神奇的牛13能量飲","據說喝下了能追上某個像風一樣的男人～","攝影棚的附近或許還剩個幾瓶～","但是距離這麼遠！不會要我走過去吧？"],
+        "TargetId": "EnergyDrink",
+        "nextNodeIds": ["Find_Decoder","Find_AlarmClock","Find_Oboe","Find_GraphicsCard","Find_Pistol","Find_Brick"],
         "isOptional": false
       },
       {
-        "nodeId": "RoomLocked",
+        "nodeId": "Find_Brick",
+        "guidanceType": "Main",
+        "guidanceLines": ["無堅不摧的磚頭，能摧毀任何阻礙的傢伙","其堅硬程度堪比某位頭鐵的賭徒！","在OO室的桌上找到它，想想也蠻合理的～"],
+        "TargetId": "Brick",
+        "nextNodeIds": ["Find_Decoder","Find_EnergyDrink","Find_Pistol","Find_AlarmClock","Find_Oboe","Find_GraphicsCard"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_Pistol",
+        "guidanceType": "Main",
+        "guidanceLines": ["好大的一把槍，光後座力就足以將發射者震飛","用來對付礙事的仙人掌再適合不過了！","剛剛路上似乎見過一陣綠光！走過去看看吧～"],
+        "TargetId": "Pistol",
+        "nextNodeIds": ["Find_Decoder","Find_Brick","Find_EnergyDrink","Find_AlarmClock","Find_Oboe","Find_GraphicsCard"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_Oboe",
+        "guidanceType": "Main",
+        "guidanceLines": ["大黃二黃一搭一唱，肉咖們的哭聲不絕於耳","這就是所謂受詛咒的樂器？！!","沿著牆壁前往同一層的儲藏室，也許雙簧管就塵封在其中～"],
+        "TargetId": "Oboe",
+        "nextNodeIds": ["Find_Decoder","Find_AlarmClock","Find_GraphicsCard","Find_Pistol","Find_Brick","Find_EnergyDrink"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_AlarmClock",
+        "guidanceType": "Main",
+        "guidanceLines": ["妄想回到過去阻止憾事的發生嗎？","很抱歉，我不是你的鬧鐘，是時候該醒來了！","2樓的圖書館，肯定記載著關於時間的一切！"],
+        "TargetId": "AlarmClock",
+        "nextNodeIds": ["Find_Decoder","Find_Oboe","Find_GraphicsCard","Find_Pistol","Find_Brick","Find_EnergyDrink"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Find_GraphicsCard",
+        "guidanceType": "Main",
+        "guidanceLines": ["這…就是那位令人敬畏的傳奇…所遺留下來的東西…","如此貴重的物品，居然就放在兩扇空蕩蕩的大門之後","身旁有股熟悉的綠光，踏入其中，不會這麼巧出現在眼前吧～"],
+        "TargetId": "GraphicsCard",
+        "nextNodeIds": ["Find_Decoder","Find_Pistol","Find_Brick","Find_EnergyDrink","Find_AlarmClock","Find_Oboe"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Secound_MainStart",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["或許我們搞錯了什麼？","想離開這裡，得捨棄多餘的一切，並帶走所謂的真相。"],
+        "TargetId": "",
+        "nextNodeIds": ["SCR","CC","BGR-1","DR","AR","SR","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "SCR",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["餐廳的第四排椅子，壓著一張泛著油光的紙。"],
+        "TargetId": "SCR",
+        "nextNodeIds": ["CC","DR","AR","SR","BGR-1","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "DR",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["2樓，紅藍相間的椅子旁，大桌子上放著一本…書？"],
+        "TargetId": "DR",
+        "nextNodeIds": ["SCR","AR","SR","CC","BGR-1","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "AR",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["在圖書館斜對面的辦公室，藏有重要的機密文件。"],
+        "TargetId": "AR",
+        "nextNodeIds": ["SCR","DR","SR","CC","BGR-1","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "SR",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["圖書館旁的廁所，工具間上貼著的是什麼？"],
+        "TargetId": "SR",
+        "nextNodeIds": ["SCR","DR","AR","BGR-1","CC","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "CC",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["穿過密密麻麻的座位，1樓的舞台上散落著一疊傳單。"],
+        "TargetId": "CC",
+        "nextNodeIds": ["SCR","DR","AR","SR","BGR-1","CC-2"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "BGR-1",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["望向電梯旁，亮木材質的地板縫中，塞著一團發皺的紙。"],
+        "TargetId":"BGR-1",
+        "nextNodeIds":["DR","AR","SR","CC-2","SCR","CC"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "CC-2",
+        "guidanceType": "Main-2",
+        "guidanceLines": ["然道是這個？在舞台上，散落著一疊傳單。"],
+        "TargetId":"BGR-1",
+        "nextNodeIds":["DR","AR","SR","BGR-1","CC","SCR"],
+        "isOptional": false
+      },
+      {
+        "nodeId": "ClearnRoom",
+        "guidanceType": "Final",
+        "guidanceLines": ["似乎完成收集","找尋場景中的電梯，或許能帶你離開這裡"],
+        "TargetId":"BGR-1",
+        "nextNodeIds":[],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintClearence",
+        "guidanceType": "Final",
+        "guidanceLines": ["還是無法成功嗎？","難道我理解錯了什麼？","查看主線文本，或許能找到更多線索！"],
+        "TargetId":"BGR-1",
+        "nextNodeIds":[],
+        "isOptional": false
+      },
+      {
+        "nodeId": "RoomLocked-NoDecoder",
         "guidanceType": "Side",
-        "guidanceLines": ["房門鎖住了，看來需要密碼。"],
-        "highlightTargetId": "",
+        "guidanceLines": ["正經人誰會傻傻的用手去解鎖？","或許你需要傳說中的黑科技"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Decoder_NotFind",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["難到你是想用手去解鎖？","這樣下去可不行！或許你需要傳說中的黑科技","難道弄丟了?那你可以死一死，或許能回到剛開始的地方！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Decoder_IsCooldown",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["啥？解碼器進入冷卻了?難道這就放棄了?","偷偷告訴你，有個像是箱子的東西，或許能幫你！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintDoorLock",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["若連這點題目都看不懂，你還是乖乖去找線索吧!"],
+        "TargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       },
@@ -36,7 +180,79 @@
         "nodeId": "HintArea",
         "guidanceType": "Side",
         "guidanceLines": ["這裡有一個提示區域，或許可以找到密碼的線索。"],
-        "highlightTargetId": "",
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintComputer",
+        "guidanceType": "Side",
+        "guidanceLines": ["這似乎是監視器，或許可以試著互動一下。"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintTeleportationArray",
+        "guidanceType": "Side",
+        "guidanceLines": ["萬綠叢中一點黑，難道黑色代表著什麼??"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "HintOpenInheritanceBox",
+        "guidanceType": "Side",
+        "guidanceLines": ["這莫非是傳說中的繼承箱？","或許可以互動一下","互動功能請按空白鍵"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "OpenedBackpack",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["欸嘿！讓我康康撿到了什麼酷東西？","按下B鍵，打開後背包看看吧！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "EquippedItem",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["點一下剛才的酷東西！","把它裝備在你的空蕩蕩的欄位上！","反正也沒什麼好失去的～"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "UsedItem",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["等了那麼久～總算裝備好道具！","快用你油膩的手指，按下滑鼠右鍵，使用看看這個神奇道具啊！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "SwitchedItem",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["繞了那麼久，才收集到這些喔～","快使用數字鍵或E切換道具給我看！","連切換功能都不懂，我看你別想離開這裡了！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "GetChapter",
+        "guidanceType": "Tutorial",
+        "guidanceLines": ["發現了一份文本！點擊閱讀，也許能找到更多線索！"],
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "WrongEnding",
+        "guidanceType": "WrongEnding",
+        "guidanceLines": ["芯...Err0r...","你...","沒拯救...艾雪莉亞","絡腮鬍博士。"],
+        "TargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       },
@@ -44,7 +260,7 @@
         "nodeId": "Death-1",
         "guidanceType": "Death",
         "guidanceLines": ["加油！你才死了[#DeathCount]次，下次一定可以的！"],
-        "highlightTargetId": "",
+        "TargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       },
@@ -52,7 +268,7 @@
         "nodeId": "Death-2",
         "guidanceType": "Death",
         "guidanceLines": ["你是最棒的！簡直是個天才！"],
-        "highlightTargetId": "",
+        "TargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       },
@@ -60,7 +276,15 @@
         "nodeId": "Death-3",
         "guidanceType": "Death",
         "guidanceLines": ["你已經死了[#DeathCount]次了，這樣下去可不行哦！"],
-        "highlightTargetId": "",
+        "TargetId": "",
+        "nextNodeIds": [],
+        "isOptional": false
+      },
+      {
+        "nodeId": "Death-4",
+        "guidanceType": "Death",
+        "guidanceLines": ["你這肉咖！死了[#DeathCount]次了，這樣下去可不行哦！"],
+        "TargetId": "",
         "nextNodeIds": [],
         "isOptional": false
       }

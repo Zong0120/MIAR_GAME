@@ -13,7 +13,8 @@ public class Cactus : MonoBehaviour,IDamageable
     private float _cactusNoiseRandomTime = 0.5f;
     private bool canTakeDamage = true;
 
-    public void TakeDamage(int damageAmount, Transform hitTransform)
+    public void TakeDamage(int damageAmount, Transform hitTransform,string
+    name = "")
     {
         if (!canTakeDamage)return;
         canTakeDamage = false;
@@ -21,7 +22,6 @@ public class Cactus : MonoBehaviour,IDamageable
         StartCoroutine(flash.FlashRoutine());
         StartCoroutine(DamageRecoveryRoutine());
         StartCoroutine(CheckDetectDeathRoutine());
-       // Debug.Log("currentHealth:" + currentHealth);
     }
     private void Start()
     {
@@ -84,7 +84,7 @@ public class Cactus : MonoBehaviour,IDamageable
         if(collision.gameObject.CompareTag("Player"))
         {
             // 造成傷害
-            collision.gameObject.GetComponent<IDamageable>().TakeDamage(1, transform);
+            collision.gameObject.GetComponent<IDamageable>().TakeDamage(1, transform,"Cactus");
         }
     }
 }

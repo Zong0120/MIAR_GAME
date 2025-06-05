@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace PlayerInputAction{
+using PlayerInputAction;
 public class InheritanceSceneBox : MonoBehaviour
 {
     private Animator BoxAnimator=>GetComponentInChildren<Animator>();
@@ -18,14 +17,14 @@ public class InheritanceSceneBox : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().SetInheritanceSceneBox(this);
+            PlayerController.Instance.SetInheritanceSceneBox(this);
         }
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().ClearInheritanceSceneBox();
+            PlayerController.Instance.ClearInheritanceSceneBox();
         }
     }
 
@@ -44,5 +43,4 @@ public class InheritanceSceneBox : MonoBehaviour
     {
         BoxAnimator.SetBool("BoxClose",true);
     }
-}
 }
