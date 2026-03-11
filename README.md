@@ -6,4 +6,4 @@
 [![Everything Is AWESOME](https://i9.ytimg.com/vi_webp/YZmkN17SXvs/mqdefault.webp?v=683f3ac2&sqp=CPCOjsMG&rs=AOn4CLDH3V0XWrKWhj1j_HMhHlTmCMEeRg)](https://youtu.be/YZmkN17SXvs)
 
 ## 遊戲下載連結
-https://mega.nz/file/U3cgwIrS#Oz9xR5owIAA-cqbtR1ar1ZRVY1YPBjUl1Y79XOQP6JA
+[https://mega.nz/file/U3cgwIrS#Oz9xR5owIAA-cqbtR1ar1ZRVY1YPBjUl1Y79XOQP6JA](https://mega.nz/folder/hukQ1SZZ#sRoz-9M5u55FgpfDuZoVFA)
